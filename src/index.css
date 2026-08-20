@@ -1,0 +1,44 @@
+@import "tailwindcss";
+@import "./themes/tokens.css";
+
+@theme inline {
+  --color-canvas: var(--theme-bg);
+  --color-ink: var(--theme-fg);
+  --color-muted: var(--theme-muted);
+  --color-accent: var(--theme-accent);
+  --color-line: var(--theme-border);
+  --color-panel: var(--theme-panel);
+  --font-sans: var(--theme-font-sans);
+  --font-display: var(--theme-font-display);
+  --font-mono: var(--theme-font-mono);
+  --radius-theme: var(--theme-radius);
+}
+
+html,
+body,
+#root {
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--theme-bg);
+  color: var(--theme-fg);
+  font-family: var(--theme-font-sans);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+#root {
+  min-height: 100svh;
+}
+
+:focus-visible {
+  outline: 2px solid var(--theme-accent);
+  outline-offset: 3px;
+}
+
+::selection {
+  background: color-mix(in srgb, var(--theme-accent) 35%, transparent);
+}
