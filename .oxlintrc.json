@@ -1,13 +1,32 @@
 {
   "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["react", "typescript", "oxc", "eslint"],
+  "plugins": ["react", "typescript", "oxc"],
   "rules": {
+    // React best practices & hooks
     "react/rules-of-hooks": "error",
-    "react/only-export-components": ["warn", { "allowConstantExport": true }],
+    "react/only-export-components": ["error", { "allowConstantExport": false }],
+    "react/no-unstable-nested-components": "warn",
+    "react/no-unknown-property": "error",
+
+    // TypeScript strictness
+    "typescript/consistent-type-imports": ["error", { "prefer": "type-imports" }],
     "typescript/no-explicit-any": "error",
-    "eslint/eqeqeq": ["error", "always"],
-    "eslint/no-var": "error",
-    "eslint/no-debugger": "error",
-    "eslint/no-duplicate-imports": "error"
+    "typescript/no-non-null-assertion": "warn",
+    "typescript/no-unused-vars": ["error", { "vars": "all", "args": "after-used", "ignoreRestSiblings": false }],
+    "typescript/ban-types": "error",
+
+    // General JS/TS code quality
+    "oxc/no-console": "warn",
+    "oxc/no-var": "error",
+    "oxc/no-debugger": "error",
+    "oxc/no-unused-vars": ["error", { "vars": "all", "args": "after-used" }],
+    "oxc/eqeqeq": ["error", "always"],
+    "oxc/no-fallthrough": "error",
+    "oxc/no-duplicate-imports": "error",
+    "oxc/no-shadow": "warn",
+    "oxc/no-empty-function": "warn",
+    "oxc/no-useless-catch": "error",
+    "oxc/no-extra-boolean-cast": "error",
+    "oxc/no-implicit-coercion": ["warn", { "boolean": true, "number": true, "string": true }]
   }
 }
