@@ -6,16 +6,16 @@ export function FeatureGrid() {
 
   if (theme === 'editorial') {
     return (
-      <section className="mb-16">
-        <h2 className="mb-8 font-display text-3xl">Focus</h2>
-        <ol className="grid gap-8 sm:grid-cols-3">
+      <section className="mb-20">
+        <h2 className="mb-10 font-display text-3xl">{home.highlightsHeadingEditorial}</h2>
+        <ol className="grid gap-10 sm:grid-cols-3">
           {home.highlights.map((item, index) => (
-            <li key={item.title}>
-              <p className="mb-2 font-display text-4xl text-muted">
+            <li key={item.title} className="border-t border-line pt-4">
+              <p className="mb-3 font-display text-4xl text-muted">
                 {String(index + 1).padStart(2, '0')}
               </p>
               <h3 className="mb-2 text-lg font-semibold">{item.title}</h3>
-              <p className="text-muted">{item.body}</p>
+              <p className="leading-relaxed text-muted">{item.body}</p>
             </li>
           ))}
         </ol>
@@ -26,7 +26,7 @@ export function FeatureGrid() {
   return (
     <section className="mb-12">
       <h2 className="mb-4 font-mono text-xs tracking-widest text-muted uppercase">
-        Highlights
+        {home.highlightsHeadingBuilder}
       </h2>
       <ul className="grid gap-3 sm:grid-cols-3">
         {home.highlights.map((item) => (

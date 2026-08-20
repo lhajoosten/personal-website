@@ -12,19 +12,23 @@ html[data-theme='builder'] {
   --theme-font-mono: 'IBM Plex Mono', ui-monospace, monospace;
   --theme-radius: 0.375rem;
   --theme-max: 72rem;
+  --theme-prose: 40rem;
+  --theme-page-y: 2.5rem;
 }
 
 html[data-theme='editorial'] {
   color-scheme: light;
-  --theme-bg: #f7f3ec;
+  --theme-bg: #f6f1e8;
   --theme-fg: #1c1917;
-  --theme-muted: #78716c;
+  --theme-muted: #6f675e;
   --theme-accent: #9a3412;
-  --theme-border: #e7e0d6;
+  --theme-border: #ddd4c8;
   --theme-panel: transparent;
   --theme-font-sans: 'Source Sans 3', ui-sans-serif, system-ui, sans-serif;
   --theme-font-display: 'Newsreader', 'Times New Roman', serif;
   --theme-font-mono: 'IBM Plex Mono', ui-monospace, monospace;
   --theme-radius: 0;
-  --theme-max: 64rem;
+  --theme-max: 60rem;
+  --theme-prose: 36rem;
+  --theme-page-y: 3.5rem;
 }

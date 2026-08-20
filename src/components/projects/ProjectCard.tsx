@@ -3,7 +3,7 @@ import { useTheme } from '../theme/useTheme.ts'
 
 function StatusLabel({ status }: { status: Project['status'] }) {
   return (
-    <span className="font-mono text-[11px] uppercase tracking-wide text-accent">
+    <span className="font-mono text-[11px] tracking-wide text-accent uppercase">
       {status}
     </span>
   )
@@ -14,12 +14,12 @@ export function ProjectCard({ project }: { project: Project }) {
 
   if (theme === 'editorial') {
     return (
-      <article className="grid gap-2 border-b border-line py-6 sm:grid-cols-[minmax(0,1fr)_2fr_auto] sm:items-baseline sm:gap-8">
+      <article className="grid gap-2 border-b border-line py-7 sm:grid-cols-[minmax(11rem,1fr)_minmax(0,2fr)_auto] sm:items-baseline sm:gap-10">
         <h3 className="font-display text-2xl font-semibold tracking-tight">
           {project.title}
         </h3>
         <div>
-          <p className="text-muted">{project.summary}</p>
+          <p className="leading-relaxed text-muted">{project.summary}</p>
           {project.links && project.links.length > 0 ? (
             <p className="mt-2 text-sm">
               {project.links.map((link, index) => (
@@ -38,7 +38,7 @@ export function ProjectCard({ project }: { project: Project }) {
             </p>
           ) : null}
         </div>
-        <p className="font-display text-lg text-muted">{project.year}</p>
+        <p className="font-display text-lg tabular-nums text-muted">{project.year}</p>
       </article>
     )
   }

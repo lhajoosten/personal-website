@@ -8,23 +8,24 @@ export function Hero() {
 
   if (theme === 'editorial') {
     return (
-      <section className="mb-16 max-w-3xl">
-        <p className="mb-4 text-sm tracking-[0.2em] text-muted uppercase">
+      <section className="mb-20 max-w-[var(--theme-prose)]">
+        <p className="mb-5 text-xs tracking-[0.22em] text-muted uppercase">
           {siteConfig.role}
         </p>
-        <h1 className="font-display text-5xl leading-[1.1] font-semibold tracking-tight sm:text-6xl">
+        <h1 className="font-display text-5xl leading-[1.08] font-semibold tracking-tight sm:text-6xl">
           {siteConfig.tagline}
         </h1>
-        <p className="mt-6 max-w-xl text-lg leading-relaxed text-muted">
-          {home.leadEditorial}
-        </p>
-        <p className="mt-8 text-sm">
+        <p className="mt-7 text-lg leading-relaxed text-muted">{home.leadEditorial}</p>
+        <p className="mt-10 text-base">
           <Link to="/projects" className="text-accent no-underline hover:underline">
-            Selected work
+            {home.ctaProjects}
           </Link>
           <span className="text-muted"> · </span>
-          <Link to="/contact" className="text-muted no-underline hover:text-ink hover:underline">
-            Contact
+          <Link
+            to="/contact"
+            className="text-muted no-underline hover:text-ink hover:underline"
+          >
+            {home.ctaContact}
           </Link>
         </p>
       </section>
@@ -43,13 +44,13 @@ export function Hero() {
           to="/projects"
           className="rounded-theme border border-accent bg-transparent px-3 py-2 font-mono text-xs text-accent no-underline"
         >
-          View projects
+          {home.ctaProjectsBuilder}
         </Link>
         <Link
           to="/contact"
           className="rounded-theme border border-line px-3 py-2 font-mono text-xs text-muted no-underline hover:text-ink"
         >
-          Contact
+          {home.ctaContact}
         </Link>
       </div>
     </section>

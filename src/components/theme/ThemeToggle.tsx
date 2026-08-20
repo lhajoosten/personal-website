@@ -12,6 +12,7 @@ export function ThemeToggle() {
       <button
         type="button"
         aria-pressed={theme === 'builder'}
+        aria-label="Use builder theme"
         onClick={() => setTheme('builder')}
         className={
           theme === 'builder'
@@ -24,6 +25,7 @@ export function ThemeToggle() {
       <button
         type="button"
         aria-pressed={theme === 'editorial'}
+        aria-label="Use editorial theme"
         onClick={() => setTheme('editorial')}
         className={
           theme === 'editorial'
