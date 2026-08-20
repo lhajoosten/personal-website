@@ -68,36 +68,6 @@ export const projects: Project[] = [
     ],
   },
   {
-    id: 'ragvise-ai',
-    title: 'Ragvise AI',
-    summary:
-      'Retrieval-augmented platform experiments for Microsoft certification mastery.',
-    description:
-      'A RAG-oriented learning platform exploring knowledge graphs, MCP, and structured retrieval for certification prep.\n\nFocus areas: grounding answers in official material, evaluation loops, and keeping the “AI layer” accountable to sources rather than free-form hallucination.',
-    status: 'experimental',
-    tags: ['TypeScript', 'RAG', 'MCP', 'LLM'],
-    featured: false,
-    year: 2026,
-    links: [
-      { label: 'GitHub', href: 'https://github.com/lhajoosten/ragvise-ai' },
-    ],
-  },
-  {
-    id: 'scrumio',
-    title: 'Scrumio',
-    summary:
-      'Agentic spec-interview app that turns conversation into structured PBIs.',
-    description:
-      'FastAPI + React application that uses an agentic interview flow to produce structured product backlog items from natural conversation.\n\nAn early exploration of how LLMs fit into real delivery artifacts — not chat for its own sake, but conversation that becomes backlog-ready output.',
-    status: 'experimental',
-    tags: ['TypeScript', 'Python', 'FastAPI', 'React', 'AI'],
-    featured: false,
-    year: 2026,
-    links: [
-      { label: 'GitHub', href: 'https://github.com/lhajoosten/scrumio' },
-    ],
-  },
-  {
     id: 'studdit',
     title: 'Studdit 2.0',
     summary:
@@ -110,6 +80,53 @@ export const projects: Project[] = [
     year: 2025,
     links: [
       { label: 'GitHub', href: 'https://github.com/lhajoosten/Studdit-2.0' },
+    ],
+  },
+  {
+    id: 'kramse-data-engineering',
+    title: 'Kramse Data Engineering',
+    summary: 'Coursework: Python ingest/transform experiments for data pipelines.',
+    description:
+      'Archived data-engineering exercises: ingest, transform, and reason about datasets in Python. Useful context for AI systems that need reliable data plumbing — labeled as coursework, not client work.',
+    status: 'archived',
+    tags: ['Python', 'Data engineering', 'coursework'],
+    featured: false,
+    year: 2025,
+    links: [
+      {
+        label: 'GitHub',
+        href: 'https://github.com/lhajoosten/Kramse-Data-Engineering',
+      },
+    ],
+  },
+  {
+    id: 'meetme',
+    title: 'MeetMe 2.0',
+    summary:
+      'Archived rewrite of a school meetup app: events, attendance, and a .NET API.',
+    description:
+      'A C# / .NET 9 rewrite of an older school project: create and join meetups with capacity and attendance status.\n\nThe interesting part was structure — Clean Architecture layers, CQRS, and tests — not a live product. Kept as archived full-stack/.NET work.',
+    status: 'archived',
+    tags: ['C#', '.NET', 'API', 'coursework'],
+    featured: false,
+    year: 2025,
+    links: [
+      { label: 'GitHub', href: 'https://github.com/lhajoosten/MeetMe-2.0' },
+    ],
+  },
+  {
+    id: 'task-manager',
+    title: 'Task Manager v2',
+    summary:
+      'Archived full-stack task app: Angular UI with a C# / .NET API.',
+    description:
+      'A personal/school-style rewrite: tasks in an Angular frontend, API and domain logic in .NET (Clean Architecture layers), plus Docker Compose for local run.\n\nNot a production product. Kept as archived full-stack work across TypeScript UI and C# backend.',
+    status: 'archived',
+    tags: ['C#', '.NET', 'Angular', 'Full-stack', 'coursework'],
+    featured: false,
+    year: 2025,
+    links: [
+      { label: 'GitHub', href: 'https://github.com/lhajoosten/Task-Manager-v2' },
     ],
   },
 ]

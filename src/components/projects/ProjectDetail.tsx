@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom'
 import { ui } from '../../content/site.ts'
 import type { Project } from '../../content/types.ts'
 import { useTheme } from '../theme/useTheme.ts'
+import { StatusBadge } from './StatusBadge.tsx'
 
 function Paragraphs({ text }: { text: string }) {
   return text.split(/\n\n+/).map((block) => (
@@ -31,15 +32,12 @@ export function ProjectDetail({ project }: { project: Project }) {
         </Link>
       </p>
 
-      {isBuilder ? (
-        <p className="mb-2 font-mono text-xs text-accent">
-          {project.status} · {project.year}
-        </p>
-      ) : (
-        <p className="mb-4 text-sm tracking-[0.18em] text-muted uppercase">
-          {project.status} · {project.year}
-        </p>
-      )}
+      <div className="mb-4 flex flex-wrap items-center gap-3">
+        <StatusBadge status={project.status} />
+        <span className={isBuilder ? 'font-mono text-xs text-muted' : 'text-sm text-muted'}>
+          {project.year}
+        </span>
+      </div>
 
       <h1
         className={

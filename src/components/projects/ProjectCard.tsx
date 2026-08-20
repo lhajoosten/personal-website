@@ -1,14 +1,7 @@
 import { Link } from 'react-router-dom'
 import type { Project } from '../../content/types.ts'
 import { useTheme } from '../theme/useTheme.ts'
-
-function StatusLabel({ status }: { status: Project['status'] }) {
-  return (
-    <span className="font-mono text-[11px] tracking-wide text-accent uppercase">
-      {status}
-    </span>
-  )
-}
+import { StatusBadge } from './StatusBadge.tsx'
 
 export function ProjectCard({ project }: { project: Project }) {
   const { theme } = useTheme()
@@ -24,6 +17,9 @@ export function ProjectCard({ project }: { project: Project }) {
         </h3>
         <div>
           <p className="leading-relaxed text-muted">{project.summary}</p>
+          <p className="mt-2">
+            <StatusBadge status={project.status} />
+          </p>
         </div>
         <p className="font-display text-lg tabular-nums text-muted">{project.year}</p>
       </article>
@@ -33,7 +29,7 @@ export function ProjectCard({ project }: { project: Project }) {
   return (
     <article className="flex h-full flex-col rounded-theme border border-line bg-panel p-5">
       <div className="mb-3 flex items-center justify-between gap-3">
-        <StatusLabel status={project.status} />
+        <StatusBadge status={project.status} />
         <span className="font-mono text-xs text-muted">{project.year}</span>
       </div>
       <h3 className="mb-2 text-lg font-semibold tracking-tight">

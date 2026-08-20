@@ -14,6 +14,9 @@ html[data-theme='builder'] {
   --theme-max: 72rem;
   --theme-prose: 40rem;
   --theme-page-y: 2.5rem;
+  --theme-status-active: #3fb950;
+  --theme-status-experimental: #d29922;
+  --theme-status-archived: #8b949e;
 }
 
 html[data-theme='editorial'] {
@@ -31,4 +34,7 @@ html[data-theme='editorial'] {
   --theme-max: 60rem;
   --theme-prose: 36rem;
   --theme-page-y: 3.5rem;
+  --theme-status-active: #3f6212;
+  --theme-status-experimental: #b45309;
+  --theme-status-archived: #78716c;
 }

@@ -8,6 +8,9 @@
   --color-accent: var(--theme-accent);
   --color-line: var(--theme-border);
   --color-panel: var(--theme-panel);
+  --color-status-active: var(--theme-status-active);
+  --color-status-experimental: var(--theme-status-experimental);
+  --color-status-archived: var(--theme-status-archived);
   --font-sans: var(--theme-font-sans);
   --font-display: var(--theme-font-display);
   --font-mono: var(--theme-font-mono);
