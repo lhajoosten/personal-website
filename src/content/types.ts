@@ -17,6 +17,16 @@ export type Project = {
   links?: ProjectLink[]
 }
 
+export type WritingPost = {
+  id: string
+  title: string
+  summary: string
+  body: string
+  publishedAt: string
+  tags: string[]
+  draft?: boolean
+}
+
 export const PROJECT_STATUSES: ProjectStatus[] = [
   'active',
   'experimental',
