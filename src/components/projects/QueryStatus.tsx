@@ -1,19 +1,24 @@
 import type { ReactNode } from 'react'
 import { ui } from '../../content/site.ts'
-import type { Project } from '../../content/types.ts'
-import type { LoadState } from '../../hooks/useProjects.ts'
+import type { LoadState } from '../../hooks/useAsync.ts'
 
-type Props = {
-  state: LoadState<Project[]>
+type Props<T> = {
+  state: LoadState<T[]>
   emptyMessage: string
-  children: (projects: Project[]) => ReactNode
+  loadingMessage?: string
+  children: (items: T[]) => ReactNode
 }
 
-export function QueryStatus({ state, emptyMessage, children }: Props) {
+export function QueryStatus<T>({
+  state,
+  emptyMessage,
+  loadingMessage = ui.loadingProjects,
+  children,
+}: Props<T>) {
   if (state.status === 'loading') {
     return (
       <p className="text-muted" aria-live="polite">
-        {ui.loadingProjects}
+        {loadingMessage}
       </p>
     )
   }

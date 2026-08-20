@@ -1,26 +1,35 @@
 import { useEffect, useMemo, useState } from 'react'
+import { useSearchParams } from 'react-router-dom'
 import { ProjectFilters } from '../components/projects/ProjectFilters.tsx'
 import { ProjectList } from '../components/projects/ProjectList.tsx'
 import { QueryStatus } from '../components/projects/QueryStatus.tsx'
 import { PageMeta } from '../components/seo/PageMeta.tsx'
 import { useTheme } from '../components/theme/useTheme.ts'
 import { listProjectTags } from '../data/projects.ts'
-import type { ProjectStatus } from '../content/types.ts'
+import {
+  parseProjectListState,
+  serializeProjectListState,
+} from '../data/project-query.ts'
+import type { ProjectSort, ProjectStatus } from '../content/types.ts'
 import { projectsPage, ui } from '../content/site.ts'
 import { useProjects } from '../hooks/useProjects.ts'
 
 export function ProjectsPage() {
   const { theme } = useTheme()
-  const [status, setStatus] = useState<ProjectStatus | 'all'>('all')
-  const [tag, setTag] = useState<string | 'all'>('all')
+  const [searchParams, setSearchParams] = useSearchParams()
+  const filters = useMemo(
+    () => parseProjectListState(searchParams),
+    [searchParams],
+  )
   const [tags, setTags] = useState<string[]>([])
 
   const query = useMemo(
     () => ({
-      status: status === 'all' ? undefined : status,
-      tag: tag === 'all' ? undefined : tag,
+      status: filters.status === 'all' ? undefined : filters.status,
+      tag: filters.tag === 'all' ? undefined : filters.tag,
+      sort: filters.sort,
     }),
-    [status, tag],
+    [filters],
   )
 
   const state = useProjects(query)
@@ -30,6 +39,12 @@ export function ProjectsPage() {
       .then(setTags)
       .catch(() => setTags([]))
   }, [])
+
+  function update(next: Partial<typeof filters>) {
+    setSearchParams(serializeProjectListState({ ...filters, ...next }), {
+      replace: true,
+    })
+  }
 
   return (
     <>
@@ -45,11 +60,17 @@ export function ProjectsPage() {
       </h1>
       <p className="mb-8 max-w-[var(--theme-prose)] text-muted">{projectsPage.intro}</p>
       <ProjectFilters
-        status={status}
-        tag={tag}
+        status={filters.status}
+        tag={filters.tag}
+        sort={filters.sort}
         tags={tags}
-        onStatusChange={setStatus}
-        onTagChange={setTag}
+        resultCount={state.status === 'ready' ? state.data.length : undefined}
+        onStatusChange={(status: ProjectStatus | 'all') => update({ status })}
+        onTagChange={(tag) => update({ tag })}
+        onSortChange={(sort: ProjectSort) => update({ sort })}
+        onClear={() =>
+          setSearchParams(new URLSearchParams(), { replace: true })
+        }
       />
       <QueryStatus state={state} emptyMessage={ui.noMatches}>
         {(projects) => <ProjectList projects={projects} />}

@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import type { Project } from '../../content/types.ts'
 import { useTheme } from '../theme/useTheme.ts'
 
@@ -11,32 +12,18 @@ function StatusLabel({ status }: { status: Project['status'] }) {
 
 export function ProjectCard({ project }: { project: Project }) {
   const { theme } = useTheme()
+  const to = `/projects/${project.id}`
 
   if (theme === 'editorial') {
     return (
       <article className="grid gap-2 border-b border-line py-7 sm:grid-cols-[minmax(11rem,1fr)_minmax(0,2fr)_auto] sm:items-baseline sm:gap-10">
         <h3 className="font-display text-2xl font-semibold tracking-tight">
-          {project.title}
+          <Link to={to} className="text-ink no-underline hover:underline">
+            {project.title}
+          </Link>
         </h3>
         <div>
           <p className="leading-relaxed text-muted">{project.summary}</p>
-          {project.links && project.links.length > 0 ? (
-            <p className="mt-2 text-sm">
-              {project.links.map((link, index) => (
-                <span key={link.href}>
-                  {index > 0 ? <span className="text-muted"> · </span> : null}
-                  <a
-                    href={link.href}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="text-accent no-underline hover:underline"
-                  >
-                    {link.label}
-                  </a>
-                </span>
-              ))}
-            </p>
-          ) : null}
         </div>
         <p className="font-display text-lg tabular-nums text-muted">{project.year}</p>
       </article>
@@ -49,9 +36,13 @@ export function ProjectCard({ project }: { project: Project }) {
         <StatusLabel status={project.status} />
         <span className="font-mono text-xs text-muted">{project.year}</span>
       </div>
-      <h3 className="mb-2 text-lg font-semibold tracking-tight">{project.title}</h3>
+      <h3 className="mb-2 text-lg font-semibold tracking-tight">
+        <Link to={to} className="text-ink no-underline hover:text-accent">
+          {project.title}
+        </Link>
+      </h3>
       <p className="mb-4 flex-1 text-sm leading-relaxed text-muted">{project.summary}</p>
-      <ul className="mb-4 flex flex-wrap gap-1.5">
+      <ul className="flex flex-wrap gap-1.5">
         {project.tags.map((tag) => (
           <li
             key={tag}
@@ -61,22 +52,6 @@ export function ProjectCard({ project }: { project: Project }) {
           </li>
         ))}
       </ul>
-      {project.links && project.links.length > 0 ? (
-        <ul className="flex flex-wrap gap-3">
-          {project.links.map((link) => (
-            <li key={link.href}>
-              <a
-                href={link.href}
-                target="_blank"
-                rel="noreferrer"
-                className="font-mono text-xs text-accent no-underline hover:underline"
-              >
-                {link.label} ↗
-              </a>
-            </li>
-          ))}
-        </ul>
-      ) : null}
     </article>
   )
 }

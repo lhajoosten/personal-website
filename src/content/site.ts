@@ -28,8 +28,9 @@ export const home = {
 
 export const writing = {
   heading: 'Writing',
-  status: 'coming soon' as const,
-  body: 'Essays on AI-assisted engineering, DevOps, and building software that still holds up after the demo. Nothing published yet.',
+  intro:
+    'Notes on AI-assisted engineering, DevOps, and keeping software honest after the demo.',
+  empty: 'No published posts yet.',
 }
 
 export const projectsPage = {
@@ -43,15 +44,36 @@ export const contactPage = {
   intro: 'GitHub and LinkedIn are the best channels. Email works for longer notes.',
 }
 
+export const notFound = {
+  heading: 'Not found',
+  body: 'That page is not in this site. Try the command palette (Ctrl/Cmd+K) or go home.',
+  home: 'Back home',
+}
+
 export const ui = {
   skipToContent: 'Skip to content',
   menuOpen: 'Open menu',
   menuClose: 'Close menu',
-  loadingProjects: 'Loading projects…',
-  dbError: 'Could not load projects from the local database.',
+  loadingProjects: 'Loading…',
+  dbError: 'Could not load from the local database.',
   noFeatured: 'No featured projects yet.',
   noMatches: 'No projects match this filter yet.',
   filterStatus: 'Status',
   filterTag: 'Tag',
+  filterSort: 'Sort',
   filterAll: 'All',
+  clearFilters: 'Clear filters',
+  resultCount: (n: number) => (n === 1 ? '1 project' : `${n} projects`),
+  backToProjects: 'All projects',
+  backToWriting: 'All writing',
+  caseProblem: 'Problem',
+  caseApproach: 'Approach',
+  caseOutcome: 'Outcome',
+  caseHighlights: 'Highlights',
+  commandPlaceholder: 'Search pages, projects, writing…',
+  commandEmpty: 'No matches.',
+  commandHint: 'Ctrl/Cmd+K',
+  sortYear: 'Year',
+  sortTitle: 'Title',
+  sortStatus: 'Status',
 }

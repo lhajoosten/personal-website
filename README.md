@@ -7,52 +7,50 @@ Personal portfolio site: React 19, Vite, Tailwind CSS v4, React Router, and Duck
 ```bash
 pnpm install
 pnpm dev      # local dev server
-pnpm test     # vitest (content/theme helpers)
+pnpm test     # vitest
 pnpm lint     # oxlint
 pnpm check    # oxlint + tsc --noEmit
 pnpm build    # tsc -b && production bundle
-pnpm preview  # serve dist/
+pnpm preview  # serve dist/ (SPA fallback)
 ```
+
+Static hosting: `public/_redirects` (Netlify) and `vercel.json` send unknown paths to `index.html`. GitHub Pages needs the same SPA fallback (or a `404.html` copy of `index.html`).
+
+## Routes
+
+| Path | Source |
+| --- | --- |
+| `/` | Home |
+| `/projects` | List + filters (`?status=&tag=&sort=`) |
+| `/projects/:id` | Project case |
+| `/writing` | Published posts |
+| `/writing/:id` | Post |
+| `/about` `/contact` | Static content |
+| unknown | 404 |
+
+Command palette: `Ctrl/Cmd+K` searches pages, projects, and writing.
 
 ## Themes
 
-`html[data-theme]` is the single visual switch:
+`html[data-theme]` is the visual switch (`builder` | `editorial`). Tokens: `src/themes/tokens.css`. FOUC-prevention script stays in `index.html`. Preference: localStorage (`siteConfig.themeStorageKey`).
 
-- `builder` — dark terminal / maker: bordered cards, mono labels, electric accent
-- `editorial` — light typography: row layouts, display serif, sparse chrome
-
-Tokens live in `src/themes/tokens.css` and are mapped into Tailwind in `src/index.css`. Layout variants are chosen in components from `useTheme()`, not by swapping colors only.
-
-Default theme and storage key: `src/config/site.config.ts` (`defaultTheme`, `themeStorageKey`). The toggle writes localStorage; a small inline script in `index.html` applies the stored theme before paint to avoid a flash.
-
-## Config vs content
+## Content and DuckDB
 
 | What | Where |
 | --- | --- |
-| Name, tagline, nav, links, default theme | `src/config/site.config.ts` |
-| Project records | `src/content/projects.ts` |
-| About copy | `src/content/about.ts` |
-| Home/writing copy | `src/content/site.ts` |
+| Site meta, nav, `localEvents` flag | `src/config/site.config.ts` |
+| Projects | `src/content/projects.ts` |
+| Writing | `src/content/writing.ts` |
+| UI copy | `src/content/site.ts` |
 
-Do not put visitor-facing copy in components when it belongs in those modules. Shared UI strings (loading, empty, menu) live in `src/content/site.ts` under `ui`.
+Flow:
 
-Document titles are set per page by `PageMeta` (`src/components/seo/PageMeta.tsx`) using `formatPageTitle` in `src/config/page-meta.ts` — no extra SEO library.
+1. `src/data/db.ts` instantiates DuckDB-Wasm and creates `projects`, `writing`, and `events`.
+2. `src/data/init.ts` seeds empty tables from content modules.
+3. Queries live in `src/data/projects.ts` and `src/data/writing.ts`.
+4. The DB is **in-memory**. Refresh re-seeds. No OPFS persistence.
+5. `events` inserts (`page_path`, `ts`) only if `siteConfig.localEvents` is `true` (off by default).
 
-## DuckDB seed and query flow
+Shareable project filters: `/projects?status=active&tag=Python&sort=title`. Defaults (`all` / `year`) are omitted from the URL.
 
-1. `src/data/db.ts` lazily instantiates DuckDB-Wasm (MVP/EH bundles + workers) and creates the `projects` table.
-2. `src/data/projects.ts` calls `initProjects()` on first query: if the table is empty, it inserts rows from `src/content/projects.ts`.
-3. Tags and links are stored as JSON strings; `src/data/project-mapper.ts` serializes/parses them.
-4. Queries: all projects, featured, filter by `status` and `tag` (`LIKE` on the JSON tags column).
-5. React pages use `src/hooks/useProjects.ts`. Theme preference stays in localStorage — DuckDB is for content only.
-
-The database is in-memory for v1. A refresh re-instantiates DuckDB and re-seeds from content. To add a project, edit `src/content/projects.ts`.
-
-## Stack
-
-- React 19 + TypeScript (strict)
-- Vite 8
-- Tailwind CSS v4 (`@tailwindcss/vite`)
-- React Router 7
-- DuckDB-Wasm
-- pnpm
+Per-route titles, description, and canonical URL: `PageMeta` + `src/config/page-meta.ts`.
