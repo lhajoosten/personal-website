@@ -47,7 +47,8 @@ Command palette: `Ctrl/Cmd+K`. Empty query lists pages. Typed queries search **D
 | ------------------------------------------ | --------------------------- |
 | Site meta, nav, `localEvents`, `persistDb` | `src/config/site.config.ts` |
 | Projects                                   | `src/content/projects.ts`   |
-| Writing                                    | `src/content/writing.ts`    |
+| Writing                                    | `src/content/posts/*.md`    |
+| Writing loader                             | `src/content/writing.ts`    |
 | UI copy                                    | `src/content/site.ts`       |
 
 Flow:
@@ -55,7 +56,7 @@ Flow:
 1. `src/data/db.ts` instantiates DuckDB-Wasm and creates `projects`, `writing`, `events`, and `meta`.
 2. `src/data/init.ts` seeds from content modules when tables are empty, or **reseeds** when `siteConfig.contentRevision` does not match the stored revision.
 3. Queries live in `src/data/projects.ts`, `src/data/writing.ts`, and `src/data/search.ts`.
-4. **Source of truth is always `src/content/*`.** DuckDB is a query cache.
+4. **Source of truth is always `src/content/*`.** Writing posts are Markdown with YAML frontmatter in `src/content/posts/`. DuckDB is a query cache. Publish = `published: true` in frontmatter and a commit to `main`. Local Cursor agents should follow `.cursor/skills/draft-writing/SKILL.md`.
 5. `persistDb` defaults to `false` (in-memory). Set `persistDb: true` to try OPFS (`opfs://luc-joosten-portfolio.db`). If OPFS is missing or `open` fails, the app stays in-memory. After editing content modules, bump `contentRevision` so persisted browsers reseed.
 6. `events` inserts (`page_path`, `ts`) only if `siteConfig.localEvents` is `true` (off by default).
 

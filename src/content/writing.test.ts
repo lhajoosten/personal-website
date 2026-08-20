@@ -1,0 +1,18 @@
+import { describe, expect, it } from "vitest";
+import { writingPosts } from "./writing.ts";
+
+describe("writing markdown catalog", () => {
+  it("loads published posts from src/content/posts", () => {
+    expect(writingPosts.map((post) => post.id).sort()).toEqual([
+      "agents-propose-not-assume",
+      "done-means-it-deploys",
+      "models-are-dependencies",
+      "rag-is-not-a-chatbot",
+      "two-themes-one-content",
+    ]);
+    expect(writingPosts.every((post) => post.published)).toBe(true);
+    const newest = writingPosts[0]?.publishedAt ?? "";
+    const next = writingPosts[1]?.publishedAt ?? "";
+    expect(newest >= next).toBe(true);
+  });
+});

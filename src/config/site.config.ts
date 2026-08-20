@@ -18,7 +18,7 @@ export const siteConfig = {
   themeStorageKey: "lj-theme",
   localEvents: false,
   persistDb: false,
-  contentRevision: 1,
+  contentRevision: 3,
   links: {
     github: "https://github.com/lhajoosten",
     linkedin: "https://linkedin.com/in/lhajoosten",

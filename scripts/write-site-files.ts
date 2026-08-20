@@ -1,18 +1,28 @@
-import { mkdirSync, writeFileSync } from "node:fs";
+import { mkdirSync, readdirSync, readFileSync, writeFileSync } from "node:fs";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { siteConfig } from "../src/config/site.config.ts";
 import { projects } from "../src/content/projects.ts";
+import { loadWritingPosts } from "../src/content/parse-writing.ts";
 import { writing } from "../src/content/site.ts";
-import { writingPosts } from "../src/content/writing.ts";
 import { buildRssXml, buildSitemapXml, sitemapPaths } from "../src/seo/feeds.ts";
+
+function loadWritingFromDisk(root: string) {
+  const dir = join(root, "..", "src", "content", "posts");
+  const files: Record<string, string> = {};
+  for (const name of readdirSync(dir)) {
+    if (!name.endsWith(".md")) continue;
+    files[name] = readFileSync(join(dir, name), "utf8");
+  }
+  return loadWritingPosts(files);
+}
 
 export function writeSiteFiles(publicDir?: string): { rss: string; sitemap: string } {
   const root = dirname(fileURLToPath(import.meta.url));
   const outDir = publicDir ?? join(root, "..", "public");
   mkdirSync(outDir, { recursive: true });
 
-  const published = writingPosts.filter((post) => post.published);
+  const published = loadWritingFromDisk(root).filter((post) => post.published);
   const rss = buildRssXml({
     siteUrl: siteConfig.url,
     siteTitle: `${siteConfig.name} — Writing`,

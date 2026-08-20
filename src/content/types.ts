@@ -30,6 +30,7 @@ export type WritingPost = {
   tags: string[];
   published: boolean;
   draft?: boolean;
+  layout?: "essay" | "brief" | "log";
 };
 
 export const PROJECT_STATUSES: ProjectStatus[] = ["active", "experimental", "archived"];
