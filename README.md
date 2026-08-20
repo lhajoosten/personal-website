@@ -73,14 +73,29 @@ If `persistDb` is true, bump `contentRevision` after content changes.
 - **Theme boot:** inline `index.html` script sets `data-theme` before paint.
 - Preview locally: `pnpm build && pnpm preview`. Aim for Lighthouse Performance ≥ 90; wasm download will dominate first visit on content pages.
 
-## Deploy (primary: Vercel)
+## Deploy (Vercel)
 
-Closest path in-repo: `vercel.json` SPA rewrite.
+Static Vite SPA. Use the project `*.vercel.app` URL for now. Attach `lucjoosten.nl` later — no DNS in this pass.
 
-1. Import `lhajoosten/personal-website` on Vercel. Framework: Vite. Build: `pnpm build`. Output: `dist`.
-2. Vercel Git integration deploys `main`. This repo’s GitHub Actions **does not** deploy; it only gates quality (`pnpm check`, `pnpm test`, `pnpm build` on PR and `main`).
-3. Domain: add `lucjoosten.nl` (and `www` if you use it) in Vercel → Domains. DNS: ALIAS/ANAME or A records as Vercel shows. Wait for HTTPS.
-4. Confirm `siteConfig.url` stays `https://lucjoosten.nl`.
+### Import checklist
+
+Copy these on first import (also set in `vercel.json`):
+
+1. [ ] Vercel → Add New → Project → import GitHub `lhajoosten/personal-website`
+2. [ ] Framework Preset: **Vite**
+3. [ ] Build Command: `pnpm build`
+4. [ ] Output Directory: `dist`
+5. [ ] Install Command: `pnpm install` (`package.json` has `"packageManager": "pnpm@11.18.0"`)
+6. [ ] Production Branch: `main` (auto-deploy on push)
+7. [ ] Deploy and copy the `*.vercel.app` URL. Do not add a custom domain yet.
+
+GitHub Actions still only gates quality (`pnpm check`, `pnpm test`, `pnpm build` on PR and `main`). It does not deploy.
+
+Client routes rewrite to `/index.html`. Vercel serves real files in `dist` first; the rewrite also skips `/rss.xml`, `/sitemap.xml`, `/robots.txt`, `/favicon.svg`, `/og.svg`, and `/assets/*` (hashed JS/CSS, DuckDB wasm/workers).
+
+### Canonical URL
+
+Keep `siteConfig.url` as `https://lucjoosten.nl`. Canonical tags, Open Graph, RSS, sitemap, and `robots.txt` stay on that host on purpose so SEO is not baked to the preview hostname. Until the domain is connected, those URLs will not match the live `*.vercel.app` origin.
 
 **Netlify fallback:** build `pnpm build`, publish `dist`. `public/_redirects` copies to `dist` (`/* /index.html 200`).
 
@@ -88,15 +103,14 @@ Closest path in-repo: `vercel.json` SPA rewrite.
 
 ## Smoke checklist
 
-After preview or production:
+Against the `*.vercel.app` URL (or `pnpm preview` locally):
 
-- [ ] `/` Home, theme toggle, featured projects, recent writing
-- [ ] `/projects` filters + shareable URL
-- [ ] `/projects/:id` case fields + related
-- [ ] `/writing` RSS link
-- [ ] `/writing/:id` TOC jumps, Markdown (headings, lists, links), read time
+- [ ] `/` Home, theme toggle (builder + editorial), featured projects, recent writing
+- [ ] Refresh `/projects/:id` — same project, not a host 404
+- [ ] `/writing` and `/writing/:id`
 - [ ] Cmd/Ctrl+K search; Escape restores focus
+- [ ] `/projects` filters + shareable URL
 - [ ] `/about` `/contact` (external links `noopener noreferrer`)
-- [ ] Unknown path → 404 with Home + Projects
-- [ ] `/rss.xml` `/sitemap.xml` `/robots.txt` are not a host 404
-- [ ] Builder and editorial both readable (contrast, focus rings)
+- [ ] Unknown path → in-app 404 with Home + Projects
+- [ ] `/rss.xml` `/sitemap.xml` `/robots.txt` `/favicon.svg` `/og.svg` are files, not `index.html`
+- [ ] Both themes readable (contrast, focus rings)
