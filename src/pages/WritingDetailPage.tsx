@@ -38,7 +38,7 @@ export function WritingDetailPage() {
 
   return (
     <>
-      <PageMeta title={post.title} description={post.summary} />
+      <PageMeta title={post.title} description={post.summary} type="article" />
       <JsonLdScript
         data={articleJsonLd({
           headline: post.title,

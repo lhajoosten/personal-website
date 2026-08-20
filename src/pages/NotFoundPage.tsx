@@ -17,16 +17,28 @@ export function NotFoundPage() {
         {notFound.heading}
       </h1>
       <p className="mb-6 text-muted">{notFound.body}</p>
-      <Link
-        to="/"
-        className={
-          theme === "builder"
-            ? "font-mono text-xs text-accent no-underline hover:underline"
-            : "text-accent no-underline hover:underline"
-        }
-      >
-        {notFound.home}
-      </Link>
+      <p className="flex flex-wrap gap-4">
+        <Link
+          to="/"
+          className={
+            theme === "builder"
+              ? "font-mono text-xs text-accent no-underline hover:underline"
+              : "text-accent no-underline hover:underline"
+          }
+        >
+          {notFound.home}
+        </Link>
+        <Link
+          to="/projects"
+          className={
+            theme === "builder"
+              ? "font-mono text-xs text-muted no-underline hover:text-accent"
+              : "text-muted no-underline hover:underline"
+          }
+        >
+          {notFound.projects}
+        </Link>
+      </p>
     </section>
   );
 }

@@ -1,16 +1,18 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { ui } from "../../content/site.ts";
 import type { WritingPost } from "../../content/types.ts";
-import { estimateReadMinutes, parseBodyBlocks, parseToc } from "../../data/writing-read.ts";
+import { parseMarkdownToc, renderWritingHtml } from "../../data/render-writing.ts";
+import { estimateReadMinutes } from "../../data/writing-read.ts";
 import { useTheme } from "../theme/useTheme.ts";
 import { ReadingProgress } from "./ReadingProgress.tsx";
 import { WritingToc } from "./WritingToc.tsx";
 
 export function WritingDetail({ post }: { post: WritingPost }) {
   const { theme } = useTheme();
+  const location = useLocation();
   const isBuilder = theme === "builder";
-  const toc = parseToc(post.body);
-  const blocks = parseBodyBlocks(post.body);
+  const toc = parseMarkdownToc(post.body);
+  const html = renderWritingHtml(post.body);
   const minutes = estimateReadMinutes(`${post.title} ${post.summary} ${post.body}`);
 
   return (
@@ -43,30 +45,15 @@ export function WritingDetail({ post }: { post: WritingPost }) {
           {post.title}
         </h1>
         <p className="mb-8 text-lg text-muted">{post.summary}</p>
-        <WritingToc items={toc} heading={ui.tocHeading} />
-        {blocks.map((block) => {
-          if (block.type === "heading") {
-            const Heading = block.level === 2 ? "h2" : "h3";
-            return (
-              <Heading
-                key={block.id}
-                id={block.id}
-                className={
-                  isBuilder
-                    ? "mt-10 mb-3 scroll-mt-8 text-xl font-semibold tracking-tight"
-                    : "mt-12 mb-4 scroll-mt-8 font-display text-3xl"
-                }
-              >
-                {block.text}
-              </Heading>
-            );
+        <WritingToc items={toc} heading={ui.tocHeading} pathname={location.pathname} />
+        <div
+          className={
+            isBuilder
+              ? "writing-prose writing-prose-builder leading-relaxed text-muted"
+              : "writing-prose writing-prose-editorial leading-relaxed text-muted"
           }
-          return (
-            <p key={block.text.slice(0, 40)} className="mb-4 leading-relaxed text-muted">
-              {block.text}
-            </p>
-          );
-        })}
+          dangerouslySetInnerHTML={{ __html: html }}
+        />
       </article>
     </>
   );

@@ -1,3 +1,5 @@
+import { AboutPreview } from "../components/home/AboutPreview.tsx";
+import { ExperiencePreview } from "../components/home/ExperiencePreview.tsx";
 import { FeaturedProjects } from "../components/home/FeaturedProjects.tsx";
 import { FeatureGrid } from "../components/home/FeatureGrid.tsx";
 import { Hero } from "../components/home/Hero.tsx";
@@ -21,6 +23,8 @@ export function HomePage() {
       />
       <Hero />
       <FeatureGrid />
+      <AboutPreview />
+      <ExperiencePreview />
       <FeaturedProjects />
       <RecentWriting />
     </>

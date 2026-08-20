@@ -4,7 +4,11 @@ export function ThemeToggle() {
   const { theme, setTheme } = useTheme();
 
   return (
-    <div role="group" aria-label="Theme" className="inline-flex items-center gap-1">
+    <div
+      role="group"
+      aria-label="Theme"
+      className="inline-flex items-center gap-1 rounded-theme border border-line p-0.5"
+    >
       <button
         type="button"
         aria-pressed={theme === "builder"}
@@ -12,8 +16,8 @@ export function ThemeToggle() {
         onClick={() => setTheme("builder")}
         className={
           theme === "builder"
-            ? "rounded-theme border border-accent px-2 py-1 font-mono text-xs text-accent"
-            : "rounded-theme border border-transparent px-2 py-1 font-mono text-xs text-muted hover:text-ink"
+            ? "inline-flex min-h-9 min-w-[4.5rem] items-center justify-center rounded-theme bg-accent/15 px-2 font-mono text-xs text-accent"
+            : "inline-flex min-h-9 min-w-[4.5rem] items-center justify-center rounded-theme px-2 font-mono text-xs text-muted transition-colors hover:text-ink"
         }
       >
         builder
@@ -25,8 +29,8 @@ export function ThemeToggle() {
         onClick={() => setTheme("editorial")}
         className={
           theme === "editorial"
-            ? "rounded-theme border border-accent px-2 py-1 font-mono text-xs text-accent"
-            : "rounded-theme border border-transparent px-2 py-1 font-mono text-xs text-muted hover:text-ink"
+            ? "inline-flex min-h-9 min-w-[4.75rem] items-center justify-center rounded-theme bg-accent/15 px-2 font-mono text-xs text-accent"
+            : "inline-flex min-h-9 min-w-[4.75rem] items-center justify-center rounded-theme px-2 font-mono text-xs text-muted transition-colors hover:text-ink"
         }
       >
         editorial

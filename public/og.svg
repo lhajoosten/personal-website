@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <rect width="1200" height="630" fill="#0a0e14"/>
+  <text x="80" y="300" fill="#5ce1ff" font-family="ui-monospace, monospace" font-size="72" font-weight="600">
+    lucjoosten<tspan fill="#a8b3c2">.nl</tspan>
+  </text>
+  <text x="80" y="380" fill="#edf2f7" font-family="ui-sans-serif, system-ui, sans-serif" font-size="36">Luc Joosten</text>
+  <text x="80" y="440" fill="#a8b3c2" font-family="ui-sans-serif, system-ui, sans-serif" font-size="28">Full-stack · AI · Cloud</text>
+</svg>

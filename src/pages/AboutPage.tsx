@@ -1,15 +1,18 @@
 import { about } from "../content/about.ts";
+import { ExperienceTimeline } from "../components/about/ExperienceTimeline.tsx";
 import { JsonLdScript } from "../components/seo/JsonLd.tsx";
 import { PageMeta } from "../components/seo/PageMeta.tsx";
 import { siteConfig } from "../config/site.config.ts";
+import { experience, experienceHeading, experienceIntro } from "../content/experience.ts";
 import { useTheme } from "../components/theme/useTheme.ts";
 import { personJsonLd } from "../seo/json-ld.ts";
 
 export function AboutPage() {
   const { theme } = useTheme();
+  const isBuilder = theme === "builder";
 
   return (
-    <article className="max-w-[var(--theme-prose)]">
+    <article className="max-w-[var(--theme-max)]">
       <PageMeta title={about.heading} description={about.intro[0] ?? about.heading} />
       <JsonLdScript
         data={personJsonLd({
@@ -19,69 +22,162 @@ export function AboutPage() {
           sameAs: [siteConfig.links.github, siteConfig.links.linkedin, siteConfig.links.website],
         })}
       />
-      <h1
+      <header
         className={
-          theme === "builder" ? "mb-6 font-mono text-sm text-accent" : "mb-8 font-display text-5xl"
+          isBuilder ? "mb-8 max-w-[var(--theme-prose)]" : "mb-12 max-w-[var(--theme-prose)]"
         }
       >
-        {about.heading}
-      </h1>
-      {about.intro.map((paragraph) => (
-        <p key={paragraph.slice(0, 24)} className="mb-4 leading-relaxed text-muted">
-          {paragraph}
-        </p>
-      ))}
-
-      <h2
-        className={
-          theme === "builder"
-            ? "mt-10 mb-4 font-mono text-xs tracking-widest text-muted uppercase"
-            : "mt-12 mb-6 font-display text-3xl"
-        }
-      >
-        {about.stackHeading}
-      </h2>
-      <ul className={theme === "builder" ? "grid gap-3 sm:grid-cols-3" : "grid gap-8"}>
-        {about.stack.map((group) => (
-          <li
-            key={group.label}
-            className={
-              theme === "builder"
-                ? "rounded-theme border border-line bg-panel p-4"
-                : "border-t border-line pt-4"
-            }
-          >
-            <h3 className="mb-2 font-semibold">{group.label}</h3>
-            <p className="text-sm text-muted">{group.items.join(" · ")}</p>
-          </li>
+        <h1
+          className={
+            isBuilder
+              ? "mb-6 font-mono text-sm text-accent"
+              : "mb-8 font-display text-5xl tracking-tight"
+          }
+        >
+          {about.heading}
+        </h1>
+        {about.intro.map((paragraph) => (
+          <p key={paragraph.slice(0, 24)} className="mb-4 text-lg leading-relaxed text-muted">
+            {paragraph}
+          </p>
         ))}
-      </ul>
+      </header>
 
-      <h2
+      <section
+        aria-labelledby="crowe-heading"
         className={
-          theme === "builder"
-            ? "mt-10 mb-4 font-mono text-xs tracking-widest text-muted uppercase"
-            : "mt-12 mb-6 font-display text-3xl"
+          isBuilder
+            ? "mb-12 rounded-theme border border-line bg-panel p-6 sm:p-8"
+            : "mb-16 max-w-[var(--theme-prose)] border-t border-line pt-10"
         }
       >
-        {about.pathHeading}
-      </h2>
-      <ol className="grid gap-6">
-        {about.learningPath.map((item) => (
-          <li key={item.title}>
-            <h3
+        <h2
+          id="crowe-heading"
+          className={
+            isBuilder
+              ? "mb-4 font-mono text-xs tracking-widest text-muted uppercase"
+              : "mb-6 font-display text-3xl"
+          }
+        >
+          {about.croweHeading}
+        </h2>
+        {about.crowe.map((paragraph) => (
+          <p key={paragraph.slice(0, 24)} className="mb-4 leading-relaxed text-muted last:mb-0">
+            {paragraph}
+          </p>
+        ))}
+      </section>
+
+      <section aria-labelledby="vision-heading" className={isBuilder ? "mb-12" : "mb-16"}>
+        <h2
+          id="vision-heading"
+          className={
+            isBuilder
+              ? "mb-6 font-mono text-xs tracking-widest text-muted uppercase"
+              : "mb-8 font-display text-3xl"
+          }
+        >
+          {about.visionHeading}
+        </h2>
+        <ul className={`grid gap-4 ${isBuilder ? "sm:grid-cols-3" : "gap-8 sm:grid-cols-3"}`}>
+          {about.vision.map((item, index) => (
+            <li
+              key={item.title}
               className={
-                theme === "builder"
-                  ? "mb-1 font-mono text-sm text-accent"
-                  : "mb-1 font-display text-2xl"
+                isBuilder
+                  ? "rounded-theme border border-line bg-panel p-5"
+                  : "border-t border-line pt-4"
               }
             >
-              {item.title}
-            </h3>
-            <p className="text-muted">{item.body}</p>
-          </li>
-        ))}
-      </ol>
+              <p
+                className={
+                  isBuilder
+                    ? "mb-2 font-mono text-[11px] tracking-widest text-accent uppercase"
+                    : "mb-3 font-display text-4xl text-muted"
+                }
+              >
+                {String(index + 1).padStart(2, "0")}
+              </p>
+              <h3 className="mb-2 font-semibold">{item.title}</h3>
+              <p className="text-sm leading-relaxed text-muted">{item.body}</p>
+            </li>
+          ))}
+        </ul>
+      </section>
+
+      <div id="experience" className={isBuilder ? "mb-12 scroll-mt-8" : "mb-16 scroll-mt-10"}>
+        <ExperienceTimeline
+          entries={experience}
+          heading={experienceHeading}
+          intro={experienceIntro}
+        />
+      </div>
+
+      <section aria-labelledby="stack-heading" className={isBuilder ? "mb-12" : "mb-16"}>
+        <h2
+          id="stack-heading"
+          className={
+            isBuilder
+              ? "mb-4 font-mono text-xs tracking-widest text-muted uppercase"
+              : "mb-6 font-display text-3xl"
+          }
+        >
+          {about.stackHeading}
+        </h2>
+        <ul
+          className={
+            isBuilder ? "grid gap-3 sm:grid-cols-3" : "grid gap-8 sm:grid-cols-2 lg:grid-cols-3"
+          }
+        >
+          {about.stack.map((group) => (
+            <li
+              key={group.label}
+              className={
+                isBuilder
+                  ? "rounded-theme border border-line bg-panel p-4"
+                  : "border-t border-line pt-4"
+              }
+            >
+              <h3 className="mb-2 font-semibold">{group.label}</h3>
+              <p className="text-sm text-muted">{group.items.join(" · ")}</p>
+            </li>
+          ))}
+        </ul>
+      </section>
+
+      <section aria-labelledby="path-heading">
+        <h2
+          id="path-heading"
+          className={
+            isBuilder
+              ? "mb-4 font-mono text-xs tracking-widest text-muted uppercase"
+              : "mb-6 font-display text-3xl"
+          }
+        >
+          {about.pathHeading}
+        </h2>
+        <ol className="grid gap-6">
+          {about.learningPath.map((item) => (
+            <li
+              key={item.title}
+              className={
+                isBuilder
+                  ? "rounded-theme border border-line bg-panel p-5"
+                  : "border-t border-line pt-4"
+              }
+            >
+              <h3
+                className={
+                  isBuilder ? "mb-1 font-mono text-sm text-accent" : "mb-1 font-display text-2xl"
+                }
+              >
+                {item.title}
+              </h3>
+              <p className="text-muted">{item.body}</p>
+            </li>
+          ))}
+        </ol>
+      </section>
     </article>
   );
 }

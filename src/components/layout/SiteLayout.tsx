@@ -1,8 +1,8 @@
-import { useEffect } from "react";
 import { Outlet, useLocation } from "react-router-dom";
-import { CommandPalette } from "../command/CommandPalette.tsx";
+import { useEffect } from "react";
+import { CommandPaletteHost } from "../command/CommandPaletteHost.tsx";
+import { siteConfig } from "../../config/site.config.ts";
 import { ui } from "../../content/site.ts";
-import { logPageView } from "../../data/events.ts";
 import { Footer } from "./Footer.tsx";
 import { Header } from "./Header.tsx";
 
@@ -10,7 +10,8 @@ export function SiteLayout() {
   const location = useLocation();
 
   useEffect(() => {
-    void logPageView(location.pathname);
+    if (!siteConfig.localEvents) return;
+    void import("../../data/events.ts").then((mod) => mod.logPageView(location.pathname));
   }, [location.pathname]);
 
   return (
@@ -29,7 +30,7 @@ export function SiteLayout() {
         <Outlet />
       </main>
       <Footer />
-      <CommandPalette />
+      <CommandPaletteHost />
     </div>
   );
 }

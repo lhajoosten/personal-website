@@ -4,17 +4,20 @@ import { useFeaturedProjects } from "../../hooks/useProjects.ts";
 import { ProjectList } from "../projects/ProjectList.tsx";
 import { QueryStatus } from "../projects/QueryStatus.tsx";
 import { useTheme } from "../theme/useTheme.ts";
+import { HomeSection } from "./HomeSection.tsx";
 
 export function FeaturedProjects() {
   const { theme } = useTheme();
   const state = useFeaturedProjects();
+  const isBuilder = theme === "builder";
 
   return (
-    <section>
+    <HomeSection tone="projects" aria-labelledby="featured-heading">
       <div className="mb-6 flex items-baseline justify-between gap-4">
         <h2
+          id="featured-heading"
           className={
-            theme === "builder"
+            isBuilder
               ? "font-mono text-xs tracking-widest text-muted uppercase"
               : "font-display text-3xl"
           }
@@ -25,7 +28,7 @@ export function FeaturedProjects() {
           <Link
             to="/writing"
             className={
-              theme === "builder"
+              isBuilder
                 ? "font-mono text-xs text-muted no-underline hover:text-accent"
                 : "text-sm text-muted no-underline hover:underline"
             }
@@ -35,7 +38,7 @@ export function FeaturedProjects() {
           <Link
             to="/projects"
             className={
-              theme === "builder"
+              isBuilder
                 ? "font-mono text-xs text-accent no-underline hover:underline"
                 : "text-sm text-accent no-underline hover:underline"
             }
@@ -48,6 +51,6 @@ export function FeaturedProjects() {
       <QueryStatus state={state} emptyMessage={ui.noFeatured}>
         {(projects) => <ProjectList projects={projects} />}
       </QueryStatus>
-    </section>
+    </HomeSection>
   );
 }

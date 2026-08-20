@@ -11,7 +11,7 @@ export function ProjectCard({ project }: { project: Project }) {
     return (
       <article className="grid gap-2 border-b border-line py-7 sm:grid-cols-[minmax(11rem,1fr)_minmax(0,2fr)_auto] sm:items-baseline sm:gap-10">
         <h3 className="font-display text-2xl font-semibold tracking-tight">
-          <Link to={to} className="text-ink no-underline hover:underline">
+          <Link to={to} className="text-ink no-underline hover:text-accent hover:underline">
             {project.title}
           </Link>
         </h3>
@@ -27,7 +27,7 @@ export function ProjectCard({ project }: { project: Project }) {
   }
 
   return (
-    <article className="flex h-full flex-col rounded-theme border border-line bg-panel p-5">
+    <article className="flex h-full flex-col rounded-theme border border-line bg-panel p-5 transition-[border-color,background-color,transform] hover:border-accent/25 hover:bg-[var(--theme-panel-hover)]">
       <div className="mb-3 flex items-center justify-between gap-3">
         <StatusBadge status={project.status} />
         <span className="font-mono text-xs text-muted">{project.year}</span>

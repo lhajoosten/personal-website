@@ -9,16 +9,18 @@ export type NavItem = {
 
 export const siteConfig = {
   name: "Luc Joosten",
-  shortName: "LJ",
-  title: "Luc Joosten — Software Engineer",
-  tagline: "AI-powered software, engineered properly",
-  role: "Full-stack Software Engineer → AI Engineer + DevOps/Cloud Engineer",
+  brand: "lucjoosten.nl",
+  brandHost: "lucjoosten",
+  brandTld: ".nl",
+  title: "lucjoosten.nl — Luc Joosten",
+  tagline: "Full-stack · AI · Cloud",
+  role: "Full-stack Software Engineer at Crowe Netherlands → AI Engineer + DevOps/Cloud",
   url: "https://lucjoosten.nl",
   defaultTheme: "builder" as ThemeId,
   themeStorageKey: "lj-theme",
   localEvents: false,
   persistDb: false,
-  contentRevision: 3,
+  contentRevision: 4,
   links: {
     github: "https://github.com/lhajoosten",
     linkedin: "https://linkedin.com/in/lhajoosten",

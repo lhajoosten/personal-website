@@ -1,8 +1,12 @@
 export const home = {
   leadBuilder:
-    "Full-stack software engineer moving into AI engineering and DevOps/Cloud — same delivery standard, wider surface area.",
+    "Full-stack engineer at Crowe Netherlands, building AI-powered accountancy and BI platforms — growing into AI engineering and cloud/DevOps with the same delivery standard.",
   leadEditorial:
-    "I build software that stays coherent when models, clouds, and product pressure all show up at once.",
+    "I build software that stays coherent when models, clouds, and product pressure all show up at once — currently at Crowe Netherlands, shipping AI-assisted platforms for accountancy and business intelligence.",
+  aboutPreviewHeading: "Who I am",
+  aboutPreviewLink: "Full story →",
+  experiencePreviewHeading: "Experience",
+  experiencePreviewLink: "See full timeline →",
   ctaProjects: "Selected work",
   ctaProjectsBuilder: "View projects",
   ctaWriting: "Writing",
@@ -50,6 +54,7 @@ export const notFound = {
   heading: "Not found",
   body: "That page is not in this site. Try the command palette (Ctrl/Cmd+K) or go home.",
   home: "Back home",
+  projects: "Projects",
 };
 
 export const ui = {
@@ -84,4 +89,7 @@ export const ui = {
   minutesToRead: (n: number) => (n === 1 ? "1 min read" : `${n} min read`),
   rssFeed: "RSS",
   crossLinkProjects: "See selected projects →",
+  footerExplore: "Explore",
+  footerConnect: "Connect",
+  footerContactCta: "Get in touch",
 };
