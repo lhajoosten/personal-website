@@ -24,7 +24,7 @@ export function ProjectDetail({
   const hasCase = Boolean(project.problem || project.approach || project.outcome);
 
   return (
-    <article className={isBuilder ? "max-w-3xl" : "max-w-[var(--theme-prose)]"}>
+    <article className="max-w-[var(--theme-prose)]">
       <p className="mb-6">
         <Link
           to="/projects"

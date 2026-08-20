@@ -8,7 +8,7 @@ describe("formatPageTitle", () => {
   });
 
   it("prefixes inner pages with the page name", () => {
-    expect(formatPageTitle("Projects")).toBe(`Projects — ${siteConfig.name}`);
+    expect(formatPageTitle("Projects")).toBe(`Projects — ${siteConfig.brand}`);
   });
 });
 

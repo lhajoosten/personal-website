@@ -4,6 +4,8 @@ import { siteConfig } from "../../config/site.config.ts";
 import { ui } from "../../content/site.ts";
 import { ThemeToggle } from "../theme/ThemeToggle.tsx";
 import { useTheme } from "../theme/useTheme.ts";
+import { BrandMark } from "./BrandMark.tsx";
+import { PrimaryNavLinks } from "./PrimaryNavLinks.tsx";
 
 export function Header() {
   const { theme } = useTheme();
@@ -18,61 +20,49 @@ export function Header() {
     setMenuOpen(false);
   }
 
-  const linkClass = (isActive: boolean) =>
-    isBuilder
-      ? `inline-flex min-h-11 items-center font-mono text-xs no-underline transition-colors ${isActive ? "text-accent" : "text-muted hover:text-ink"}`
-      : `inline-flex min-h-11 items-center text-sm no-underline transition-colors ${isActive ? "text-ink underline decoration-line underline-offset-4" : "text-muted hover:text-ink"}`;
+  const closeMenu = () => setMenuOpen(false);
 
   return (
-    <header className="sticky top-0 z-40 border-b border-line bg-canvas/90 backdrop-blur-md">
-      <div className="mx-auto flex max-w-[var(--theme-max)] items-center justify-between gap-4 px-4 py-3 sm:px-6">
-        <NavLink
-          to="/"
-          className={
-            isBuilder
-              ? "inline-flex min-h-11 items-center font-mono text-sm tracking-tight text-ink no-underline"
-              : "inline-flex min-h-11 items-center font-display text-xl tracking-tight text-ink no-underline"
-          }
-          aria-label={`${siteConfig.name} home`}
-        >
-          {isBuilder ? (
-            <span>
-              <span className="text-accent">{siteConfig.shortName}</span>
-              <span className="text-muted"> / {siteConfig.name}</span>
-            </span>
-          ) : (
-            siteConfig.name
-          )}
-        </NavLink>
-
-        <nav aria-label="Primary" className="hidden items-center gap-1 md:flex">
-          {siteConfig.nav.map((item) => (
-            <NavLink
-              key={item.to}
-              to={item.to}
-              end={item.to === "/"}
-              className={({ isActive }) => linkClass(isActive)}
-            >
-              {item.label}
-            </NavLink>
-          ))}
-        </nav>
-
-        <div className="flex items-center gap-2">
-          <ThemeToggle />
-          <button
-            type="button"
-            className={
-              isBuilder
-                ? "inline-flex min-h-11 min-w-11 items-center justify-center rounded-theme border border-line px-2 font-mono text-xs text-muted md:hidden"
-                : "inline-flex min-h-11 min-w-11 items-center justify-center border-0 bg-transparent px-2 text-sm text-muted md:hidden"
-            }
-            aria-expanded={menuOpen}
-            aria-controls={menuId}
-            onClick={() => setMenuOpen((open) => !open)}
+    <header className="sticky top-0 z-40 border-b border-line bg-canvas/95 backdrop-blur-md">
+      <div className="mx-auto max-w-[var(--theme-max)] px-4 sm:px-6">
+        <div className="grid min-h-[4.25rem] grid-cols-[minmax(0,1fr)_auto] items-center gap-3 md:grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)]">
+          <NavLink
+            to="/"
+            className="inline-flex min-h-11 min-w-0 items-center no-underline"
+            aria-label={`${siteConfig.brand} — ${siteConfig.name}`}
           >
-            {menuOpen ? ui.menuClose : ui.menuOpen}
-          </button>
+            <BrandMark size="md" />
+          </NavLink>
+
+          <nav aria-label="Primary" className="hidden justify-self-center md:block">
+            <PrimaryNavLinks variant="header" />
+          </nav>
+
+          <div className="flex items-center justify-end gap-2 justify-self-end">
+            <p
+              className={
+                isBuilder
+                  ? "mr-1 hidden font-mono text-[10px] tracking-wide text-muted lg:inline"
+                  : "mr-1 hidden text-xs text-muted lg:inline"
+              }
+            >
+              {ui.commandHint}
+            </p>
+            <ThemeToggle />
+            <button
+              type="button"
+              className={
+                isBuilder
+                  ? "inline-flex min-h-11 min-w-11 items-center justify-center rounded-theme border border-line px-2 font-mono text-xs text-muted md:hidden"
+                  : "inline-flex min-h-11 min-w-11 items-center justify-center rounded-theme border border-line px-2 text-sm text-muted md:hidden"
+              }
+              aria-expanded={menuOpen}
+              aria-controls={menuId}
+              onClick={() => setMenuOpen((open) => !open)}
+            >
+              {menuOpen ? ui.menuClose : ui.menuOpen}
+            </button>
+          </div>
         </div>
       </div>
 
@@ -82,23 +72,11 @@ export function Header() {
           aria-label="Primary mobile"
           className={
             isBuilder
-              ? "border-t border-line px-4 py-3 md:hidden"
+              ? "border-t border-line bg-panel/60 px-4 py-4 md:hidden"
               : "border-t border-line px-4 py-4 md:hidden"
           }
         >
-          <ul className="grid gap-1">
-            {siteConfig.nav.map((item) => (
-              <li key={item.to}>
-                <NavLink
-                  to={item.to}
-                  end={item.to === "/"}
-                  className={({ isActive }) => `block py-1 no-underline ${linkClass(isActive)}`}
-                >
-                  {item.label}
-                </NavLink>
-              </li>
-            ))}
-          </ul>
+          <PrimaryNavLinks variant="mobile" onNavigate={closeMenu} />
         </nav>
       ) : null}
     </header>

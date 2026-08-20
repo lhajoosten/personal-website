@@ -3,6 +3,7 @@ import { experience, experienceIntro } from "../../content/experience.ts";
 import { home } from "../../content/site.ts";
 import { ExperienceTimeline } from "../about/ExperienceTimeline.tsx";
 import { useTheme } from "../theme/useTheme.ts";
+import { HomeSection } from "./HomeSection.tsx";
 
 export function ExperiencePreview() {
   const { theme } = useTheme();
@@ -10,7 +11,7 @@ export function ExperiencePreview() {
   const preview = experience.slice(0, 2);
 
   return (
-    <section aria-labelledby="experience-preview-heading" className={isBuilder ? "mb-12" : "mb-20"}>
+    <HomeSection tone="experience" aria-labelledby="experience-preview-heading">
       <div className="mb-6 flex flex-wrap items-end justify-between gap-4">
         <h2
           id="experience-preview-heading"
@@ -34,6 +35,6 @@ export function ExperiencePreview() {
         </Link>
       </div>
       <ExperienceTimeline entries={preview} intro={experienceIntro} compact />
-    </section>
+    </HomeSection>
   );
 }

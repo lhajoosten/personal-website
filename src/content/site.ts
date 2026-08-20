@@ -89,4 +89,7 @@ export const ui = {
   minutesToRead: (n: number) => (n === 1 ? "1 min read" : `${n} min read`),
   rssFeed: "RSS",
   crossLinkProjects: "See selected projects →",
+  footerExplore: "Explore",
+  footerConnect: "Connect",
+  footerContactCta: "Get in touch",
 };

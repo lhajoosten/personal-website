@@ -2,7 +2,7 @@ import { siteConfig } from "./site.config.ts";
 
 export function formatPageTitle(page?: string): string {
   if (!page) return siteConfig.title;
-  return `${page} — ${siteConfig.name}`;
+  return `${page} — ${siteConfig.brand}`;
 }
 
 export function formatCanonicalUrl(path = "/"): string {

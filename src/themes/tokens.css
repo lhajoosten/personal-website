@@ -1,3 +1,8 @@
+:root {
+  --theme-max: 72rem;
+  --theme-prose: 42rem;
+}
+
 :root,
 html[data-theme="builder"] {
   color-scheme: dark;
@@ -16,8 +21,6 @@ html[data-theme="builder"] {
   --theme-font-display: "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
   --theme-font-mono: "IBM Plex Mono", ui-monospace, monospace;
   --theme-radius: 0.5rem;
-  --theme-max: 72rem;
-  --theme-prose: 42rem;
   --theme-page-y: 2.75rem;
   --theme-status-active: #4ade80;
   --theme-status-experimental: #fbbf24;
@@ -25,14 +28,17 @@ html[data-theme="builder"] {
   --theme-focus-ring: 2px solid var(--theme-accent);
   --theme-focus-offset: 3px;
   --theme-link-underline: color-mix(in srgb, var(--theme-accent) 45%, transparent);
+  --theme-glass-bg: color-mix(in srgb, var(--theme-panel) 62%, transparent);
+  --theme-glass-border: color-mix(in srgb, var(--theme-border) 72%, transparent);
+  --theme-glass-blur: 18px;
 }
 
 html[data-theme="editorial"] {
   color-scheme: light;
   --theme-bg: #f8f4ec;
   --theme-bg-accent:
-    radial-gradient(1100px 520px at 0% 0%, #fff9ef 0%, transparent 60%),
-    radial-gradient(800px 420px at 100% 10%, #f3ebe0 0%, transparent 55%), #f8f4ec;
+    radial-gradient(1000px 480px at 0% 0%, #fff9ef 0%, transparent 58%),
+    radial-gradient(760px 360px at 100% 8%, #f3ebe0 0%, transparent 52%), #f8f4ec;
   --theme-fg: #1a1614;
   --theme-muted: #4f4842;
   --theme-accent: #9a3412;
@@ -44,13 +50,14 @@ html[data-theme="editorial"] {
   --theme-font-display: "Newsreader", "Times New Roman", serif;
   --theme-font-mono: "IBM Plex Mono", ui-monospace, monospace;
   --theme-radius: 0;
-  --theme-max: 62rem;
-  --theme-prose: 38rem;
-  --theme-page-y: 3.75rem;
+  --theme-page-y: 2.75rem;
   --theme-status-active: #3f6212;
   --theme-status-experimental: #b45309;
   --theme-status-archived: #78716c;
   --theme-focus-ring: 2px solid var(--theme-accent);
   --theme-focus-offset: 3px;
   --theme-link-underline: color-mix(in srgb, var(--theme-accent) 35%, transparent);
+  --theme-glass-bg: color-mix(in srgb, var(--theme-panel) 78%, transparent);
+  --theme-glass-border: color-mix(in srgb, var(--theme-border) 85%, transparent);
+  --theme-glass-blur: 14px;
 }
