@@ -17,6 +17,8 @@ export const siteConfig = {
   defaultTheme: "builder" as ThemeId,
   themeStorageKey: "lj-theme",
   localEvents: false,
+  persistDb: false,
+  contentRevision: 1,
   links: {
     github: "https://github.com/lhajoosten",
     linkedin: "https://linkedin.com/in/lhajoosten",

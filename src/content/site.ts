@@ -5,11 +5,14 @@ export const home = {
     "I build software that stays coherent when models, clouds, and product pressure all show up at once.",
   ctaProjects: "Selected work",
   ctaProjectsBuilder: "View projects",
+  ctaWriting: "Writing",
   ctaContact: "Contact",
   highlightsHeadingBuilder: "Highlights",
   highlightsHeadingEditorial: "Focus",
   featuredHeading: "Featured work",
+  recentWritingHeading: "Recent writing",
   allProjects: "All projects",
+  allWriting: "All writing",
   highlights: [
     {
       title: "AI with an engineering bar",
@@ -75,4 +78,10 @@ export const ui = {
   sortYear: "Year",
   sortTitle: "Title",
   sortStatus: "Status",
+  relatedProjects: "Related projects",
+  relatedWriting: "Related writing",
+  tocHeading: "Contents",
+  minutesToRead: (n: number) => (n === 1 ? "1 min read" : `${n} min read`),
+  rssFeed: "RSS",
+  crossLinkProjects: "See selected projects →",
 };

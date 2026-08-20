@@ -25,6 +25,11 @@ export async function listWriting(
   });
 }
 
+export async function listRecentWriting(limit = 3): Promise<WritingPost[]> {
+  const posts = await listWriting();
+  return posts.slice(0, limit);
+}
+
 export async function getWritingPost(id: string): Promise<WritingPost | null> {
   await initContent();
   return withConnection(async (conn) => {

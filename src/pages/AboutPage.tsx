@@ -1,6 +1,9 @@
 import { about } from "../content/about.ts";
+import { JsonLdScript } from "../components/seo/JsonLd.tsx";
 import { PageMeta } from "../components/seo/PageMeta.tsx";
+import { siteConfig } from "../config/site.config.ts";
 import { useTheme } from "../components/theme/useTheme.ts";
+import { personJsonLd } from "../seo/json-ld.ts";
 
 export function AboutPage() {
   const { theme } = useTheme();
@@ -8,6 +11,14 @@ export function AboutPage() {
   return (
     <article className="max-w-[var(--theme-prose)]">
       <PageMeta title={about.heading} description={about.intro[0] ?? about.heading} />
+      <JsonLdScript
+        data={personJsonLd({
+          name: siteConfig.name,
+          url: siteConfig.url,
+          jobTitle: siteConfig.role,
+          sameAs: [siteConfig.links.github, siteConfig.links.linkedin, siteConfig.links.website],
+        })}
+      />
       <h1
         className={
           theme === "builder" ? "mb-6 font-mono text-sm text-accent" : "mb-8 font-display text-5xl"

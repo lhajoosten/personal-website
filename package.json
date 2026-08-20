@@ -6,11 +6,12 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
+    "generate:site": "node --experimental-strip-types scripts/write-site-files.ts",
     "lint": "oxlint src",
     "test": "vitest run",
     "test:watch": "vitest",
     "preview": "vite preview",
-    "check": "oxlint src && oxfmt --check && tsc --noEmit",
+    "check": "oxlint src && oxfmt --check && tsc -b",
     "prepare": "husky"
   },
   "dependencies": {

@@ -4,6 +4,7 @@ import ehWorker from "@duckdb/duckdb-wasm/dist/duckdb-browser-eh.worker.js?url";
 import duckdbWasmMvp from "@duckdb/duckdb-wasm/dist/duckdb-mvp.wasm?url";
 import mvpWorker from "@duckdb/duckdb-wasm/dist/duckdb-browser-mvp.worker.js?url";
 import { siteConfig } from "../config/site.config.ts";
+import { opfsSupported } from "./persist.ts";
 
 type DuckDBInstance = duckdb.AsyncDuckDB;
 
@@ -24,6 +25,17 @@ async function instantiate(): Promise<DuckDBInstance> {
   const logger = new duckdb.ConsoleLogger(duckdb.LogLevel.WARNING);
   const db = new duckdb.AsyncDuckDB(logger, worker);
   await db.instantiate(bundle.mainModule, bundle.pthreadWorker);
+
+  if (siteConfig.persistDb && opfsSupported()) {
+    try {
+      await db.open({
+        path: "opfs://luc-joosten-portfolio.db",
+      });
+    } catch {
+      // Browsers without a working OPFS path stay on the in-memory default.
+    }
+  }
+
   return db;
 }
 
@@ -83,6 +95,12 @@ export async function ensureSchema(): Promise<void> {
       CREATE TABLE IF NOT EXISTS events (
         page_path VARCHAR NOT NULL,
         ts VARCHAR NOT NULL
+      )
+    `);
+    await conn.query(`
+      CREATE TABLE IF NOT EXISTS meta (
+        key VARCHAR PRIMARY KEY,
+        value VARCHAR NOT NULL
       )
     `);
   });

@@ -19,6 +19,10 @@ export function Hero() {
             {home.ctaProjects}
           </Link>
           <span className="text-muted"> · </span>
+          <Link to="/writing" className="text-muted no-underline hover:text-ink hover:underline">
+            {home.ctaWriting}
+          </Link>
+          <span className="text-muted"> · </span>
           <Link to="/contact" className="text-muted no-underline hover:text-ink hover:underline">
             {home.ctaContact}
           </Link>
@@ -40,6 +44,12 @@ export function Hero() {
           className="rounded-theme border border-accent bg-transparent px-3 py-2 font-mono text-xs text-accent no-underline"
         >
           {home.ctaProjectsBuilder}
+        </Link>
+        <Link
+          to="/writing"
+          className="rounded-theme border border-line px-3 py-2 font-mono text-xs text-muted no-underline hover:text-ink"
+        >
+          {home.ctaWriting}
         </Link>
         <Link
           to="/contact"

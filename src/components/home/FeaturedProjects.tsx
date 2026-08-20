@@ -21,16 +21,28 @@ export function FeaturedProjects() {
         >
           {home.featuredHeading}
         </h2>
-        <Link
-          to="/projects"
-          className={
-            theme === "builder"
-              ? "font-mono text-xs text-accent no-underline hover:underline"
-              : "text-sm text-accent no-underline hover:underline"
-          }
-        >
-          {home.allProjects}
-        </Link>
+        <div className="flex flex-wrap items-baseline gap-3">
+          <Link
+            to="/writing"
+            className={
+              theme === "builder"
+                ? "font-mono text-xs text-muted no-underline hover:text-accent"
+                : "text-sm text-muted no-underline hover:underline"
+            }
+          >
+            {home.allWriting}
+          </Link>
+          <Link
+            to="/projects"
+            className={
+              theme === "builder"
+                ? "font-mono text-xs text-accent no-underline hover:underline"
+                : "text-sm text-accent no-underline hover:underline"
+            }
+          >
+            {home.allProjects}
+          </Link>
+        </div>
       </div>
 
       <QueryStatus state={state} emptyMessage={ui.noFeatured}>

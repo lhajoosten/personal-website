@@ -1,8 +1,9 @@
-import { useEffect, useId, useMemo, useRef, useState } from "react";
+import { useEffect, useId, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { siteConfig } from "../../config/site.config.ts";
 import { ui } from "../../content/site.ts";
 import { listProjects } from "../../data/projects.ts";
+import { searchContent } from "../../data/search.ts";
 import { listWriting } from "../../data/writing.ts";
 import { useTheme } from "../theme/useTheme.ts";
 import { filterCommandItems, type CommandItem } from "./search.ts";
@@ -17,6 +18,29 @@ function navItems(): CommandItem[] {
   }));
 }
 
+function catalogItems(
+  projects: Awaited<ReturnType<typeof listProjects>>,
+  posts: Awaited<ReturnType<typeof listWriting>>,
+): CommandItem[] {
+  return [
+    ...navItems(),
+    ...projects.map((project) => ({
+      id: `project-${project.id}`,
+      label: project.title,
+      hint: "Project",
+      to: `/projects/${project.id}`,
+      group: "project" as const,
+    })),
+    ...posts.map((post) => ({
+      id: `writing-${post.id}`,
+      label: post.title,
+      hint: "Writing",
+      to: `/writing/${post.id}`,
+      group: "writing" as const,
+    })),
+  ];
+}
+
 export function CommandPalette() {
   const { theme } = useTheme();
   const navigate = useNavigate();
@@ -24,6 +48,7 @@ export function CommandPalette() {
   const [query, setQuery] = useState("");
   const [active, setActive] = useState(0);
   const [catalog, setCatalog] = useState<CommandItem[]>(navItems);
+  const [searchResults, setSearchResults] = useState<CommandItem[]>([]);
   const inputRef = useRef<HTMLInputElement>(null);
   const listId = useId();
 
@@ -31,12 +56,14 @@ export function CommandPalette() {
     setOpen(false);
     setQuery("");
     setActive(0);
+    setSearchResults([]);
   }
 
   function openPalette() {
     setOpen(true);
     setQuery("");
     setActive(0);
+    setSearchResults([]);
   }
 
   useEffect(() => {
@@ -58,30 +85,51 @@ export function CommandPalette() {
     let cancelled = false;
     void Promise.all([listProjects(), listWriting()]).then(([projects, posts]) => {
       if (cancelled) return;
-      setCatalog([
-        ...navItems(),
-        ...projects.map((project) => ({
-          id: `project-${project.id}`,
-          label: project.title,
-          hint: "Project",
-          to: `/projects/${project.id}`,
-          group: "project" as const,
-        })),
-        ...posts.map((post) => ({
-          id: `writing-${post.id}`,
-          label: post.title,
-          hint: "Writing",
-          to: `/writing/${post.id}`,
-          group: "writing" as const,
-        })),
-      ]);
+      setCatalog(catalogItems(projects, posts));
     });
     return () => {
       cancelled = true;
     };
   }, [open]);
 
-  const results = useMemo(() => filterCommandItems(catalog, query), [catalog, query]);
+  useEffect(() => {
+    if (!open) return;
+    const needle = query.trim();
+    if (needle.length === 0) return;
+
+    const handle = window.setTimeout(() => {
+      void searchContent(needle)
+        .then((found) => {
+          setSearchResults([
+            ...filterCommandItems(navItems(), needle),
+            ...found.projects.map((project) => ({
+              id: `project-${project.id}`,
+              label: project.title,
+              hint: "Project",
+              to: `/projects/${project.id}`,
+              group: "project" as const,
+            })),
+            ...found.writing.map((post) => ({
+              id: `writing-${post.id}`,
+              label: post.title,
+              hint: "Writing",
+              to: `/writing/${post.id}`,
+              group: "writing" as const,
+            })),
+          ]);
+          setActive(0);
+        })
+        .catch(() => {
+          setSearchResults(filterCommandItems(catalog, needle));
+          setActive(0);
+        });
+    }, 180);
+
+    return () => window.clearTimeout(handle);
+  }, [catalog, open, query]);
+
+  const results = query.trim().length === 0 ? navItems() : searchResults;
+
   const activeIndex = results.length === 0 ? 0 : Math.min(active, results.length - 1);
 
   if (!open) return null;

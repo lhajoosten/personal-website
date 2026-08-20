@@ -12,7 +12,13 @@ function Paragraphs({ text }: { text: string }) {
   ));
 }
 
-export function ProjectDetail({ project }: { project: Project }) {
+export function ProjectDetail({
+  project,
+  related = [],
+}: {
+  project: Project;
+  related?: Project[];
+}) {
   const { theme } = useTheme();
   const isBuilder = theme === "builder";
   const hasCase = Boolean(project.problem || project.approach || project.outcome);
@@ -170,6 +176,36 @@ export function ProjectDetail({ project }: { project: Project }) {
             </li>
           ))}
         </ul>
+      ) : null}
+
+      {related && related.length > 0 ? (
+        <section className="mt-12 border-t border-line pt-8">
+          <h2
+            className={
+              isBuilder
+                ? "mb-3 font-mono text-xs tracking-widest text-muted uppercase"
+                : "mb-4 font-display text-2xl"
+            }
+          >
+            {ui.relatedProjects}
+          </h2>
+          <ul className="grid gap-2">
+            {related.map((item) => (
+              <li key={item.id}>
+                <Link
+                  to={`/projects/${item.id}`}
+                  className={
+                    isBuilder
+                      ? "font-mono text-sm text-accent no-underline hover:underline"
+                      : "text-ink no-underline hover:underline"
+                  }
+                >
+                  {item.title}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </section>
       ) : null}
     </article>
   );
