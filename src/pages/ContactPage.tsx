@@ -1,4 +1,6 @@
+import { PageMeta } from '../components/seo/PageMeta.tsx'
 import { siteConfig } from '../config/site.config.ts'
+import { contactPage } from '../content/site.ts'
 import { useTheme } from '../components/theme/useTheme.ts'
 
 const contacts = [
@@ -12,7 +14,8 @@ export function ContactPage() {
   const { theme } = useTheme()
 
   return (
-    <section className="max-w-2xl">
+    <section className="max-w-[var(--theme-prose)]">
+      <PageMeta title={contactPage.heading} description={contactPage.intro} />
       <h1
         className={
           theme === 'builder'
@@ -20,19 +23,17 @@ export function ContactPage() {
             : 'mb-6 font-display text-5xl'
         }
       >
-        Contact
+        {contactPage.heading}
       </h1>
-      <p className="mb-8 text-muted">
-        GitHub and LinkedIn are the best channels. Email works for longer notes.
-      </p>
-      <ul className={theme === 'builder' ? 'grid gap-3' : 'divide-y divide-line'}>
+      <p className="mb-8 text-muted">{contactPage.intro}</p>
+      <ul className={theme === 'builder' ? 'grid gap-3' : 'divide-y divide-line border-t border-line'}>
         {contacts.map((item) => (
           <li
             key={item.label}
             className={
               theme === 'builder'
                 ? 'rounded-theme border border-line bg-panel px-4 py-3'
-                : 'py-4'
+                : 'py-5'
             }
           >
             <a

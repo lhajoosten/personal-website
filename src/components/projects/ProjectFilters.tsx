@@ -1,4 +1,5 @@
 import { PROJECT_STATUSES, type ProjectStatus } from '../../content/types.ts'
+import { ui } from '../../content/site.ts'
 import { useTheme } from '../theme/useTheme.ts'
 
 type Props = {
@@ -25,7 +26,7 @@ export function ProjectFilters({
   return (
     <div className="mb-8 flex flex-wrap gap-4">
       <label className="flex flex-col gap-1 text-xs text-muted">
-        Status
+        {ui.filterStatus}
         <select
           value={status}
           onChange={(event) =>
@@ -33,7 +34,7 @@ export function ProjectFilters({
           }
           className={controlClass}
         >
-          <option value="all">All</option>
+          <option value="all">{ui.filterAll}</option>
           {PROJECT_STATUSES.map((item) => (
             <option key={item} value={item}>
               {item}
@@ -42,13 +43,13 @@ export function ProjectFilters({
         </select>
       </label>
       <label className="flex flex-col gap-1 text-xs text-muted">
-        Tag
+        {ui.filterTag}
         <select
           value={tag}
           onChange={(event) => onTagChange(event.target.value)}
           className={controlClass}
         >
-          <option value="all">All</option>
+          <option value="all">{ui.filterAll}</option>
           {tags.map((item) => (
             <option key={item} value={item}>
               {item}

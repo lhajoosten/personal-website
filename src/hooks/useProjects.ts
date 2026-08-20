@@ -5,7 +5,7 @@ import {
 } from '../data/projects.ts'
 import type { Project } from '../content/types.ts'
 
-type LoadState<T> =
+export type LoadState<T> =
   | { status: 'loading' }
   | { status: 'ready'; data: T }
   | { status: 'error'; message: string }

@@ -1,3 +1,4 @@
+import { PageMeta } from '../components/seo/PageMeta.tsx'
 import { writing } from '../content/site.ts'
 import { useTheme } from '../components/theme/useTheme.ts'
 
@@ -5,7 +6,8 @@ export function WritingPage() {
   const { theme } = useTheme()
 
   return (
-    <section className="max-w-2xl">
+    <section className="max-w-[var(--theme-prose)]">
+      <PageMeta title={writing.heading} description={writing.body} />
       <h1
         className={
           theme === 'builder'

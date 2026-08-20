@@ -41,9 +41,9 @@ export const projects: Project[] = [
     id: 'personal-website',
     title: 'Personal portfolio',
     summary:
-      'Themeable React portfolio with DuckDB-Wasm as the in-browser content layer.',
+      'This site: dual themes, content modules, and DuckDB-Wasm as a client-side query layer.',
     description:
-      'This site. Two programmatic themes (builder and editorial), content in TypeScript modules, and DuckDB-Wasm for querying projects and writing in the browser.\n\nBuilt as a production-minded foundation: strict TypeScript, config-driven themes, and a clear split between content, data access, and UI — not a one-off landing page.',
+      'Two programmatic themes (builder and editorial), TypeScript content modules, and DuckDB-Wasm for querying projects in the browser.\n\nBuilt as a production-minded foundation: strict TypeScript, config-driven themes, and a clear split between content, data access, and UI — not a one-off landing page.',
     status: 'active',
     tags: ['React', 'TypeScript', 'Vite', 'DuckDB', 'Tailwind'],
     featured: true,
@@ -90,11 +90,11 @@ export const projects: Project[] = [
     id: 'studdit',
     title: 'Studdit 2.0',
     summary:
-      'C# student community platform — forum-style collaboration for study groups.',
+      'Student project: a C# community platform for study-group style collaboration.',
     description:
-      'Archived student project exploring community features, content posting, and a structured backend in C#/.NET.\n\nKept as a marker of full-stack product work before the current AI and cloud focus.',
+      'Archived coursework exploring forum-style posting and a structured .NET backend. Kept as a marker of full-stack product work before the current AI/cloud focus — not a production product.',
     status: 'archived',
-    tags: ['C#', '.NET', 'Full-stack'],
+    tags: ['C#', '.NET', 'Full-stack', 'coursework'],
     featured: false,
     year: 2025,
     links: [

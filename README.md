@@ -9,6 +9,7 @@ pnpm install
 pnpm dev      # local dev server
 pnpm test     # vitest (content/theme helpers)
 pnpm lint     # oxlint
+pnpm check    # oxlint + tsc --noEmit
 pnpm build    # tsc -b && production bundle
 pnpm preview  # serve dist/
 ```
@@ -33,7 +34,9 @@ Default theme and storage key: `src/config/site.config.ts` (`defaultTheme`, `the
 | About copy | `src/content/about.ts` |
 | Home/writing copy | `src/content/site.ts` |
 
-Do not put visitor-facing copy in components when it belongs in those modules.
+Do not put visitor-facing copy in components when it belongs in those modules. Shared UI strings (loading, empty, menu) live in `src/content/site.ts` under `ui`.
+
+Document titles are set per page by `PageMeta` (`src/components/seo/PageMeta.tsx`) using `formatPageTitle` in `src/config/page-meta.ts` — no extra SEO library.
 
 ## DuckDB seed and query flow
 

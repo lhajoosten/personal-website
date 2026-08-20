@@ -1,6 +1,8 @@
 export type AboutContent = {
   heading: string
   intro: string[]
+  stackHeading: string
+  pathHeading: string
   stack: { label: string; items: string[] }[]
   learningPath: { title: string; body: string }[]
 }
@@ -12,6 +14,8 @@ export const about: AboutContent = {
     'I build intelligent systems that bridge traditional software engineering with modern AI/ML workflows — agents, RAG, and cloud delivery included. Graduated in 2025 with a BSc in Information Technology.',
     'AI changes how we build. It does not change the need for clear architecture, observable systems, and honest trade-offs. That is the “engineered properly” part.',
   ],
+  stackHeading: 'Stack',
+  pathHeading: 'Learning path',
   stack: [
     {
       label: 'Backend',

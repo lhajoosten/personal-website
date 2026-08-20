@@ -1,6 +1,8 @@
 import { Link } from 'react-router-dom'
+import { home, ui } from '../../content/site.ts'
 import { useFeaturedProjects } from '../../hooks/useProjects.ts'
 import { ProjectList } from '../projects/ProjectList.tsx'
+import { QueryStatus } from '../projects/QueryStatus.tsx'
 import { useTheme } from '../theme/useTheme.ts'
 
 export function FeaturedProjects() {
@@ -17,7 +19,7 @@ export function FeaturedProjects() {
               : 'font-display text-3xl'
           }
         >
-          Featured work
+          {home.featuredHeading}
         </h2>
         <Link
           to="/projects"
@@ -27,24 +29,13 @@ export function FeaturedProjects() {
               : 'text-sm text-accent no-underline hover:underline'
           }
         >
-          All projects
+          {home.allProjects}
         </Link>
       </div>
 
-      {state.status === 'loading' ? (
-        <p className="text-muted">Loading projects from DuckDB…</p>
-      ) : null}
-      {state.status === 'error' ? (
-        <p role="alert" className="text-accent">
-          Could not initialize the local database. {state.message}
-        </p>
-      ) : null}
-      {state.status === 'ready' && state.data.length === 0 ? (
-        <p className="text-muted">No featured projects yet.</p>
-      ) : null}
-      {state.status === 'ready' && state.data.length > 0 ? (
-        <ProjectList projects={state.data} />
-      ) : null}
+      <QueryStatus state={state} emptyMessage={ui.noFeatured}>
+        {(projects) => <ProjectList projects={projects} />}
+      </QueryStatus>
     </section>
   )
 }

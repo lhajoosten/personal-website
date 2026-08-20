@@ -1,11 +1,13 @@
 import { about } from '../content/about.ts'
+import { PageMeta } from '../components/seo/PageMeta.tsx'
 import { useTheme } from '../components/theme/useTheme.ts'
 
 export function AboutPage() {
   const { theme } = useTheme()
 
   return (
-    <article className="max-w-3xl">
+    <article className="max-w-[var(--theme-prose)]">
+      <PageMeta title={about.heading} description={about.intro[0] ?? about.heading} />
       <h1
         className={
           theme === 'builder'
@@ -28,7 +30,7 @@ export function AboutPage() {
             : 'mt-12 mb-6 font-display text-3xl'
         }
       >
-        Stack
+        {about.stackHeading}
       </h2>
       <ul className={theme === 'builder' ? 'grid gap-3 sm:grid-cols-3' : 'grid gap-8'}>
         {about.stack.map((group) => (
@@ -53,7 +55,7 @@ export function AboutPage() {
             : 'mt-12 mb-6 font-display text-3xl'
         }
       >
-        Learning path
+        {about.pathHeading}
       </h2>
       <ol className="grid gap-6">
         {about.learningPath.map((item) => (
