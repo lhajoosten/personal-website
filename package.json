@@ -44,5 +44,5 @@
     "*": "oxfmt --no-error-on-unmatched-pattern",
     "src/**/*.{ts,tsx}": "oxlint --fix"
   },
-  "packageManager": "pnpm@11.5.1"
+  "packageManager": "pnpm@11.18.0"
 }
