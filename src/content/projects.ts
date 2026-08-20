@@ -118,4 +118,40 @@ export const projects: Project[] = [
     year: 2025,
     links: [{ label: "GitHub", href: "https://github.com/lhajoosten/Task-Manager-v2" }],
   },
+  {
+    id: "pipeline-pro",
+    title: "Pipeline-Pro",
+    summary: "Archived Avans assignment: design patterns modeled in TypeScript.",
+    description:
+      "Software Design & Architecture (SOA3) coursework with Erdem Pekguzel: Adapter, Factory, Observer, State, Template, and Visitor in TypeScript, with Jest coverage.\n\nNot a product. Kept as archived design-pattern / DevOps-course work from 2023.",
+    status: "archived",
+    tags: ["TypeScript", "Design patterns", "Jest", "coursework"],
+    featured: false,
+    year: 2023,
+    links: [{ label: "GitHub", href: "https://github.com/lhajoosten/Pipeline-Pro" }],
+  },
+  {
+    id: "client-side-programming",
+    title: "Client-side programming",
+    summary: "Archived 2019 Vue SPA: async task manager with a Node API.",
+    description:
+      "Second-year individual assignment: a Vue SPA (Vue Router, Vuex) for an asynchronous task manager, with Express and MongoDB behind it, plus an Azure Pipeline.\n\nEarly full-stack coursework. Kept as archived client-side work from 2019.",
+    status: "archived",
+    tags: ["Vue", "Node.js", "MongoDB", "SPA", "coursework"],
+    featured: false,
+    year: 2019,
+    links: [{ label: "GitHub", href: "https://github.com/lhajoosten/Client-side-programming" }],
+  },
+  {
+    id: "server-side-programming",
+    title: "Server-side programming",
+    summary: "Archived 2019 ASP.NET app: chef/customer GUIs and a REST API.",
+    description:
+      "Second-year individual assignment (EasyMeal): CRUD UI for a chef, a customer UI to order meals from weekly plans, and Level 2/3 REST APIs in ASP.NET Core, with Azure CI.\n\nEarly server-side coursework. Kept as archived .NET work from 2019.",
+    status: "archived",
+    tags: ["C#", "ASP.NET", "REST", "coursework"],
+    featured: false,
+    year: 2019,
+    links: [{ label: "GitHub", href: "https://github.com/lhajoosten/Server-side-programming" }],
+  },
 ];
