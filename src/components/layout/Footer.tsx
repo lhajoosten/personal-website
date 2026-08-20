@@ -1,9 +1,9 @@
-import { siteConfig } from '../../config/site.config.ts'
-import { useTheme } from '../theme/useTheme.ts'
+import { siteConfig } from "../../config/site.config.ts";
+import { useTheme } from "../theme/useTheme.ts";
 
 export function Footer() {
-  const { theme } = useTheme()
-  const year = new Date().getFullYear()
+  const { theme } = useTheme();
+  const year = new Date().getFullYear();
 
   return (
     <footer className="mt-auto border-t border-line">
@@ -11,10 +11,10 @@ export function Footer() {
         <p>
           © {year} {siteConfig.name}
         </p>
-        <p className={theme === 'builder' ? 'font-mono text-xs' : 'font-display italic'}>
+        <p className={theme === "builder" ? "font-mono text-xs" : "font-display italic"}>
           {siteConfig.tagline}
         </p>
       </div>
     </footer>
-  )
+  );
 }

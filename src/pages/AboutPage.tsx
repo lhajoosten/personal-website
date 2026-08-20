@@ -1,18 +1,16 @@
-import { about } from '../content/about.ts'
-import { PageMeta } from '../components/seo/PageMeta.tsx'
-import { useTheme } from '../components/theme/useTheme.ts'
+import { about } from "../content/about.ts";
+import { PageMeta } from "../components/seo/PageMeta.tsx";
+import { useTheme } from "../components/theme/useTheme.ts";
 
 export function AboutPage() {
-  const { theme } = useTheme()
+  const { theme } = useTheme();
 
   return (
     <article className="max-w-[var(--theme-prose)]">
       <PageMeta title={about.heading} description={about.intro[0] ?? about.heading} />
       <h1
         className={
-          theme === 'builder'
-            ? 'mb-6 font-mono text-sm text-accent'
-            : 'mb-8 font-display text-5xl'
+          theme === "builder" ? "mb-6 font-mono text-sm text-accent" : "mb-8 font-display text-5xl"
         }
       >
         {about.heading}
@@ -25,34 +23,34 @@ export function AboutPage() {
 
       <h2
         className={
-          theme === 'builder'
-            ? 'mt-10 mb-4 font-mono text-xs tracking-widest text-muted uppercase'
-            : 'mt-12 mb-6 font-display text-3xl'
+          theme === "builder"
+            ? "mt-10 mb-4 font-mono text-xs tracking-widest text-muted uppercase"
+            : "mt-12 mb-6 font-display text-3xl"
         }
       >
         {about.stackHeading}
       </h2>
-      <ul className={theme === 'builder' ? 'grid gap-3 sm:grid-cols-3' : 'grid gap-8'}>
+      <ul className={theme === "builder" ? "grid gap-3 sm:grid-cols-3" : "grid gap-8"}>
         {about.stack.map((group) => (
           <li
             key={group.label}
             className={
-              theme === 'builder'
-                ? 'rounded-theme border border-line bg-panel p-4'
-                : 'border-t border-line pt-4'
+              theme === "builder"
+                ? "rounded-theme border border-line bg-panel p-4"
+                : "border-t border-line pt-4"
             }
           >
             <h3 className="mb-2 font-semibold">{group.label}</h3>
-            <p className="text-sm text-muted">{group.items.join(' · ')}</p>
+            <p className="text-sm text-muted">{group.items.join(" · ")}</p>
           </li>
         ))}
       </ul>
 
       <h2
         className={
-          theme === 'builder'
-            ? 'mt-10 mb-4 font-mono text-xs tracking-widest text-muted uppercase'
-            : 'mt-12 mb-6 font-display text-3xl'
+          theme === "builder"
+            ? "mt-10 mb-4 font-mono text-xs tracking-widest text-muted uppercase"
+            : "mt-12 mb-6 font-display text-3xl"
         }
       >
         {about.pathHeading}
@@ -62,9 +60,9 @@ export function AboutPage() {
           <li key={item.title}>
             <h3
               className={
-                theme === 'builder'
-                  ? 'mb-1 font-mono text-sm text-accent'
-                  : 'mb-1 font-display text-2xl'
+                theme === "builder"
+                  ? "mb-1 font-mono text-sm text-accent"
+                  : "mb-1 font-display text-2xl"
               }
             >
               {item.title}
@@ -74,5 +72,5 @@ export function AboutPage() {
         ))}
       </ol>
     </article>
-  )
+  );
 }

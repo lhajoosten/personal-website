@@ -1,46 +1,43 @@
-import { useCallback, useEffect, useMemo, useState, type ReactNode } from 'react'
-import { isThemeId, siteConfig, type ThemeId } from '../../config/site.config.ts'
-import { ThemeContext } from './theme-context.ts'
+import { useCallback, useEffect, useMemo, useState, type ReactNode } from "react";
+import { isThemeId, siteConfig, type ThemeId } from "../../config/site.config.ts";
+import { ThemeContext } from "./theme-context.ts";
 
 function readStoredTheme(): ThemeId {
   try {
-    const stored = localStorage.getItem(siteConfig.themeStorageKey)
-    if (isThemeId(stored)) return stored
+    const stored = localStorage.getItem(siteConfig.themeStorageKey);
+    if (isThemeId(stored)) return stored;
   } catch {
     // localStorage can throw in private mode
   }
-  return siteConfig.defaultTheme
+  return siteConfig.defaultTheme;
 }
 
 function applyTheme(theme: ThemeId) {
-  document.documentElement.dataset.theme = theme
+  document.documentElement.dataset.theme = theme;
 }
 
 export function ThemeProvider({ children }: { children: ReactNode }) {
-  const [theme, setThemeState] = useState<ThemeId>(readStoredTheme)
+  const [theme, setThemeState] = useState<ThemeId>(readStoredTheme);
 
   useEffect(() => {
-    applyTheme(theme)
-  }, [theme])
+    applyTheme(theme);
+  }, [theme]);
 
   const setTheme = useCallback((next: ThemeId) => {
-    setThemeState(next)
-    applyTheme(next)
+    setThemeState(next);
+    applyTheme(next);
     try {
-      localStorage.setItem(siteConfig.themeStorageKey, next)
+      localStorage.setItem(siteConfig.themeStorageKey, next);
     } catch {
       // ignore persistence failures
     }
-  }, [])
+  }, []);
 
   const toggleTheme = useCallback(() => {
-    setTheme(theme === 'builder' ? 'editorial' : 'builder')
-  }, [setTheme, theme])
+    setTheme(theme === "builder" ? "editorial" : "builder");
+  }, [setTheme, theme]);
 
-  const value = useMemo(
-    () => ({ theme, setTheme, toggleTheme }),
-    [theme, setTheme, toggleTheme],
-  )
+  const value = useMemo(() => ({ theme, setTheme, toggleTheme }), [theme, setTheme, toggleTheme]);
 
-  return <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>
+  return <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>;
 }

@@ -1,12 +1,12 @@
-import { siteConfig } from './site.config.ts'
+import { siteConfig } from "./site.config.ts";
 
 export function formatPageTitle(page?: string): string {
-  if (!page) return siteConfig.title
-  return `${page} — ${siteConfig.name}`
+  if (!page) return siteConfig.title;
+  return `${page} — ${siteConfig.name}`;
 }
 
-export function formatCanonicalUrl(path = '/'): string {
-  const normalized = path.startsWith('/') ? path : `/${path}`
-  if (normalized === '/') return siteConfig.url
-  return `${siteConfig.url}${normalized}`
+export function formatCanonicalUrl(path = "/"): string {
+  const normalized = path.startsWith("/") ? path : `/${path}`;
+  if (normalized === "/") return siteConfig.url;
+  return `${siteConfig.url}${normalized}`;
 }

@@ -1,13 +1,13 @@
-import { Link } from 'react-router-dom'
-import type { Project } from '../../content/types.ts'
-import { useTheme } from '../theme/useTheme.ts'
-import { StatusBadge } from './StatusBadge.tsx'
+import { Link } from "react-router-dom";
+import type { Project } from "../../content/types.ts";
+import { useTheme } from "../theme/useTheme.ts";
+import { StatusBadge } from "./StatusBadge.tsx";
 
 export function ProjectCard({ project }: { project: Project }) {
-  const { theme } = useTheme()
-  const to = `/projects/${project.id}`
+  const { theme } = useTheme();
+  const to = `/projects/${project.id}`;
 
-  if (theme === 'editorial') {
+  if (theme === "editorial") {
     return (
       <article className="grid gap-2 border-b border-line py-7 sm:grid-cols-[minmax(11rem,1fr)_minmax(0,2fr)_auto] sm:items-baseline sm:gap-10">
         <h3 className="font-display text-2xl font-semibold tracking-tight">
@@ -23,7 +23,7 @@ export function ProjectCard({ project }: { project: Project }) {
         </div>
         <p className="font-display text-lg tabular-nums text-muted">{project.year}</p>
       </article>
-    )
+    );
   }
 
   return (
@@ -49,5 +49,5 @@ export function ProjectCard({ project }: { project: Project }) {
         ))}
       </ul>
     </article>
-  )
+  );
 }

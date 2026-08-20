@@ -1,11 +1,11 @@
-import { Link } from 'react-router-dom'
-import type { WritingPost } from '../../content/types.ts'
-import { useTheme } from '../theme/useTheme.ts'
+import { Link } from "react-router-dom";
+import type { WritingPost } from "../../content/types.ts";
+import { useTheme } from "../theme/useTheme.ts";
 
 export function WritingList({ posts }: { posts: WritingPost[] }) {
-  const { theme } = useTheme()
+  const { theme } = useTheme();
 
-  if (theme === 'editorial') {
+  if (theme === "editorial") {
     return (
       <div className="border-t border-line">
         {posts.map((post) => (
@@ -20,7 +20,7 @@ export function WritingList({ posts }: { posts: WritingPost[] }) {
           </article>
         ))}
       </div>
-    )
+    );
   }
 
   return (
@@ -29,10 +29,7 @@ export function WritingList({ posts }: { posts: WritingPost[] }) {
         <li key={post.id} className="rounded-theme border border-line bg-panel p-4">
           <p className="mb-1 font-mono text-[11px] text-accent">{post.publishedAt}</p>
           <h2 className="text-lg font-semibold">
-            <Link
-              to={`/writing/${post.id}`}
-              className="text-ink no-underline hover:text-accent"
-            >
+            <Link to={`/writing/${post.id}`} className="text-ink no-underline hover:text-accent">
               {post.title}
             </Link>
           </h2>
@@ -40,5 +37,5 @@ export function WritingList({ posts }: { posts: WritingPost[] }) {
         </li>
       ))}
     </ul>
-  )
+  );
 }

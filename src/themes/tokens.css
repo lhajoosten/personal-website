@@ -1,5 +1,5 @@
 :root,
-html[data-theme='builder'] {
+html[data-theme="builder"] {
   color-scheme: dark;
   --theme-bg: #0d1117;
   --theme-fg: #e6edf3;
@@ -7,9 +7,9 @@ html[data-theme='builder'] {
   --theme-accent: #39d0ff;
   --theme-border: #30363d;
   --theme-panel: #161b22;
-  --theme-font-sans: 'IBM Plex Sans', ui-sans-serif, system-ui, sans-serif;
-  --theme-font-display: 'IBM Plex Sans', ui-sans-serif, system-ui, sans-serif;
-  --theme-font-mono: 'IBM Plex Mono', ui-monospace, monospace;
+  --theme-font-sans: "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
+  --theme-font-display: "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
+  --theme-font-mono: "IBM Plex Mono", ui-monospace, monospace;
   --theme-radius: 0.375rem;
   --theme-max: 72rem;
   --theme-prose: 40rem;
@@ -19,7 +19,7 @@ html[data-theme='builder'] {
   --theme-status-archived: #8b949e;
 }
 
-html[data-theme='editorial'] {
+html[data-theme="editorial"] {
   color-scheme: light;
   --theme-bg: #f6f1e8;
   --theme-fg: #1c1917;
@@ -27,9 +27,9 @@ html[data-theme='editorial'] {
   --theme-accent: #9a3412;
   --theme-border: #ddd4c8;
   --theme-panel: transparent;
-  --theme-font-sans: 'Source Sans 3', ui-sans-serif, system-ui, sans-serif;
-  --theme-font-display: 'Newsreader', 'Times New Roman', serif;
-  --theme-font-mono: 'IBM Plex Mono', ui-monospace, monospace;
+  --theme-font-sans: "Source Sans 3", ui-sans-serif, system-ui, sans-serif;
+  --theme-font-display: "Newsreader", "Times New Roman", serif;
+  --theme-font-mono: "IBM Plex Mono", ui-monospace, monospace;
   --theme-radius: 0;
   --theme-max: 60rem;
   --theme-prose: 36rem;

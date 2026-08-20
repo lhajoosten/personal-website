@@ -1,10 +1,10 @@
-import { home } from '../../content/site.ts'
-import { useTheme } from '../theme/useTheme.ts'
+import { home } from "../../content/site.ts";
+import { useTheme } from "../theme/useTheme.ts";
 
 export function FeatureGrid() {
-  const { theme } = useTheme()
+  const { theme } = useTheme();
 
-  if (theme === 'editorial') {
+  if (theme === "editorial") {
     return (
       <section className="mb-20">
         <h2 className="mb-10 font-display text-3xl">{home.highlightsHeadingEditorial}</h2>
@@ -12,7 +12,7 @@ export function FeatureGrid() {
           {home.highlights.map((item, index) => (
             <li key={item.title} className="border-t border-line pt-4">
               <p className="mb-3 font-display text-4xl text-muted">
-                {String(index + 1).padStart(2, '0')}
+                {String(index + 1).padStart(2, "0")}
               </p>
               <h3 className="mb-2 text-lg font-semibold">{item.title}</h3>
               <p className="leading-relaxed text-muted">{item.body}</p>
@@ -20,7 +20,7 @@ export function FeatureGrid() {
           ))}
         </ol>
       </section>
-    )
+    );
   }
 
   return (
@@ -30,15 +30,12 @@ export function FeatureGrid() {
       </h2>
       <ul className="grid gap-3 sm:grid-cols-3">
         {home.highlights.map((item) => (
-          <li
-            key={item.title}
-            className="rounded-theme border border-line bg-panel p-4"
-          >
+          <li key={item.title} className="rounded-theme border border-line bg-panel p-4">
             <h3 className="mb-2 text-sm font-semibold text-accent">{item.title}</h3>
             <p className="text-sm text-muted">{item.body}</p>
           </li>
         ))}
       </ul>
     </section>
-  )
+  );
 }

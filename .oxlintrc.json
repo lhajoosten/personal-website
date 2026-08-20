@@ -12,7 +12,10 @@
     "typescript/consistent-type-imports": ["error", { "prefer": "type-imports" }],
     "typescript/no-explicit-any": "error",
     "typescript/no-non-null-assertion": "warn",
-    "typescript/no-unused-vars": ["error", { "vars": "all", "args": "after-used", "ignoreRestSiblings": false }],
+    "typescript/no-unused-vars": [
+      "error",
+      { "vars": "all", "args": "after-used", "ignoreRestSiblings": false }
+    ],
     "typescript/ban-types": "error",
 
     // General JS/TS code quality

@@ -1,51 +1,51 @@
-import * as duckdb from '@duckdb/duckdb-wasm'
-import duckdbWasmEh from '@duckdb/duckdb-wasm/dist/duckdb-eh.wasm?url'
-import ehWorker from '@duckdb/duckdb-wasm/dist/duckdb-browser-eh.worker.js?url'
-import duckdbWasmMvp from '@duckdb/duckdb-wasm/dist/duckdb-mvp.wasm?url'
-import mvpWorker from '@duckdb/duckdb-wasm/dist/duckdb-browser-mvp.worker.js?url'
-import { siteConfig } from '../config/site.config.ts'
+import * as duckdb from "@duckdb/duckdb-wasm";
+import duckdbWasmEh from "@duckdb/duckdb-wasm/dist/duckdb-eh.wasm?url";
+import ehWorker from "@duckdb/duckdb-wasm/dist/duckdb-browser-eh.worker.js?url";
+import duckdbWasmMvp from "@duckdb/duckdb-wasm/dist/duckdb-mvp.wasm?url";
+import mvpWorker from "@duckdb/duckdb-wasm/dist/duckdb-browser-mvp.worker.js?url";
+import { siteConfig } from "../config/site.config.ts";
 
-type DuckDBInstance = duckdb.AsyncDuckDB
+type DuckDBInstance = duckdb.AsyncDuckDB;
 
-let initPromise: Promise<DuckDBInstance> | null = null
+let initPromise: Promise<DuckDBInstance> | null = null;
 
 async function instantiate(): Promise<DuckDBInstance> {
   const bundles: duckdb.DuckDBBundles = {
     mvp: { mainModule: duckdbWasmMvp, mainWorker: mvpWorker },
     eh: { mainModule: duckdbWasmEh, mainWorker: ehWorker },
-  }
+  };
 
-  const bundle = await duckdb.selectBundle(bundles)
+  const bundle = await duckdb.selectBundle(bundles);
   if (!bundle.mainWorker) {
-    throw new Error('DuckDB worker bundle is missing')
+    throw new Error("DuckDB worker bundle is missing");
   }
 
-  const worker = new Worker(bundle.mainWorker, { type: 'module' })
-  const logger = new duckdb.ConsoleLogger(duckdb.LogLevel.WARNING)
-  const db = new duckdb.AsyncDuckDB(logger, worker)
-  await db.instantiate(bundle.mainModule, bundle.pthreadWorker)
-  return db
+  const worker = new Worker(bundle.mainWorker, { type: "module" });
+  const logger = new duckdb.ConsoleLogger(duckdb.LogLevel.WARNING);
+  const db = new duckdb.AsyncDuckDB(logger, worker);
+  await db.instantiate(bundle.mainModule, bundle.pthreadWorker);
+  return db;
 }
 
 export async function getDb(): Promise<DuckDBInstance> {
   if (!initPromise) {
     initPromise = instantiate().catch((error: unknown) => {
-      initPromise = null
-      throw error
-    })
+      initPromise = null;
+      throw error;
+    });
   }
-  return initPromise
+  return initPromise;
 }
 
 export async function withConnection<T>(
   fn: (conn: duckdb.AsyncDuckDBConnection) => Promise<T>,
 ): Promise<T> {
-  const db = await getDb()
-  const conn = await db.connect()
+  const db = await getDb();
+  const conn = await db.connect();
   try {
-    return await fn(conn)
+    return await fn(conn);
   } finally {
-    await conn.close()
+    await conn.close();
   }
 }
 
@@ -67,7 +67,7 @@ export async function ensureSchema(): Promise<void> {
         outcome VARCHAR NOT NULL,
         highlights VARCHAR NOT NULL
       )
-    `)
+    `);
     await conn.query(`
       CREATE TABLE IF NOT EXISTS writing (
         id VARCHAR PRIMARY KEY,
@@ -78,20 +78,20 @@ export async function ensureSchema(): Promise<void> {
         tags VARCHAR NOT NULL,
         published BOOLEAN NOT NULL
       )
-    `)
+    `);
     await conn.query(`
       CREATE TABLE IF NOT EXISTS events (
         page_path VARCHAR NOT NULL,
         ts VARCHAR NOT NULL
       )
-    `)
-  })
+    `);
+  });
 }
 
 export function localEventsEnabled(): boolean {
-  return siteConfig.localEvents
+  return siteConfig.localEvents;
 }
 
 export function resetDbForTests(): void {
-  initPromise = null
+  initPromise = null;
 }

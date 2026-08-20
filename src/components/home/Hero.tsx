@@ -1,17 +1,15 @@
-import { Link } from 'react-router-dom'
-import { home } from '../../content/site.ts'
-import { siteConfig } from '../../config/site.config.ts'
-import { useTheme } from '../theme/useTheme.ts'
+import { Link } from "react-router-dom";
+import { home } from "../../content/site.ts";
+import { siteConfig } from "../../config/site.config.ts";
+import { useTheme } from "../theme/useTheme.ts";
 
 export function Hero() {
-  const { theme } = useTheme()
+  const { theme } = useTheme();
 
-  if (theme === 'editorial') {
+  if (theme === "editorial") {
     return (
       <section className="mb-20 max-w-[var(--theme-prose)]">
-        <p className="mb-5 text-xs tracking-[0.22em] text-muted uppercase">
-          {siteConfig.role}
-        </p>
+        <p className="mb-5 text-xs tracking-[0.22em] text-muted uppercase">{siteConfig.role}</p>
         <h1 className="font-display text-5xl leading-[1.08] font-semibold tracking-tight sm:text-6xl">
           {siteConfig.tagline}
         </h1>
@@ -21,15 +19,12 @@ export function Hero() {
             {home.ctaProjects}
           </Link>
           <span className="text-muted"> · </span>
-          <Link
-            to="/contact"
-            className="text-muted no-underline hover:text-ink hover:underline"
-          >
+          <Link to="/contact" className="text-muted no-underline hover:text-ink hover:underline">
             {home.ctaContact}
           </Link>
         </p>
       </section>
-    )
+    );
   }
 
   return (
@@ -54,5 +49,5 @@ export function Hero() {
         </Link>
       </div>
     </section>
-  )
+  );
 }

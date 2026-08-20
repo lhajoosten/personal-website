@@ -1,14 +1,14 @@
-import { BrowserRouter, Route, Routes } from 'react-router-dom'
-import { SiteLayout } from './components/layout/SiteLayout.tsx'
-import { ThemeProvider } from './components/theme/ThemeProvider.tsx'
-import { AboutPage } from './pages/AboutPage.tsx'
-import { ContactPage } from './pages/ContactPage.tsx'
-import { HomePage } from './pages/HomePage.tsx'
-import { NotFoundPage } from './pages/NotFoundPage.tsx'
-import { ProjectDetailPage } from './pages/ProjectDetailPage.tsx'
-import { ProjectsPage } from './pages/ProjectsPage.tsx'
-import { WritingDetailPage } from './pages/WritingDetailPage.tsx'
-import { WritingPage } from './pages/WritingPage.tsx'
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { SiteLayout } from "./components/layout/SiteLayout.tsx";
+import { ThemeProvider } from "./components/theme/ThemeProvider.tsx";
+import { AboutPage } from "./pages/AboutPage.tsx";
+import { ContactPage } from "./pages/ContactPage.tsx";
+import { HomePage } from "./pages/HomePage.tsx";
+import { NotFoundPage } from "./pages/NotFoundPage.tsx";
+import { ProjectDetailPage } from "./pages/ProjectDetailPage.tsx";
+import { ProjectsPage } from "./pages/ProjectsPage.tsx";
+import { WritingDetailPage } from "./pages/WritingDetailPage.tsx";
+import { WritingPage } from "./pages/WritingPage.tsx";
 
 export default function App() {
   return (
@@ -28,5 +28,5 @@ export default function App() {
         </Routes>
       </BrowserRouter>
     </ThemeProvider>
-  )
+  );
 }

@@ -9,24 +9,26 @@ pnpm install
 pnpm dev      # local dev server
 pnpm test     # vitest
 pnpm lint     # oxlint
-pnpm check    # oxlint + tsc --noEmit
+pnpm check    # oxlint + oxfmt --check + tsc --noEmit
 pnpm build    # tsc -b && production bundle
 pnpm preview  # serve dist/ (SPA fallback)
 ```
+
+Pre-commit (Husky + lint-staged): staged files are formatted with oxfmt; `src/**/*.{ts,tsx}` also run through `oxlint --fix`. Hooks install via `pnpm install` (`prepare`: `husky`).
 
 Static hosting: `public/_redirects` (Netlify) and `vercel.json` send unknown paths to `index.html`. GitHub Pages needs the same SPA fallback (or a `404.html` copy of `index.html`).
 
 ## Routes
 
-| Path | Source |
-| --- | --- |
-| `/` | Home |
-| `/projects` | List + filters (`?status=&tag=&sort=`) |
-| `/projects/:id` | Project case |
-| `/writing` | Published posts |
-| `/writing/:id` | Post |
-| `/about` `/contact` | Static content |
-| unknown | 404 |
+| Path                | Source                                 |
+| ------------------- | -------------------------------------- |
+| `/`                 | Home                                   |
+| `/projects`         | List + filters (`?status=&tag=&sort=`) |
+| `/projects/:id`     | Project case                           |
+| `/writing`          | Published posts                        |
+| `/writing/:id`      | Post                                   |
+| `/about` `/contact` | Static content                         |
+| unknown             | 404                                    |
 
 Command palette: `Ctrl/Cmd+K` searches pages, projects, and writing.
 
@@ -36,12 +38,12 @@ Command palette: `Ctrl/Cmd+K` searches pages, projects, and writing.
 
 ## Content and DuckDB
 
-| What | Where |
-| --- | --- |
+| What                               | Where                       |
+| ---------------------------------- | --------------------------- |
 | Site meta, nav, `localEvents` flag | `src/config/site.config.ts` |
-| Projects | `src/content/projects.ts` |
-| Writing | `src/content/writing.ts` |
-| UI copy | `src/content/site.ts` |
+| Projects                           | `src/content/projects.ts`   |
+| Writing                            | `src/content/writing.ts`    |
+| UI copy                            | `src/content/site.ts`       |
 
 Flow:
 

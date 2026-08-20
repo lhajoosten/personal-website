@@ -1,17 +1,17 @@
-import { useEffect } from 'react'
-import { Outlet, useLocation } from 'react-router-dom'
-import { CommandPalette } from '../command/CommandPalette.tsx'
-import { ui } from '../../content/site.ts'
-import { logPageView } from '../../data/events.ts'
-import { Footer } from './Footer.tsx'
-import { Header } from './Header.tsx'
+import { useEffect } from "react";
+import { Outlet, useLocation } from "react-router-dom";
+import { CommandPalette } from "../command/CommandPalette.tsx";
+import { ui } from "../../content/site.ts";
+import { logPageView } from "../../data/events.ts";
+import { Footer } from "./Footer.tsx";
+import { Header } from "./Header.tsx";
 
 export function SiteLayout() {
-  const location = useLocation()
+  const location = useLocation();
 
   useEffect(() => {
-    void logPageView(location.pathname)
-  }, [location.pathname])
+    void logPageView(location.pathname);
+  }, [location.pathname]);
 
   return (
     <div className="flex min-h-svh flex-col bg-canvas text-ink">
@@ -31,5 +31,5 @@ export function SiteLayout() {
       <Footer />
       <CommandPalette />
     </div>
-  )
+  );
 }
