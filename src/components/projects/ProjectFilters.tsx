@@ -1,5 +1,4 @@
-import type { ProjectStatus } from '../../content/types.ts'
-import { PROJECT_STATUSES } from '../../content/types.ts'
+import { PROJECT_STATUSES, type ProjectStatus } from '../../content/types.ts'
 import { useTheme } from '../theme/useTheme.ts'
 
 type Props = {

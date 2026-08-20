@@ -1,5 +1,5 @@
 import { projects as seedProjects } from '../content/projects.ts'
-import type { Project } from '../content/types.ts'
+import type { Project, ProjectStatus } from '../content/types.ts'
 import { ensureSchema, withConnection } from './db.ts'
 import {
   mapProjectRow,
@@ -8,7 +8,6 @@ import {
   tagLikePattern,
   type ProjectRow,
 } from './project-mapper.ts'
-import type { ProjectStatus } from '../content/types.ts'
 
 export type ProjectQuery = {
   status?: ProjectStatus
