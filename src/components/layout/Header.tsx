@@ -20,19 +20,20 @@ export function Header() {
 
   const linkClass = (isActive: boolean) =>
     isBuilder
-      ? `font-mono text-xs no-underline ${isActive ? "text-accent" : "text-muted hover:text-ink"}`
-      : `text-sm no-underline ${isActive ? "text-ink underline decoration-line underline-offset-4" : "text-muted hover:text-ink"}`;
+      ? `inline-flex min-h-11 items-center font-mono text-xs no-underline transition-colors ${isActive ? "text-accent" : "text-muted hover:text-ink"}`
+      : `inline-flex min-h-11 items-center text-sm no-underline transition-colors ${isActive ? "text-ink underline decoration-line underline-offset-4" : "text-muted hover:text-ink"}`;
 
   return (
-    <header className={isBuilder ? "border-b border-line" : "border-b border-line"}>
-      <div className="mx-auto flex max-w-[var(--theme-max)] items-center justify-between gap-4 px-4 py-4 sm:px-6">
+    <header className="sticky top-0 z-40 border-b border-line bg-canvas/90 backdrop-blur-md">
+      <div className="mx-auto flex max-w-[var(--theme-max)] items-center justify-between gap-4 px-4 py-3 sm:px-6">
         <NavLink
           to="/"
           className={
             isBuilder
-              ? "font-mono text-sm tracking-tight text-ink no-underline"
-              : "font-display text-xl tracking-tight text-ink no-underline"
+              ? "inline-flex min-h-11 items-center font-mono text-sm tracking-tight text-ink no-underline"
+              : "inline-flex min-h-11 items-center font-display text-xl tracking-tight text-ink no-underline"
           }
+          aria-label={`${siteConfig.name} home`}
         >
           {isBuilder ? (
             <span>
@@ -44,7 +45,7 @@ export function Header() {
           )}
         </NavLink>
 
-        <nav aria-label="Primary" className="hidden items-center gap-5 md:flex">
+        <nav aria-label="Primary" className="hidden items-center gap-1 md:flex">
           {siteConfig.nav.map((item) => (
             <NavLink
               key={item.to}
@@ -63,8 +64,8 @@ export function Header() {
             type="button"
             className={
               isBuilder
-                ? "rounded-theme border border-line px-2 py-1 font-mono text-xs text-muted md:hidden"
-                : "border-0 bg-transparent px-2 py-1 text-sm text-muted md:hidden"
+                ? "inline-flex min-h-11 min-w-11 items-center justify-center rounded-theme border border-line px-2 font-mono text-xs text-muted md:hidden"
+                : "inline-flex min-h-11 min-w-11 items-center justify-center border-0 bg-transparent px-2 text-sm text-muted md:hidden"
             }
             aria-expanded={menuOpen}
             aria-controls={menuId}
@@ -85,7 +86,7 @@ export function Header() {
               : "border-t border-line px-4 py-4 md:hidden"
           }
         >
-          <ul className="grid gap-2">
+          <ul className="grid gap-1">
             {siteConfig.nav.map((item) => (
               <li key={item.to}>
                 <NavLink

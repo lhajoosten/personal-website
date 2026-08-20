@@ -9,7 +9,7 @@ describe("isThemeId", () => {
 
   it("keeps DuckDB OPFS persistence off by default", () => {
     expect(siteConfig.persistDb).toBe(false);
-    expect(siteConfig.contentRevision).toBe(3);
+    expect(siteConfig.contentRevision).toBe(4);
   });
 
   it("rejects unknown values", () => {

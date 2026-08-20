@@ -21,7 +21,7 @@ export function slugHeading(text: string): string {
   return slug.length > 0 ? slug : "section";
 }
 
-function uniqueSlug(text: string, used: Map<string, number>): string {
+export function uniqueSlug(text: string, used: Map<string, number>): string {
   const base = slugHeading(text);
   const count = used.get(base) ?? 0;
   used.set(base, count + 1);

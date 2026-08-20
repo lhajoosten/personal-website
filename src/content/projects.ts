@@ -11,6 +11,17 @@ export const projects: Project[] = [
     tags: ["Python", "AI agents", "DevEx", "Codex", "Taskfile"],
     featured: true,
     year: 2026,
+    problem:
+      "Coding agents dump generic advice and write before anyone agrees on the change set. “Done” becomes a claim, not a command that ran.",
+    approach:
+      "A local Codex plugin that structures full-stack setup as small, testable steps: TypeScript/React, Python/FastAPI, Docker, Kubernetes, and Bicep, with a single Taskfile entrypoint and proposal-first double opt-in before writes.",
+    outcome:
+      "Repos get a consistent DevEx loop: proposed write sets, executed checks, and evidence in the same session — not a pile of undocumented agent edits.",
+    highlights: [
+      "Proposal-first apply with double opt-in",
+      "Taskfile as the only “done” entrypoint",
+      "Typed stacks instead of generic agent lore",
+    ],
     links: [
       {
         label: "GitHub",
@@ -28,6 +39,17 @@ export const projects: Project[] = [
     tags: ["Python", "TypeScript", "Azure", "AI agents", "DevOps"],
     featured: true,
     year: 2026,
+    problem:
+      "PR bots that comment without a control plane, contracts, or Azure-native workflow. Automation that cannot be configured or evidenced is just noise in a pull request.",
+    approach:
+      "An Azure-first monorepo: Python/FastAPI control plane, TypeScript admin UI, Docker Compose for local run, and Task-driven quality gates before Azure DevOps and model integrations.",
+    outcome:
+      "A foundation for evidence-minded PR automation — runtime config and contracts first — rather than a drive-by comment bot.",
+    highlights: [
+      "Control plane and admin UI before the bot personality",
+      "Compose + Taskfile local loop",
+      "Azure DevOps as the target workflow, not a bolt-on",
+    ],
     links: [
       {
         label: "GitHub",

@@ -37,7 +37,7 @@ export function ContactPage() {
             <a
               href={item.href}
               className="flex items-baseline justify-between gap-4 no-underline"
-              rel={item.href.startsWith("http") ? "noreferrer" : undefined}
+              rel={item.href.startsWith("http") ? "noopener noreferrer" : undefined}
               target={item.href.startsWith("http") ? "_blank" : undefined}
             >
               <span className={theme === "builder" ? "font-mono text-sm" : "font-display text-2xl"}>

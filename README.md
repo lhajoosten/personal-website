@@ -1,82 +1,102 @@
 # Luc Joosten — portfolio
 
-Personal portfolio site: React 19, Vite, Tailwind CSS v4, React Router, and DuckDB-Wasm as an in-browser content data layer. Two programmatic themes (`builder` and `editorial`) share the same content.
+Personal site for [lucjoosten.nl](https://lucjoosten.nl): React 19, Vite, Tailwind CSS v4, React Router, DuckDB-Wasm. Two themes (`builder`, `editorial`) share one content model.
 
-Live: [lucjoosten.nl](https://lucjoosten.nl)
+Positioning: Full-stack Software Engineer → AI Engineer + DevOps/Cloud. Tagline: _AI-powered software, engineered properly_.
 
 ## Scripts
 
 ```bash
 pnpm install
-pnpm dev            # local dev server
+pnpm dev            # local server (also writes rss/sitemap via Vite plugin)
 pnpm test           # vitest
-pnpm lint           # oxlint
 pnpm check          # oxlint + oxfmt --check + tsc -b
-pnpm generate:site  # write public/rss.xml and public/sitemap.xml
-pnpm build          # generate site files, tsc -b, production bundle
-pnpm preview        # serve dist/ (SPA fallback)
+pnpm generate:site  # public/rss.xml + public/sitemap.xml
+pnpm build          # tsc -b && vite build (includes feeds)
+pnpm preview        # production dist, SPA fallback
 ```
 
-`pnpm build` also writes `public/rss.xml` and `public/sitemap.xml` via a Vite plugin (same helpers as `pnpm generate:site`).
-
-Pre-commit (Husky + lint-staged): staged files are formatted with oxfmt; `src/**/*.{ts,tsx}` also run through `oxlint --fix`. Hooks install via `pnpm install` (`prepare`: `husky`).
+Husky + lint-staged: oxfmt on staged files; `oxlint --fix` on `src/**/*.{ts,tsx}`.
 
 ## Routes
 
-| Path                | Source                                 |
-| ------------------- | -------------------------------------- |
-| `/`                 | Home                                   |
-| `/projects`         | List + filters (`?status=&tag=&sort=`) |
-| `/projects/:id`     | Project case                           |
-| `/writing`          | Published posts                        |
-| `/writing/:id`      | Post                                   |
-| `/about` `/contact` | Static content                         |
-| `/rss.xml`          | Writing RSS (after generate/build)     |
-| `/sitemap.xml`      | Sitemap (after generate/build)         |
-| unknown             | 404                                    |
+| Path                      | Source                       |
+| ------------------------- | ---------------------------- |
+| `/`                       | Home                         |
+| `/projects`               | List + `?status=&tag=&sort=` |
+| `/projects/:id`           | Project                      |
+| `/writing`                | Published posts              |
+| `/writing/:id`            | Post (Markdown body)         |
+| `/about` `/contact`       | Static                       |
+| `/rss.xml` `/sitemap.xml` | Generated on build/dev       |
+| unknown                   | 404                          |
 
-Command palette: `Ctrl/Cmd+K`. Empty query lists pages. Typed queries search **DuckDB** over project title/summary/description/tags and writing title/summary/body/tags (token AND + title-weighted ranking). If DuckDB fails, the palette falls back to filtering the in-memory catalog.
+Command palette: `Ctrl/Cmd+K` (loaded on first use so DuckDB/wasm is not on the Home critical path). Empty query = pages. Typed query = DuckDB search over projects and writing.
 
 ## Themes
 
-`html[data-theme]` is the visual switch (`builder` | `editorial`). Tokens: `src/themes/tokens.css`. FOUC-prevention script stays in `index.html`. Preference: localStorage (`siteConfig.themeStorageKey`).
+`html[data-theme]` (`builder` \| `editorial`). Tokens: `src/themes/tokens.css`. FOUC script in `index.html` + `localStorage` (`siteConfig.themeStorageKey`). Fonts are self-hosted (`@fontsource`, Latin weights actually used).
 
-## Content and DuckDB
+## Content workflow
 
-| What                                       | Where                       |
-| ------------------------------------------ | --------------------------- |
-| Site meta, nav, `localEvents`, `persistDb` | `src/config/site.config.ts` |
-| Projects                                   | `src/content/projects.ts`   |
-| Writing                                    | `src/content/posts/*.md`    |
-| Writing loader                             | `src/content/writing.ts`    |
-| UI copy                                    | `src/content/site.ts`       |
+Source of truth is files. DuckDB is a query cache.
 
-Flow:
+| What                                      | Where                                         |
+| ----------------------------------------- | --------------------------------------------- |
+| Site meta, `persistDb`, `contentRevision` | `src/config/site.config.ts`                   |
+| Projects                                  | `src/content/projects.ts`                     |
+| Writing                                   | `src/content/posts/*.md` (frontmatter + body) |
+| About                                     | `src/content/about.ts`                        |
+| UI copy                                   | `src/content/site.ts`                         |
 
-1. `src/data/db.ts` instantiates DuckDB-Wasm and creates `projects`, `writing`, `events`, and `meta`.
-2. `src/data/init.ts` seeds from content modules when tables are empty, or **reseeds** when `siteConfig.contentRevision` does not match the stored revision.
-3. Queries live in `src/data/projects.ts`, `src/data/writing.ts`, and `src/data/search.ts`.
-4. **Source of truth is always `src/content/*`.** Writing posts are Markdown with YAML frontmatter in `src/content/posts/`. DuckDB is a query cache. Publish = `published: true` in frontmatter and a commit to `main`. Local Cursor agents should follow `.cursor/skills/draft-writing/SKILL.md`.
-5. `persistDb` defaults to `false` (in-memory). Set `persistDb: true` to try OPFS (`opfs://luc-joosten-portfolio.db`). If OPFS is missing or `open` fails, the app stays in-memory. After editing content modules, bump `contentRevision` so persisted browsers reseed.
-6. `events` inserts (`page_path`, `ts`) only if `siteConfig.localEvents` is `true` (off by default).
+**Add a project:** append a `Project` in `projects.ts`. Featured items should include `summary`, `tags`, `status`, and `problem` / `approach` / `outcome`.
 
-Shareable project filters: `/projects?status=active&tag=Python&sort=title`. Defaults (`all` / `year`) are omitted from the URL.
+**Add a post:** create `src/content/posts/kebab-id.md`. Set `published: true` to ship. Cursor agents: `.cursor/skills/draft-writing/SKILL.md`. Then commit to `main`.
 
-## SEO
+If `persistDb` is true, bump `contentRevision` after content changes.
 
-- Per-route titles, description, and canonical URL: `PageMeta` + `src/config/page-meta.ts`.
-- JSON-LD: Person on Home/About, Article on writing detail, SoftwareApplication on project detail (`src/seo/json-ld.ts`).
-- RSS: `public/rss.xml` — published writing only (title, link, description, pubDate). Linked from the Writing page, footer, and `index.html` alternate feed.
-- Sitemap: `public/sitemap.xml` — static routes plus project and published writing ids. Base URL is `siteConfig.url`.
+`persistDb` defaults to **false** (in-memory). When true, DuckDB tries OPFS and falls back to memory. Content still lives in git.
 
-## Deploy (lucjoosten.nl)
+## Search, RSS, sitemap, JSON-LD
 
-Static SPA. Point the domain at the host, set the production URL to `https://lucjoosten.nl` (already in `siteConfig.url` and `index.html`).
+- Search: `src/data/search.ts` (token AND + title-weighted rank). Palette falls back to the in-memory catalog if DuckDB fails.
+- RSS: published writing only. Linked from Writing, footer, `index.html`.
+- Sitemap: static routes + project ids + published writing ids. Base: `siteConfig.url`.
+- JSON-LD: Person (Home/About), Article (writing), SoftwareApplication (project).
+- `public/robots.txt` points at the sitemap.
 
-**Vercel:** import the GitHub repo. Framework preset Vite. Output `dist`. `vercel.json` rewrites unknown paths to `index.html`. Attach `lucjoosten.nl` (and `www` if used) in the project domains.
+## Performance notes
 
-**Netlify:** publish `dist`, build command `pnpm build`. `public/_redirects` is copied into `dist` (`/* /index.html 200`).
+- **Intentional weight:** DuckDB-Wasm (~tens of MB of wasm, gzipped smaller) is loaded when a page queries content (Home featured list, project/writing lists) or when the command palette opens. Static chrome (About/Contact before palette) does not import the wasm graph from the layout.
+- **Code splitting:** detail and secondary routes are `React.lazy`. Home stays eager.
+- **Fonts:** self-hosted Latin files, `font-display` from Fontsource defaults. No Google Fonts round trip.
+- **Theme boot:** inline `index.html` script sets `data-theme` before paint.
+- Preview locally: `pnpm build && pnpm preview`. Aim for Lighthouse Performance ≥ 90; wasm download will dominate first visit on content pages.
 
-**GitHub Pages:** build `dist`, publish it, and copy `index.html` to `404.html` so client routes resolve. Set the site URL in Pages settings to the custom domain.
+## Deploy (primary: Vercel)
 
-After deploy, confirm `/rss.xml`, `/sitemap.xml`, `/projects/<id>`, and `/writing/<id>` all serve the app or the generated XML — not a host 404.
+Closest path in-repo: `vercel.json` SPA rewrite.
+
+1. Import `lhajoosten/personal-website` on Vercel. Framework: Vite. Build: `pnpm build`. Output: `dist`.
+2. Vercel Git integration deploys `main`. This repo’s GitHub Actions **does not** deploy; it only gates quality (`pnpm check`, `pnpm test`, `pnpm build` on PR and `main`).
+3. Domain: add `lucjoosten.nl` (and `www` if you use it) in Vercel → Domains. DNS: ALIAS/ANAME or A records as Vercel shows. Wait for HTTPS.
+4. Confirm `siteConfig.url` stays `https://lucjoosten.nl`.
+
+**Netlify fallback:** build `pnpm build`, publish `dist`. `public/_redirects` copies to `dist` (`/* /index.html 200`).
+
+**GitHub Pages:** only if needed. Publish `dist` and copy `index.html` to `404.html` for SPA routes.
+
+## Smoke checklist
+
+After preview or production:
+
+- [ ] `/` Home, theme toggle, featured projects, recent writing
+- [ ] `/projects` filters + shareable URL
+- [ ] `/projects/:id` case fields + related
+- [ ] `/writing` RSS link
+- [ ] `/writing/:id` TOC jumps, Markdown (headings, lists, links), read time
+- [ ] Cmd/Ctrl+K search; Escape restores focus
+- [ ] `/about` `/contact` (external links `noopener noreferrer`)
+- [ ] Unknown path → 404 with Home + Projects
+- [ ] `/rss.xml` `/sitemap.xml` `/robots.txt` are not a host 404
+- [ ] Builder and editorial both readable (contrast, focus rings)

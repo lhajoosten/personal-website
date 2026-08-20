@@ -164,7 +164,7 @@ export function ProjectDetail({
               <a
                 href={link.href}
                 target="_blank"
-                rel="noreferrer"
+                rel="noopener noreferrer"
                 className={
                   isBuilder
                     ? "font-mono text-xs text-accent no-underline hover:underline"

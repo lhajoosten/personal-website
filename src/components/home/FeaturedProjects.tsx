@@ -10,9 +10,10 @@ export function FeaturedProjects() {
   const state = useFeaturedProjects();
 
   return (
-    <section>
+    <section aria-labelledby="featured-heading">
       <div className="mb-6 flex items-baseline justify-between gap-4">
         <h2
+          id="featured-heading"
           className={
             theme === "builder"
               ? "font-mono text-xs tracking-widest text-muted uppercase"

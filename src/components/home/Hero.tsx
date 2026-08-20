@@ -8,55 +8,89 @@ export function Hero() {
 
   if (theme === "editorial") {
     return (
-      <section className="mb-20 max-w-[var(--theme-prose)]">
+      <section aria-labelledby="hero-heading" className="mb-20 max-w-[var(--theme-prose)]">
         <p className="mb-5 text-xs tracking-[0.22em] text-muted uppercase">{siteConfig.role}</p>
-        <h1 className="font-display text-5xl leading-[1.08] font-semibold tracking-tight sm:text-6xl">
+        <h1
+          id="hero-heading"
+          className="font-display text-5xl leading-[1.08] font-semibold tracking-tight sm:text-6xl"
+        >
           {siteConfig.tagline}
         </h1>
-        <p className="mt-7 text-lg leading-relaxed text-muted">{home.leadEditorial}</p>
-        <p className="mt-10 text-base">
-          <Link to="/projects" className="text-accent no-underline hover:underline">
+        <p className="mt-7 text-xl leading-relaxed text-muted">{home.leadEditorial}</p>
+        <nav
+          aria-label="Primary actions"
+          className="mt-10 flex flex-wrap gap-x-4 gap-y-2 text-base"
+        >
+          <Link to="/projects" className="min-h-11 text-accent no-underline hover:underline">
             {home.ctaProjects}
           </Link>
-          <span className="text-muted"> · </span>
-          <Link to="/writing" className="text-muted no-underline hover:text-ink hover:underline">
+          <Link
+            to="/writing"
+            className="min-h-11 text-muted no-underline hover:text-ink hover:underline"
+          >
             {home.ctaWriting}
           </Link>
-          <span className="text-muted"> · </span>
-          <Link to="/contact" className="text-muted no-underline hover:text-ink hover:underline">
+          <Link
+            to="/about"
+            className="min-h-11 text-muted no-underline hover:text-ink hover:underline"
+          >
+            About
+          </Link>
+          <Link
+            to="/contact"
+            className="min-h-11 text-muted no-underline hover:text-ink hover:underline"
+          >
             {home.ctaContact}
           </Link>
-        </p>
+        </nav>
       </section>
     );
   }
 
   return (
-    <section className="mb-12 rounded-theme border border-line bg-panel p-6 sm:p-8">
-      <p className="mb-3 font-mono text-xs text-accent">{siteConfig.role}</p>
-      <h1 className="max-w-3xl text-3xl font-semibold tracking-tight sm:text-5xl">
-        {siteConfig.tagline}
-      </h1>
-      <p className="mt-4 max-w-2xl text-muted">{home.leadBuilder}</p>
-      <div className="mt-6 flex flex-wrap gap-3">
-        <Link
-          to="/projects"
-          className="rounded-theme border border-accent bg-transparent px-3 py-2 font-mono text-xs text-accent no-underline"
+    <section
+      aria-labelledby="hero-heading"
+      className="relative mb-12 overflow-hidden rounded-theme border border-line bg-panel p-6 shadow-[0_0_0_1px_color-mix(in_srgb,var(--theme-accent)_8%,transparent),0_24px_48px_-32px_rgba(0,0,0,0.65)] sm:p-8"
+    >
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_right,color-mix(in_srgb,var(--theme-accent)_12%,transparent),transparent_55%)]"
+      />
+      <div className="relative">
+        <p className="mb-3 font-mono text-xs tracking-wide text-accent">{siteConfig.role}</p>
+        <h1
+          id="hero-heading"
+          className="max-w-3xl text-3xl font-semibold tracking-tight sm:text-5xl sm:leading-[1.08]"
         >
-          {home.ctaProjectsBuilder}
-        </Link>
-        <Link
-          to="/writing"
-          className="rounded-theme border border-line px-3 py-2 font-mono text-xs text-muted no-underline hover:text-ink"
-        >
-          {home.ctaWriting}
-        </Link>
-        <Link
-          to="/contact"
-          className="rounded-theme border border-line px-3 py-2 font-mono text-xs text-muted no-underline hover:text-ink"
-        >
-          {home.ctaContact}
-        </Link>
+          {siteConfig.tagline}
+        </h1>
+        <p className="mt-4 max-w-2xl text-lg leading-relaxed text-muted">{home.leadBuilder}</p>
+        <nav aria-label="Primary actions" className="mt-7 flex flex-wrap gap-3">
+          <Link
+            to="/projects"
+            className="inline-flex min-h-11 items-center rounded-theme border border-accent bg-accent/10 px-4 py-2 font-mono text-xs text-accent no-underline transition-colors hover:bg-accent/20"
+          >
+            {home.ctaProjectsBuilder}
+          </Link>
+          <Link
+            to="/writing"
+            className="inline-flex min-h-11 items-center rounded-theme border border-line px-4 py-2 font-mono text-xs text-muted no-underline transition-colors hover:border-accent/40 hover:text-ink"
+          >
+            {home.ctaWriting}
+          </Link>
+          <Link
+            to="/about"
+            className="inline-flex min-h-11 items-center rounded-theme border border-line px-4 py-2 font-mono text-xs text-muted no-underline transition-colors hover:border-accent/40 hover:text-ink"
+          >
+            About
+          </Link>
+          <Link
+            to="/contact"
+            className="inline-flex min-h-11 items-center rounded-theme border border-line px-4 py-2 font-mono text-xs text-muted no-underline transition-colors hover:border-accent/40 hover:text-ink"
+          >
+            {home.ctaContact}
+          </Link>
+        </nav>
       </div>
     </section>
   );

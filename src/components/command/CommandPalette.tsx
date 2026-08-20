@@ -41,15 +41,17 @@ function catalogItems(
   ];
 }
 
-export function CommandPalette() {
+export function CommandPalette({ startOpen = false }: { startOpen?: boolean }) {
   const { theme } = useTheme();
   const navigate = useNavigate();
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(startOpen);
   const [query, setQuery] = useState("");
   const [active, setActive] = useState(0);
   const [catalog, setCatalog] = useState<CommandItem[]>(navItems);
   const [searchResults, setSearchResults] = useState<CommandItem[]>([]);
   const inputRef = useRef<HTMLInputElement>(null);
+  const panelRef = useRef<HTMLDivElement>(null);
+  const lastFocusRef = useRef<HTMLElement | null>(null);
   const listId = useId();
 
   function close() {
@@ -57,9 +59,12 @@ export function CommandPalette() {
     setQuery("");
     setActive(0);
     setSearchResults([]);
+    lastFocusRef.current?.focus();
   }
 
   function openPalette() {
+    lastFocusRef.current =
+      document.activeElement instanceof HTMLElement ? document.activeElement : null;
     setOpen(true);
     setQuery("");
     setActive(0);
@@ -77,6 +82,33 @@ export function CommandPalette() {
     }
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
+  }, [open]);
+
+  useEffect(() => {
+    if (!open) return;
+    function onTab(event: KeyboardEvent) {
+      if (event.key !== "Tab") return;
+      const root = panelRef.current;
+      if (!root) return;
+      const nodes = [
+        ...root.querySelectorAll<HTMLElement>(
+          'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])',
+        ),
+      ].filter((node) => !node.hasAttribute("disabled"));
+      if (nodes.length === 0) return;
+      const first = nodes[0];
+      const last = nodes[nodes.length - 1];
+      if (!first || !last) return;
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
+    }
+    window.addEventListener("keydown", onTab);
+    return () => window.removeEventListener("keydown", onTab);
   }, [open]);
 
   useEffect(() => {
@@ -150,6 +182,7 @@ export function CommandPalette() {
         aria-modal="true"
         aria-label="Command palette"
         className={panelClass}
+        ref={panelRef}
         onClick={(event) => event.stopPropagation()}
       >
         <input
