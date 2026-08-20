@@ -10,6 +10,10 @@ export type ProjectRow = {
   featured: unknown
   year: unknown
   links: unknown
+  problem?: unknown
+  approach?: unknown
+  outcome?: unknown
+  highlights?: unknown
 }
 
 export function serializeTags(tags: string[]): string {
@@ -54,11 +58,19 @@ export function parseLinks(value: unknown): Project['links'] {
   }
 }
 
+function optionalText(value: unknown): string | undefined {
+  if (value === undefined || value === null) return undefined
+  const text = String(value).trim()
+  return text.length > 0 ? text : undefined
+}
+
 export function mapProjectRow(row: ProjectRow): Project {
   const status = String(row.status)
   if (!isProjectStatus(status)) {
     throw new Error(`Invalid project status: ${status}`)
   }
+
+  const highlights = parseStringList(row.highlights)
 
   return {
     id: String(row.id),
@@ -70,6 +82,10 @@ export function mapProjectRow(row: ProjectRow): Project {
     featured: Boolean(row.featured),
     year: Number(row.year),
     links: parseLinks(row.links),
+    problem: optionalText(row.problem),
+    approach: optionalText(row.approach),
+    outcome: optionalText(row.outcome),
+    highlights: highlights.length > 0 ? highlights : undefined,
   }
 }
 

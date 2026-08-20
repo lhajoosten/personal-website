@@ -1,69 +1,29 @@
-import { projects as seedProjects } from '../content/projects.ts'
-import type { Project, ProjectStatus } from '../content/types.ts'
-import { ensureSchema, withConnection } from './db.ts'
+import type { Project, ProjectSort, ProjectStatus } from '../content/types.ts'
+import { initContent } from './init.ts'
 import {
   mapProjectRow,
-  serializeLinks,
-  serializeTags,
   tagLikePattern,
   type ProjectRow,
 } from './project-mapper.ts'
+import { withConnection } from './db.ts'
 
 export type ProjectQuery = {
   status?: ProjectStatus
   tag?: string
   featured?: boolean
+  sort?: ProjectSort
 }
 
 const SELECT_PROJECTS = `
-  SELECT id, title, summary, description, status, tags, featured, year, links
+  SELECT id, title, summary, description, status, tags, featured, year, links,
+         problem, approach, outcome, highlights
   FROM projects
 `
 
-let readyPromise: Promise<void> | null = null
-
-async function seedIfEmpty(): Promise<void> {
-  await withConnection(async (conn) => {
-    const countTable = await conn.query('SELECT count(*) AS n FROM projects')
-    const countRows = countTable.toArray() as Array<{ n: number | bigint }>
-    const n = Number(countRows[0]?.n ?? 0)
-    if (n > 0) return
-
-    const stmt = await conn.prepare(`
-      INSERT INTO projects
-        (id, title, summary, description, status, tags, featured, year, links)
-      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
-    `)
-
-    for (const project of seedProjects) {
-      await stmt.query(
-        project.id,
-        project.title,
-        project.summary,
-        project.description,
-        project.status,
-        serializeTags(project.tags),
-        project.featured,
-        project.year,
-        serializeLinks(project.links),
-      )
-    }
-
-    await stmt.close()
-  })
-}
-
-export async function initProjects(): Promise<void> {
-  if (!readyPromise) {
-    readyPromise = (async () => {
-      await ensureSchema()
-      await seedIfEmpty()
-    })().catch((error: unknown) => {
-      readyPromise = null
-      throw error
-    })
-  }
-  return readyPromise
+function orderSql(sort: ProjectSort = 'year'): string {
+  if (sort === 'title') return 'ORDER BY title ASC'
+  if (sort === 'status') return 'ORDER BY status ASC, year DESC'
+  return 'ORDER BY year DESC, title ASC'
 }
 
 function rowsToProjects(table: { toArray: () => ProjectRow[] }): Project[] {
@@ -71,7 +31,7 @@ function rowsToProjects(table: { toArray: () => ProjectRow[] }): Project[] {
 }
 
 export async function listProjects(query: ProjectQuery = {}): Promise<Project[]> {
-  await initProjects()
+  await initContent()
 
   return withConnection(async (conn) => {
     const clauses: string[] = []
@@ -91,7 +51,7 @@ export async function listProjects(query: ProjectQuery = {}): Promise<Project[]>
     }
 
     const where = clauses.length > 0 ? `WHERE ${clauses.join(' AND ')}` : ''
-    const sql = `${SELECT_PROJECTS} ${where} ORDER BY year DESC, title ASC`
+    const sql = `${SELECT_PROJECTS} ${where} ${orderSql(query.sort)}`
 
     if (params.length === 0) {
       const table = await conn.query(sql)
@@ -105,6 +65,17 @@ export async function listProjects(query: ProjectQuery = {}): Promise<Project[]>
   })
 }
 
+export async function getProject(id: string): Promise<Project | null> {
+  await initContent()
+  return withConnection(async (conn) => {
+    const stmt = await conn.prepare(`${SELECT_PROJECTS} WHERE id = ?`)
+    const table = await stmt.query(id)
+    await stmt.close()
+    const rows = rowsToProjects(table as unknown as { toArray: () => ProjectRow[] })
+    return rows[0] ?? null
+  })
+}
+
 export async function listFeaturedProjects(): Promise<Project[]> {
   return listProjects({ featured: true })
 }
@@ -112,8 +83,4 @@ export async function listFeaturedProjects(): Promise<Project[]> {
 export async function listProjectTags(): Promise<string[]> {
   const all = await listProjects()
   return [...new Set(all.flatMap((project) => project.tags))].sort()
-}
-
-export function resetProjectsReady(): void {
-  readyPromise = null
 }

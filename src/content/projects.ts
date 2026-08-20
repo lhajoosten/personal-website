@@ -48,6 +48,17 @@ export const projects: Project[] = [
     tags: ['React', 'TypeScript', 'Vite', 'DuckDB', 'Tailwind'],
     featured: true,
     year: 2026,
+    problem:
+      'A personal site that needed two distinct visual systems without forking content or inventing a CMS.',
+    approach:
+      'Config-driven themes, TypeScript content modules, and DuckDB-Wasm as an in-browser query layer.',
+    outcome:
+      'Home, projects, writing, and contact share one data model; builder and editorial only change presentation.',
+    highlights: [
+      'Dual themes from one content model',
+      'Client-side DuckDB seed and queries',
+      'Static Vite build, no backend',
+    ],
     links: [
       { label: 'Live', href: 'https://lucjoosten.nl' },
       {

@@ -3,20 +3,7 @@ import duckdbWasmEh from '@duckdb/duckdb-wasm/dist/duckdb-eh.wasm?url'
 import ehWorker from '@duckdb/duckdb-wasm/dist/duckdb-browser-eh.worker.js?url'
 import duckdbWasmMvp from '@duckdb/duckdb-wasm/dist/duckdb-mvp.wasm?url'
 import mvpWorker from '@duckdb/duckdb-wasm/dist/duckdb-browser-mvp.worker.js?url'
-
-const CREATE_PROJECTS = `
-  CREATE TABLE IF NOT EXISTS projects (
-    id VARCHAR PRIMARY KEY,
-    title VARCHAR NOT NULL,
-    summary VARCHAR NOT NULL,
-    description VARCHAR NOT NULL,
-    status VARCHAR NOT NULL,
-    tags VARCHAR NOT NULL,
-    featured BOOLEAN NOT NULL,
-    year INTEGER NOT NULL,
-    links VARCHAR NOT NULL
-  );
-`
+import { siteConfig } from '../config/site.config.ts'
 
 type DuckDBInstance = duckdb.AsyncDuckDB
 
@@ -64,8 +51,45 @@ export async function withConnection<T>(
 
 export async function ensureSchema(): Promise<void> {
   await withConnection(async (conn) => {
-    await conn.query(CREATE_PROJECTS)
+    await conn.query(`
+      CREATE TABLE IF NOT EXISTS projects (
+        id VARCHAR PRIMARY KEY,
+        title VARCHAR NOT NULL,
+        summary VARCHAR NOT NULL,
+        description VARCHAR NOT NULL,
+        status VARCHAR NOT NULL,
+        tags VARCHAR NOT NULL,
+        featured BOOLEAN NOT NULL,
+        year INTEGER NOT NULL,
+        links VARCHAR NOT NULL,
+        problem VARCHAR NOT NULL,
+        approach VARCHAR NOT NULL,
+        outcome VARCHAR NOT NULL,
+        highlights VARCHAR NOT NULL
+      )
+    `)
+    await conn.query(`
+      CREATE TABLE IF NOT EXISTS writing (
+        id VARCHAR PRIMARY KEY,
+        title VARCHAR NOT NULL,
+        summary VARCHAR NOT NULL,
+        body VARCHAR NOT NULL,
+        published_at VARCHAR NOT NULL,
+        tags VARCHAR NOT NULL,
+        published BOOLEAN NOT NULL
+      )
+    `)
+    await conn.query(`
+      CREATE TABLE IF NOT EXISTS events (
+        page_path VARCHAR NOT NULL,
+        ts VARCHAR NOT NULL
+      )
+    `)
   })
+}
+
+export function localEventsEnabled(): boolean {
+  return siteConfig.localEvents
 }
 
 export function resetDbForTests(): void {

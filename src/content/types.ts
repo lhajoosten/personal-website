@@ -15,6 +15,10 @@ export type Project = {
   featured: boolean
   year: number
   links?: ProjectLink[]
+  problem?: string
+  approach?: string
+  outcome?: string
+  highlights?: string[]
 }
 
 export type WritingPost = {
@@ -24,6 +28,7 @@ export type WritingPost = {
   body: string
   publishedAt: string
   tags: string[]
+  published: boolean
   draft?: boolean
 }
 
@@ -33,6 +38,14 @@ export const PROJECT_STATUSES: ProjectStatus[] = [
   'archived',
 ]
 
+export const PROJECT_SORTS = ['year', 'title', 'status'] as const
+
+export type ProjectSort = (typeof PROJECT_SORTS)[number]
+
 export function isProjectStatus(value: string): value is ProjectStatus {
   return PROJECT_STATUSES.includes(value as ProjectStatus)
+}
+
+export function isProjectSort(value: string): value is ProjectSort {
+  return PROJECT_SORTS.includes(value as ProjectSort)
 }

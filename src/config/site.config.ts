@@ -16,6 +16,7 @@ export const siteConfig = {
   url: 'https://lucjoosten.nl',
   defaultTheme: 'builder' as ThemeId,
   themeStorageKey: 'lj-theme',
+  localEvents: false,
   links: {
     github: 'https://github.com/lhajoosten',
     linkedin: 'https://linkedin.com/in/lhajoosten',
