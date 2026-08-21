@@ -25,18 +25,18 @@ export function FeatureGrid() {
               key={item.title}
               className={
                 index === 0
-                  ? "card-surface rounded-theme border border-accent/35 bg-panel p-5 transition-colors hover:border-accent/50 hover:bg-[var(--theme-panel-hover)] sm:col-span-2 sm:p-6"
-                  : "card-surface rounded-theme border border-line bg-panel p-5 transition-colors hover:border-accent/25 hover:bg-[var(--theme-panel-hover)]"
+                  ? "rounded-theme border border-accent/40 bg-panel p-5 transition-colors hover:bg-[var(--theme-panel-hover)] sm:col-span-2 sm:p-6"
+                  : "rounded-theme border border-line bg-panel p-5 transition-colors hover:bg-[var(--theme-panel-hover)]"
               }
             >
-              <p className="mb-2 font-mono text-[10px] tracking-widest text-accent uppercase">
+              <p className="mb-2 font-mono text-[10px] tracking-widest text-muted uppercase">
                 {String(index + 1).padStart(2, "0")}
               </p>
               <h3
                 className={
                   index === 0
-                    ? "mb-2 text-base font-semibold text-accent sm:text-lg"
-                    : "mb-2 text-sm font-semibold text-accent"
+                    ? "mb-2 text-base font-semibold sm:text-lg"
+                    : "mb-2 text-sm font-semibold"
                 }
               >
                 {item.title}
@@ -56,7 +56,7 @@ export function FeatureGrid() {
       ) : (
         <ol className="grid gap-10 sm:grid-cols-3">
           {home.highlights.map((item, index) => (
-            <li key={item.title} className="border-t border-line/80 pt-4">
+            <li key={item.title} className="border-t-2 border-line pt-4">
               <p className="mb-3 font-display text-4xl text-muted" aria-hidden="true">
                 {String(index + 1).padStart(2, "0")}
               </p>

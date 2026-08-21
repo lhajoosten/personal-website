@@ -17,7 +17,7 @@
   ],
   "rewrites": [
     {
-      "source": "/((?!rss\\.xml|sitemap\\.xml|robots\\.txt|favicon\\.svg|og\\.svg|assets/).*)",
+      "source": "/((?!api/|rss\\.xml|sitemap\\.xml|robots\\.txt|favicon\\.svg|og\\.svg|assets/).*)",
       "destination": "/index.html"
     }
   ]

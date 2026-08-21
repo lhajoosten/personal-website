@@ -8,16 +8,37 @@ type Props = {
   compact?: boolean;
 };
 
-function Period({ entry }: { entry: ExperienceEntry }) {
-  const label = entry.current ? `${entry.start} — ${entry.end}` : `${entry.start} — ${entry.end}`;
+function Period({ entry, builder }: { entry: ExperienceEntry; builder: boolean }) {
+  const label = `${entry.start} — ${entry.end}`;
 
   return (
     <time
       dateTime={entry.start}
-      className="block shrink-0 font-mono text-xs tabular-nums tracking-wide text-muted"
+      className={
+        builder
+          ? "shrink-0 font-mono text-xs tabular-nums tracking-wide text-muted"
+          : "shrink-0 text-sm tabular-nums tracking-wide text-muted"
+      }
     >
       {label}
     </time>
+  );
+}
+
+function CurrentMark({ builder }: { builder: boolean }) {
+  if (builder) {
+    return (
+      <span className="inline-flex border border-line px-2 py-0.5 font-mono text-[10px] tracking-[0.14em] text-status-active uppercase">
+        Current
+      </span>
+    );
+  }
+
+  return (
+    <span className="inline-flex items-center gap-2 text-[11px] tracking-[0.14em] text-ink uppercase">
+      <span aria-hidden="true" className="inline-block h-2.5 w-2.5 bg-status-active" />
+      Current
+    </span>
   );
 }
 
@@ -27,25 +48,15 @@ function EntryBody({ entry, compact }: { entry: ExperienceEntry; compact?: boole
 
   return (
     <>
-      <div className="flex flex-wrap items-baseline gap-x-2 gap-y-1">
-        <h3
-          className={
-            isBuilder ? "text-base font-semibold text-ink" : "font-display text-2xl font-semibold"
-          }
-        >
-          {entry.role}
-        </h3>
-        {entry.current ? (
-          <span className="rounded-theme border border-status-active/40 bg-status-active/10 px-2 py-0.5 font-mono text-[10px] tracking-widest text-status-active uppercase">
-            Current
-          </span>
-        ) : null}
-      </div>
       <p className="mt-1 text-sm text-muted">
         {entry.link ? (
           <a
             href={entry.link.href}
-            className="text-accent no-underline hover:underline"
+            className={
+              isBuilder
+                ? "text-accent no-underline hover:underline"
+                : "text-ink no-underline hover:underline"
+            }
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -62,8 +73,15 @@ function EntryBody({ entry, compact }: { entry: ExperienceEntry; compact?: boole
       {!compact ? (
         <ul className="mt-4 grid gap-2">
           {entry.highlights.map((item) => (
-            <li key={item.slice(0, 32)} className="flex gap-2 text-sm leading-relaxed text-muted">
-              <span aria-hidden="true" className="mt-2 size-1 shrink-0 rounded-full bg-accent" />
+            <li key={item.slice(0, 32)} className="flex gap-2.5 text-sm leading-relaxed text-muted">
+              <span
+                aria-hidden="true"
+                className={
+                  isBuilder
+                    ? "mt-2 size-1 shrink-0 bg-accent"
+                    : "mt-[0.55em] h-1.5 w-1.5 shrink-0 bg-ink"
+                }
+              />
               <span>{item}</span>
             </li>
           ))}
@@ -71,7 +89,7 @@ function EntryBody({ entry, compact }: { entry: ExperienceEntry; compact?: boole
       ) : null}
       {entry.tags?.length ? (
         <ul
-          className={`flex flex-wrap gap-1.5 ${compact ? "mt-3" : "mt-4"}`}
+          className={`flex flex-wrap ${compact ? "mt-3" : "mt-4"} ${isBuilder ? "gap-1.5" : "gap-x-3 gap-y-1"}`}
           aria-label="Technologies"
         >
           {entry.tags.map((tag) => (
@@ -79,8 +97,8 @@ function EntryBody({ entry, compact }: { entry: ExperienceEntry; compact?: boole
               key={tag}
               className={
                 isBuilder
-                  ? "rounded-theme border border-line px-2 py-0.5 font-mono text-[11px] text-muted"
-                  : "border border-line px-2 py-0.5 text-xs text-muted"
+                  ? "border border-line px-2 py-0.5 font-mono text-[11px] text-muted"
+                  : "text-[12px] text-muted"
               }
             >
               {tag}
@@ -117,34 +135,45 @@ export function ExperienceTimeline({ entries, heading, intro, compact }: Props) 
       ) : null}
 
       {isBuilder ? (
-        <ol className="grid gap-4">
+        <ol className="grid gap-3">
           {entries.map((entry) => (
             <li
               key={entry.id}
-              className="relative rounded-theme border border-line bg-panel p-5 pl-6 shadow-[inset_3px_0_0_0_var(--theme-accent)] transition-[border-color,box-shadow] hover:border-accent/30"
+              className="border border-line bg-panel p-5 shadow-[inset_2px_0_0_0_var(--theme-accent)]"
             >
-              <div className="mb-3 flex flex-wrap items-center justify-between gap-3">
-                <Period entry={entry} />
+              <div className="mb-2 flex flex-wrap items-baseline justify-between gap-x-4 gap-y-2">
+                <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
+                  <h3 className="text-base font-semibold text-ink">{entry.role}</h3>
+                  {entry.current ? <CurrentMark builder /> : null}
+                </div>
+                <Period entry={entry} builder />
               </div>
               <EntryBody entry={entry} compact={compact} />
             </li>
           ))}
         </ol>
       ) : (
-        <ol className="relative grid gap-0 border-l border-line pl-8">
+        <ol className="max-w-3xl">
           {entries.map((entry, index) => (
-            <li
-              key={entry.id}
-              className={`relative pb-10 ${index === entries.length - 1 ? "pb-0" : ""}`}
-            >
-              <span
-                aria-hidden="true"
-                className="absolute top-1.5 -left-[calc(2rem+0.5px)] size-2.5 rounded-full border-2 border-canvas bg-accent"
-              />
-              <div className="mb-4">
-                <Period entry={entry} />
+            <li key={entry.id} className="grid grid-cols-[0.75rem_minmax(0,1fr)] gap-x-5">
+              <div className="relative" aria-hidden="true">
+                <span
+                  className={`absolute left-1/2 w-px -translate-x-1/2 bg-ink ${
+                    index === 0 ? "top-[0.7rem]" : "top-0"
+                  } ${index === entries.length - 1 ? "h-[0.7rem]" : "bottom-0"}`}
+                />
+                <span className="absolute top-[0.55em] left-1/2 size-2.5 -translate-x-1/2 bg-accent ring-[3px] ring-canvas" />
               </div>
-              <EntryBody entry={entry} compact={compact} />
+              <div className={index === entries.length - 1 ? "pb-0" : "pb-10"}>
+                <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
+                  <div className="flex min-w-0 flex-wrap items-baseline gap-x-3 gap-y-1">
+                    <h3 className="font-display text-2xl font-semibold">{entry.role}</h3>
+                    {entry.current ? <CurrentMark builder={false} /> : null}
+                  </div>
+                  <Period entry={entry} builder={false} />
+                </div>
+                <EntryBody entry={entry} compact={compact} />
+              </div>
             </li>
           ))}
         </ol>

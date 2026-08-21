@@ -7,7 +7,11 @@ export function ThemeToggle() {
     <div
       role="group"
       aria-label="Theme"
-      className="inline-flex items-center gap-1 rounded-theme border border-line p-0.5"
+      className={
+        theme === "builder"
+          ? "inline-flex items-center border border-line"
+          : "inline-flex items-center border-b-2 border-line"
+      }
     >
       <button
         type="button"
@@ -16,8 +20,8 @@ export function ThemeToggle() {
         onClick={() => setTheme("builder")}
         className={
           theme === "builder"
-            ? "inline-flex min-h-9 min-w-[4.5rem] items-center justify-center rounded-theme bg-accent/15 px-2 font-mono text-xs text-accent"
-            : "inline-flex min-h-9 min-w-[4.5rem] items-center justify-center rounded-theme px-2 font-mono text-xs text-muted transition-colors hover:text-ink"
+            ? "inline-flex min-h-9 min-w-[4.5rem] items-center justify-center bg-panel px-2 font-mono text-xs text-ink"
+            : "inline-flex min-h-9 min-w-[4.5rem] items-center justify-center px-2 text-xs text-muted transition-colors hover:text-ink"
         }
       >
         builder
@@ -29,8 +33,8 @@ export function ThemeToggle() {
         onClick={() => setTheme("editorial")}
         className={
           theme === "editorial"
-            ? "inline-flex min-h-9 min-w-[4.75rem] items-center justify-center rounded-theme bg-accent/15 px-2 font-mono text-xs text-accent"
-            : "inline-flex min-h-9 min-w-[4.75rem] items-center justify-center rounded-theme px-2 font-mono text-xs text-muted transition-colors hover:text-ink"
+            ? "inline-flex min-h-9 min-w-[4.75rem] items-center justify-center px-2 text-xs text-ink"
+            : "inline-flex min-h-9 min-w-[4.75rem] items-center justify-center px-2 font-mono text-xs text-muted transition-colors hover:text-ink"
         }
       >
         editorial

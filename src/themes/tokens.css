@@ -10,15 +10,14 @@
 html[data-theme="builder"] {
   color-scheme: dark;
   --theme-bg: #14161a;
-  /* 42% copper, 2px at 32px: visible as a schematic sheet on graphite
-     without turning into a noisy texture inside the gutters. */
+  /* Quiet copper dots: used in page margins only, not under content. */
   --theme-bg-accent:
     radial-gradient(
         circle,
-        color-mix(in srgb, var(--theme-accent, #e8a33c) 42%, transparent) 2px,
-        transparent 2.5px
+        color-mix(in srgb, var(--theme-accent, #e8a33c) 28%, transparent) 1.5px,
+        transparent 2px
       )
-      0 0 / 32px 32px,
+      0 0 / 28px 28px,
     #14161a;
   --theme-fg: #edefea;
   --theme-muted: #9ba1a8;

@@ -4,11 +4,17 @@ import { ui } from "../../content/site.ts";
 import { useTheme } from "../theme/useTheme.ts";
 import { BrandMark } from "./BrandMark.tsx";
 import { PrimaryNavLinks } from "./PrimaryNavLinks.tsx";
+import { GitHubIcon, LinkedInIcon, MailIcon } from "../icons/BrandIcons.tsx";
 
 const connectLinks = [
-  { label: "GitHub", href: siteConfig.links.github, detail: "lhajoosten" },
-  { label: "LinkedIn", href: siteConfig.links.linkedin, detail: "lhajoosten" },
-  { label: "Email", href: `mailto:${siteConfig.links.email}`, detail: siteConfig.links.email },
+  { label: "GitHub", href: siteConfig.links.github, detail: "lhajoosten", icon: GitHubIcon },
+  { label: "LinkedIn", href: siteConfig.links.linkedin, detail: "lhajoosten", icon: LinkedInIcon },
+  {
+    label: "Email",
+    href: `mailto:${siteConfig.links.email}`,
+    detail: siteConfig.links.email,
+    icon: MailIcon,
+  },
 ];
 
 export function Footer() {
@@ -64,8 +70,8 @@ export function Footer() {
                     href={item.href}
                     className={
                       isBuilder
-                        ? "group flex items-baseline justify-between gap-3 rounded-theme border border-transparent px-2 py-1.5 no-underline transition-colors hover:border-line hover:bg-panel"
-                        : "group flex items-baseline justify-between gap-3 py-1 no-underline"
+                        ? "group flex items-center justify-between gap-3 rounded-theme border border-transparent px-2 py-1.5 no-underline transition-colors hover:border-line hover:bg-panel"
+                        : "group flex items-center justify-between gap-3 py-1 no-underline"
                     }
                     rel={item.href.startsWith("http") ? "noopener noreferrer" : undefined}
                     target={item.href.startsWith("http") ? "_blank" : undefined}
@@ -73,10 +79,11 @@ export function Footer() {
                     <span
                       className={
                         isBuilder
-                          ? "font-mono text-xs text-ink group-hover:text-accent"
-                          : "text-sm text-ink group-hover:text-accent group-hover:underline"
+                          ? "inline-flex items-center gap-2 font-mono text-xs text-ink group-hover:text-accent"
+                          : "inline-flex items-center gap-2 text-sm text-ink group-hover:text-accent group-hover:underline"
                       }
                     >
+                      <item.icon className="size-4 text-muted" />
                       {item.label}
                     </span>
                     <span className="truncate text-xs text-muted">{item.detail}</span>
