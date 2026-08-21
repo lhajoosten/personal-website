@@ -8,9 +8,9 @@ published: true
 layout: essay
 ---
 
-I wanted this site to have two looks that are actually different, not a dark-mode palette swap. Builder is dark, bordered, mono. Editorial is light, typographic, slower. Same person, same projects, same writing. If the two themes had drifted into two codebases, I would have built a museum of my own indecision.
+I wanted two looks that are actually different, not a dark-mode palette swap. Builder is dark, bordered, mono. Editorial is light, typographic, slower. Same person, same projects, same writing. If the themes had drifted into two codebases, I would have built a museum of my own indecision.
 
-The constraint I set was petty and useful: content modules must not know which theme is active. If a sentence in `src/content` mentioned “builder,” the abstraction had already leaked.
+The constraint was petty and useful: content modules must not know which theme is active. If a sentence in `src/content` mentioned “builder,” the abstraction had already leaked.
 
 ## Tokens first, pages second
 
@@ -22,11 +22,11 @@ When a layout difference wants a new component tree, I ask whether it is a varia
 
 ## The data layer is theme-blind on purpose
 
-Projects and writing go through DuckDB-Wasm. That sounds like a joke on a static portfolio. It is a deliberate joke: I wanted queries, filters, and search to look like a product data layer even though the source of truth is files in git.
+Projects and writing go through DuckDB-Wasm. That sounds like a joke on a static portfolio. It is a deliberate one: queries, filters, and search should look like a product data layer even though the source of truth is files in git.
 
-The important part for theming is negative. The SQL does not mention themes. The seed does not mention themes. Search ranking does not mention themes. If it did, I would be encoding a visual system into a cache, which is how you get un-cacheable content.
+The important part for theming is negative. SQL, seed, and search ranking do not mention themes. If they did, I would be encoding a visual system into a cache.
 
-Markdown posts are the writing source now. Frontmatter is data. The body is text. The renderer can grow. The database still sees strings and tags. Editorial can feel like a magazine without a magazine CMS.
+Markdown posts are the writing source. Frontmatter is data. The body is text. The database still sees strings and tags. Editorial can feel like a magazine without a magazine CMS.
 
 ## Filters and URLs are shared facts
 

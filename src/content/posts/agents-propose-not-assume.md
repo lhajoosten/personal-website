@@ -10,7 +10,7 @@ layout: essay
 
 Most coding-agent demos optimize for the same shot: the model opens files, rewrites them, runs a command, and announces that it is done. The human is a spectator with a veto they will use too late. That is a good demo. It is a bad default for a repository you still have to own on Monday.
 
-I do not want an agent that “just does it.” I want one that shows the write set, waits for an acknowledgement, then applies. The extra confirmation is not ceremony. It is the difference between reviewing a diff and reconstructing one from git after something else moved.
+I want an agent that shows the write set, waits, then applies. The extra confirmation is the difference between reviewing a diff and reconstructing one from git after something else moved.
 
 ## What permissionless actually costs
 
@@ -18,7 +18,7 @@ A wrong write is cheap in a toy repo. It is expensive in anything with generated
 
 The cost is not one revert. It is trust. After two silent edits you stop reading the agent and start grepping the tree. That is slower than asking it to propose.
 
-I have been using agents the way I use any sharp tool. They are in the loop for this site, for Azure/Bicep work, for the Codex-style DevEx experiments. The sessions that stay useful are the ones where I still know which files changed and why. The sessions that go bad share a pattern: the model wrote first and explained later, and the explanation was a story about intent rather than a list of paths.
+They are in the loop for this site, for Azure/Bicep work, for the Codex-style DevEx experiments. Useful sessions are the ones where I still know which files changed and why. Bad ones share a pattern: the model wrote first and explained later, and the explanation was a story about intent rather than a list of paths.
 
 ## Proposal-first is a boring protocol
 
@@ -50,6 +50,6 @@ The honest limit: a local agent on a portfolio is not the same as an agent in a 
 
 ## Why this is the article I keep rewriting
 
-I keep seeing the same product pitch: agents that take your repo and return a PR while you get coffee. Sometimes that works. When it fails, it fails as a pile of unrelated diffs and a confident summary.
+The product pitch is still “go get coffee, come back to a PR.” Sometimes that works. When it fails, it fails as unrelated diffs and a confident summary.
 
 I would rather ship an hour slower and a week cleaner. The demo can keep the permissionless loop. My default is the other one.

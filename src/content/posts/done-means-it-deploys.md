@@ -8,9 +8,9 @@ published: true
 layout: essay
 ---
 
-I have a folder of old school projects that “worked on my machine” and a smaller set of things I would still clone. The difference is rarely the language. It is whether there is a way to run, a way to check, and a way to put it somewhere that is not a laptop.
+I have a folder of school projects that “worked on my machine” and a smaller set I would still clone. The difference is rarely the language. It is whether there is a way to run, a way to check, and a way to put it somewhere that is not a laptop.
 
-AZ-900 and AI-900 did not make me an operator. They named things I already suspected: identity, regions, what “managed” actually means, why a notebook is not a production surface. The work I care about next (AI-102, AZ-104, CKAD) is the same idea with less multiple choice and more “this box is on fire.”
+AZ-900 and AI-900 named things I already suspected: identity, regions, what “managed” actually means, why a notebook is not a production surface. The work I care about next (AI-102, AZ-104, CKAD) is the same idea with less multiple choice and more “this box is on fire.”
 
 ## Local run is a contract
 
