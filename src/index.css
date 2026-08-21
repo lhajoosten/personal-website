@@ -149,216 +149,121 @@ a:not([class*="no-underline"]) {
 
 .home-section-glow {
   position: absolute;
-  inset: -0.75rem -0.5rem;
-  z-index: 0;
-  border-radius: calc(var(--theme-radius) + 0.75rem);
-  opacity: 0.9;
-  filter: blur(42px);
   pointer-events: none;
 }
 
 .home-section-surface {
   position: relative;
   z-index: 1;
-  border: 1px solid var(--theme-glass-border);
-  background: var(--theme-glass-bg);
-  -webkit-backdrop-filter: blur(var(--theme-glass-blur));
-  backdrop-filter: blur(var(--theme-glass-blur));
-  box-shadow:
-    inset 0 1px 0 color-mix(in srgb, var(--theme-fg) 6%, transparent),
-    0 20px 40px -36px color-mix(in srgb, var(--theme-bg) 55%, transparent);
+  border: 1px solid var(--theme-border);
+  background: var(--theme-panel);
 }
 
-html[data-theme="builder"] .home-section[data-home-tone="hero"] .home-section-glow {
-  background:
-    radial-gradient(
-      ellipse 70% 90% at 88% 12%,
-      color-mix(in srgb, #5ce1ff 42%, transparent),
-      transparent 68%
-    ),
-    radial-gradient(
-      ellipse 55% 70% at 8% 88%,
-      color-mix(in srgb, #8b7dff 28%, transparent),
-      transparent 72%
-    );
-}
-
-html[data-theme="builder"] .home-section[data-home-tone="focus"] .home-section-glow {
-  background:
-    radial-gradient(
-      ellipse 65% 80% at 12% 18%,
-      color-mix(in srgb, #5ce1ff 24%, transparent),
-      transparent 70%
-    ),
-    radial-gradient(
-      ellipse 50% 65% at 92% 72%,
-      color-mix(in srgb, #34d399 18%, transparent),
-      transparent 72%
-    );
-}
-
-html[data-theme="builder"] .home-section[data-home-tone="about"] .home-section-glow {
-  background:
-    radial-gradient(
-      ellipse 60% 75% at 78% 22%,
-      color-mix(in srgb, #a78bfa 26%, transparent),
-      transparent 70%
-    ),
-    radial-gradient(
-      ellipse 48% 60% at 18% 78%,
-      color-mix(in srgb, #5ce1ff 16%, transparent),
-      transparent 72%
-    );
-}
-
-html[data-theme="builder"] .home-section[data-home-tone="experience"] .home-section-glow {
-  background:
-    radial-gradient(
-      ellipse 62% 78% at 20% 24%,
-      color-mix(in srgb, #2dd4bf 22%, transparent),
-      transparent 70%
-    ),
-    radial-gradient(
-      ellipse 52% 62% at 84% 70%,
-      color-mix(in srgb, #5ce1ff 14%, transparent),
-      transparent 72%
-    );
-}
-
-html[data-theme="builder"] .home-section[data-home-tone="projects"] .home-section-glow {
-  background:
-    radial-gradient(
-      ellipse 68% 82% at 86% 16%,
-      color-mix(in srgb, #5ce1ff 30%, transparent),
-      transparent 68%
-    ),
-    radial-gradient(
-      ellipse 54% 68% at 10% 82%,
-      color-mix(in srgb, #60a5fa 16%, transparent),
-      transparent 72%
-    );
-}
-
-html[data-theme="builder"] .home-section[data-home-tone="writing"] .home-section-glow {
-  background:
-    radial-gradient(
-      ellipse 58% 72% at 14% 20%,
-      color-mix(in srgb, #818cf8 20%, transparent),
-      transparent 70%
-    ),
-    radial-gradient(
-      ellipse 50% 64% at 88% 76%,
-      color-mix(in srgb, #5ce1ff 12%, transparent),
-      transparent 72%
-    );
-}
-
-html[data-theme="editorial"] .home-section-glow {
-  inset: -0.75rem -0.5rem;
-  opacity: 0.85;
-  filter: blur(42px);
-  border-radius: 0;
-}
-
-html[data-theme="editorial"] .home-section-surface {
-  padding: clamp(1.5rem, 3vw, 2.5rem);
-  box-shadow:
-    inset 0 1px 0 color-mix(in srgb, var(--theme-fg) 5%, transparent),
-    0 24px 48px -32px color-mix(in srgb, var(--theme-accent) 14%, transparent);
-}
-
-html[data-theme="editorial"] .home-section[data-home-tone="hero"] .home-section-glow {
-  background:
-    radial-gradient(
-      ellipse 72% 88% at 90% 8%,
-      color-mix(in srgb, #c2410c 22%, transparent),
-      transparent 68%
-    ),
-    radial-gradient(
-      ellipse 56% 70% at 6% 92%,
-      color-mix(in srgb, #d97706 16%, transparent),
-      transparent 72%
-    );
-}
-
-html[data-theme="editorial"] .home-section[data-home-tone="focus"] .home-section-glow {
-  background:
-    radial-gradient(
-      ellipse 64% 78% at 10% 16%,
-      color-mix(in srgb, #b45309 18%, transparent),
-      transparent 70%
-    ),
-    radial-gradient(
-      ellipse 50% 62% at 92% 74%,
-      color-mix(in srgb, #ca8a04 14%, transparent),
-      transparent 72%
-    );
-}
-
-html[data-theme="editorial"] .home-section[data-home-tone="about"] .home-section-glow {
-  background:
-    radial-gradient(
-      ellipse 60% 76% at 82% 18%,
-      color-mix(in srgb, #9a3412 20%, transparent),
-      transparent 70%
-    ),
-    radial-gradient(
-      ellipse 48% 58% at 16% 80%,
-      color-mix(in srgb, #d97706 12%, transparent),
-      transparent 72%
-    );
-}
-
-html[data-theme="editorial"] .home-section[data-home-tone="experience"] .home-section-glow {
-  background:
-    radial-gradient(
-      ellipse 62% 74% at 18% 22%,
-      color-mix(in srgb, #a16207 16%, transparent),
-      transparent 70%
-    ),
-    radial-gradient(
-      ellipse 50% 60% at 86% 68%,
-      color-mix(in srgb, #9a3412 14%, transparent),
-      transparent 72%
-    );
-}
-
-html[data-theme="editorial"] .home-section[data-home-tone="projects"] .home-section-glow {
-  background:
-    radial-gradient(
-      ellipse 66% 80% at 88% 14%,
-      color-mix(in srgb, #c2410c 18%, transparent),
-      transparent 68%
-    ),
-    radial-gradient(
-      ellipse 52% 66% at 8% 84%,
-      color-mix(in srgb, #b45309 12%, transparent),
-      transparent 72%
-    );
-}
-
-html[data-theme="editorial"] .home-section[data-home-tone="writing"] .home-section-glow {
-  background:
-    radial-gradient(
-      ellipse 58% 70% at 12% 18%,
-      color-mix(in srgb, #92400e 14%, transparent),
-      transparent 70%
-    ),
-    radial-gradient(
-      ellipse 48% 58% at 90% 78%,
-      color-mix(in srgb, #d97706 10%, transparent),
-      transparent 72%
-    );
+/* Builder: corner "via" marks + a thin top signal line instead of a
+   blurred glow. The glow div is unused here; the surface itself carries
+   the decoration so it stays crisp at any zoom level. */
+html[data-theme="builder"] .home-section-glow {
+  display: none;
 }
 
 html[data-theme="builder"] .home-section-surface {
   border-radius: var(--theme-radius);
   padding: clamp(1.25rem, 2.5vw, 2rem);
+  border-top-width: 2px;
+  border-top-color: var(--theme-accent);
+  background-image:
+    radial-gradient(circle var(--theme-via-size) at 0 0, var(--theme-accent) 99%, transparent 100%),
+    radial-gradient(
+      circle var(--theme-via-size) at 100% 0,
+      var(--theme-accent) 99%,
+      transparent 100%
+    ),
+    radial-gradient(
+      circle var(--theme-via-size) at 0 100%,
+      var(--theme-accent) 99%,
+      transparent 100%
+    ),
+    radial-gradient(
+      circle var(--theme-via-size) at 100% 100%,
+      var(--theme-accent) 99%,
+      transparent 100%
+    );
+  background-repeat: no-repeat;
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .home-section-glow {
-    filter: blur(28px);
-    opacity: 0.65;
-  }
+html[data-theme="builder"] .home-section[data-home-tone="focus"] .home-section-surface,
+html[data-theme="builder"] .home-section[data-home-tone="experience"] .home-section-surface,
+html[data-theme="builder"] .home-section[data-home-tone="writing"] .home-section-surface {
+  border-top-color: var(--theme-accent-secondary);
+  background-image:
+    radial-gradient(
+      circle var(--theme-via-size) at 0 0,
+      var(--theme-accent-secondary) 99%,
+      transparent 100%
+    ),
+    radial-gradient(
+      circle var(--theme-via-size) at 100% 0,
+      var(--theme-accent-secondary) 99%,
+      transparent 100%
+    ),
+    radial-gradient(
+      circle var(--theme-via-size) at 0 100%,
+      var(--theme-accent-secondary) 99%,
+      transparent 100%
+    ),
+    radial-gradient(
+      circle var(--theme-via-size) at 100% 100%,
+      var(--theme-accent-secondary) 99%,
+      transparent 100%
+    );
+}
+
+/* Card-level echo of the same corner-via mark, used on standalone panels
+   like ProjectCard outside the home sections. */
+html[data-theme="builder"] .card-surface {
+  background-image:
+    radial-gradient(circle var(--theme-via-size) at 0 0, var(--theme-accent) 99%, transparent 100%),
+    radial-gradient(
+      circle var(--theme-via-size) at 100% 0,
+      var(--theme-accent) 99%,
+      transparent 100%
+    ),
+    radial-gradient(
+      circle var(--theme-via-size) at 0 100%,
+      var(--theme-accent) 99%,
+      transparent 100%
+    ),
+    radial-gradient(
+      circle var(--theme-via-size) at 100% 100%,
+      var(--theme-accent) 99%,
+      transparent 100%
+    );
+  background-repeat: no-repeat;
+}
+
+/* Editorial: a small solid De Stijl color block anchors each section
+   instead of a soft gradient glow, plus a bold rule dividing sections. */
+html[data-theme="editorial"] .home-section-glow {
+  inset: auto;
+  top: 0;
+  left: 0;
+  width: 14px;
+  height: 14px;
+  z-index: 2;
+  background: var(--theme-accent-secondary);
+}
+
+html[data-theme="editorial"] .home-section[data-home-tone="focus"] .home-section-glow,
+html[data-theme="editorial"] .home-section[data-home-tone="experience"] .home-section-glow {
+  background: var(--theme-accent);
+}
+
+html[data-theme="editorial"] .home-section[data-home-tone="about"] .home-section-glow,
+html[data-theme="editorial"] .home-section[data-home-tone="writing"] .home-section-glow {
+  background: var(--theme-accent-tertiary);
+}
+
+html[data-theme="editorial"] .home-section-surface {
+  border-top: 3px solid var(--theme-fg);
+  padding: clamp(1.5rem, 3vw, 2.5rem);
 }

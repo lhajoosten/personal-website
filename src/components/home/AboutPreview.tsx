@@ -40,7 +40,7 @@ export function AboutPreview() {
             key={item.title}
             className={
               isBuilder
-                ? "rounded-theme border border-line/80 bg-[color-mix(in_srgb,var(--theme-panel)_88%,transparent)] p-4 backdrop-blur-sm"
+                ? "rounded-theme border border-line bg-panel p-4"
                 : "border-t border-line/80 pt-4"
             }
           >

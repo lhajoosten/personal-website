@@ -23,7 +23,7 @@ export function FeatureGrid() {
           {home.highlights.map((item) => (
             <li
               key={item.title}
-              className="rounded-theme border border-line/80 bg-[color-mix(in_srgb,var(--theme-panel)_88%,transparent)] p-4 backdrop-blur-sm transition-colors hover:border-accent/25 hover:bg-[var(--theme-panel-hover)]"
+              className="rounded-theme border border-line bg-panel p-4 transition-colors hover:border-accent/25 hover:bg-[var(--theme-panel-hover)]"
             >
               <h3 className="mb-2 text-sm font-semibold text-accent">{item.title}</h3>
               <p className="text-sm leading-relaxed text-muted">{item.body}</p>
