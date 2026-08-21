@@ -8,9 +8,9 @@ published: true
 layout: essay
 ---
 
-People say RAG when they mean “a chat box on my PDFs.” That product can be a weekend. An honest retrieval system is not. The model will happily answer from its prior if you let it. Your job is to make “I don’t know” cheaper than a fluent guess.
+People say RAG when they mean “a chat box on my PDFs.” That product can be a weekend. An honest retrieval system is not. The model will answer from its prior if you let it. Your job is to make “I don’t know” cheaper than a fluent guess.
 
-I have built enough RAG-shaped things to be suspicious of the happy path: chunk, embed, top-k, stuff into a prompt, ship. That path demos well on a handbook that was written as one coherent voice. It falls over on real corpora: tables, overlapping policies, outdated pages, and questions that are really two questions.
+The happy path — chunk, embed, top-k, stuff into a prompt, ship — demos well on a handbook written in one voice. It falls over on real corpora: tables, overlapping policies, outdated pages, and questions that are really two questions.
 
 ## Start from the question, not the vector
 

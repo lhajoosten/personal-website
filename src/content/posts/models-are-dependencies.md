@@ -8,9 +8,9 @@ published: true
 layout: essay
 ---
 
-The fastest way to make AI software look unserious is to put the model in the middle of a request and hope. Hope is not an interface. If the provider blips, if the JSON is almost valid, if the answer is fluent and wrong, your user still sees a spinner and then a mess.
+The fastest way to make AI software look unserious is to put the model in the middle of a request and hope. Hope is not an interface. If the provider blips, if the JSON is almost valid, if the answer is fluent and wrong, the user still sees a spinner and then a mess.
 
-I came up through full-stack work: APIs, validation, databases, UIs that have to explain failure. Moving toward AI engineering did not replace that. It made the dependency list worse. A model is another network call with a larger output space and a weaker contract.
+Full-stack work taught me APIs, validation, databases, UIs that have to explain failure. Moving toward AI engineering did not replace that. It made the dependency list worse. A model is another network call with a larger output space and a weaker contract.
 
 ## Draw the box
 
