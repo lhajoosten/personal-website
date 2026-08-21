@@ -10,13 +10,15 @@
 html[data-theme="builder"] {
   color-scheme: dark;
   --theme-bg: #14161a;
+  /* 42% copper, 2px at 32px: visible as a schematic sheet on graphite
+     without turning into a noisy texture inside the gutters. */
   --theme-bg-accent:
     radial-gradient(
         circle,
-        color-mix(in srgb, var(--theme-accent, #e8a33c) 16%, transparent) 1px,
-        transparent 1.5px
+        color-mix(in srgb, var(--theme-accent, #e8a33c) 42%, transparent) 2px,
+        transparent 2.5px
       )
-      0 0 / 24px 24px,
+      0 0 / 32px 32px,
     #14161a;
   --theme-fg: #edefea;
   --theme-muted: #9ba1a8;
@@ -37,7 +39,9 @@ html[data-theme="builder"] {
   --theme-focus-ring: 2px solid var(--theme-accent);
   --theme-focus-offset: 2px;
   --theme-link-underline: color-mix(in srgb, var(--theme-accent) 45%, transparent);
-  --theme-via-size: 5px;
+  --theme-fiducial-len: 18px;
+  --theme-fiducial-thick: 2.5px;
+  --theme-fiducial-inset: 10px;
 }
 
 /* Editorial: "De Stijl grid" — paper substrate, black rule dividers,

@@ -141,6 +141,10 @@ a:not([class*="no-underline"]) {
   color: var(--theme-muted);
 }
 
+.site-shell {
+  background: var(--theme-bg-accent);
+}
+
 .home-section {
   position: relative;
   isolation: isolate;
@@ -159,11 +163,48 @@ a:not([class*="no-underline"]) {
   background: var(--theme-panel);
 }
 
-/* Builder: corner "via" marks + a thin top signal line instead of a
-   blurred glow. The glow div is unused here; the surface itself carries
-   the decoration so it stays crisp at any zoom level. */
+/* Builder: PCB fiducial L-brackets + a thin top signal line. Eight
+   linear-gradients (two per corner) read as intentional marks, unlike
+   the previous 5px dots. Glow div stays unused here. */
 html[data-theme="builder"] .home-section-glow {
   display: none;
+}
+
+html[data-theme="builder"] .home-section-surface,
+html[data-theme="builder"] .card-surface {
+  --fiducial: var(--theme-accent);
+  background-image:
+    linear-gradient(var(--fiducial), var(--fiducial)),
+    linear-gradient(var(--fiducial), var(--fiducial)),
+    linear-gradient(var(--fiducial), var(--fiducial)),
+    linear-gradient(var(--fiducial), var(--fiducial)),
+    linear-gradient(var(--fiducial), var(--fiducial)),
+    linear-gradient(var(--fiducial), var(--fiducial)),
+    linear-gradient(var(--fiducial), var(--fiducial)),
+    linear-gradient(var(--fiducial), var(--fiducial));
+  background-repeat: no-repeat;
+  background-size:
+    var(--theme-fiducial-len) var(--theme-fiducial-thick),
+    var(--theme-fiducial-thick) var(--theme-fiducial-len),
+    var(--theme-fiducial-len) var(--theme-fiducial-thick),
+    var(--theme-fiducial-thick) var(--theme-fiducial-len),
+    var(--theme-fiducial-len) var(--theme-fiducial-thick),
+    var(--theme-fiducial-thick) var(--theme-fiducial-len),
+    var(--theme-fiducial-len) var(--theme-fiducial-thick),
+    var(--theme-fiducial-thick) var(--theme-fiducial-len);
+  background-position:
+    var(--theme-fiducial-inset) var(--theme-fiducial-inset),
+    var(--theme-fiducial-inset) var(--theme-fiducial-inset),
+    calc(100% - var(--theme-fiducial-inset) - var(--theme-fiducial-len)) var(--theme-fiducial-inset),
+    calc(100% - var(--theme-fiducial-inset) - var(--theme-fiducial-thick))
+      var(--theme-fiducial-inset),
+    var(--theme-fiducial-inset)
+      calc(100% - var(--theme-fiducial-inset) - var(--theme-fiducial-thick)),
+    var(--theme-fiducial-inset) calc(100% - var(--theme-fiducial-inset) - var(--theme-fiducial-len)),
+    calc(100% - var(--theme-fiducial-inset) - var(--theme-fiducial-len))
+      calc(100% - var(--theme-fiducial-inset) - var(--theme-fiducial-thick)),
+    calc(100% - var(--theme-fiducial-inset) - var(--theme-fiducial-thick))
+      calc(100% - var(--theme-fiducial-inset) - var(--theme-fiducial-len));
 }
 
 html[data-theme="builder"] .home-section-surface {
@@ -171,74 +212,13 @@ html[data-theme="builder"] .home-section-surface {
   padding: clamp(1.25rem, 2.5vw, 2rem);
   border-top-width: 2px;
   border-top-color: var(--theme-accent);
-  background-image:
-    radial-gradient(circle var(--theme-via-size) at 0 0, var(--theme-accent) 99%, transparent 100%),
-    radial-gradient(
-      circle var(--theme-via-size) at 100% 0,
-      var(--theme-accent) 99%,
-      transparent 100%
-    ),
-    radial-gradient(
-      circle var(--theme-via-size) at 0 100%,
-      var(--theme-accent) 99%,
-      transparent 100%
-    ),
-    radial-gradient(
-      circle var(--theme-via-size) at 100% 100%,
-      var(--theme-accent) 99%,
-      transparent 100%
-    );
-  background-repeat: no-repeat;
 }
 
 html[data-theme="builder"] .home-section[data-home-tone="focus"] .home-section-surface,
 html[data-theme="builder"] .home-section[data-home-tone="experience"] .home-section-surface,
 html[data-theme="builder"] .home-section[data-home-tone="writing"] .home-section-surface {
+  --fiducial: var(--theme-accent-secondary);
   border-top-color: var(--theme-accent-secondary);
-  background-image:
-    radial-gradient(
-      circle var(--theme-via-size) at 0 0,
-      var(--theme-accent-secondary) 99%,
-      transparent 100%
-    ),
-    radial-gradient(
-      circle var(--theme-via-size) at 100% 0,
-      var(--theme-accent-secondary) 99%,
-      transparent 100%
-    ),
-    radial-gradient(
-      circle var(--theme-via-size) at 0 100%,
-      var(--theme-accent-secondary) 99%,
-      transparent 100%
-    ),
-    radial-gradient(
-      circle var(--theme-via-size) at 100% 100%,
-      var(--theme-accent-secondary) 99%,
-      transparent 100%
-    );
-}
-
-/* Card-level echo of the same corner-via mark, used on standalone panels
-   like ProjectCard outside the home sections. */
-html[data-theme="builder"] .card-surface {
-  background-image:
-    radial-gradient(circle var(--theme-via-size) at 0 0, var(--theme-accent) 99%, transparent 100%),
-    radial-gradient(
-      circle var(--theme-via-size) at 100% 0,
-      var(--theme-accent) 99%,
-      transparent 100%
-    ),
-    radial-gradient(
-      circle var(--theme-via-size) at 0 100%,
-      var(--theme-accent) 99%,
-      transparent 100%
-    ),
-    radial-gradient(
-      circle var(--theme-via-size) at 100% 100%,
-      var(--theme-accent) 99%,
-      transparent 100%
-    );
-  background-repeat: no-repeat;
 }
 
 /* Editorial: a small solid De Stijl color block anchors each section

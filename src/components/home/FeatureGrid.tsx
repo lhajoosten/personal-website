@@ -19,14 +19,37 @@ export function FeatureGrid() {
         {isBuilder ? home.highlightsHeadingBuilder : home.highlightsHeadingEditorial}
       </h2>
       {isBuilder ? (
-        <ul className="grid gap-3 sm:grid-cols-3">
-          {home.highlights.map((item) => (
+        <ul className="grid gap-3 sm:grid-cols-2">
+          {home.highlights.map((item, index) => (
             <li
               key={item.title}
-              className="rounded-theme border border-line bg-panel p-4 transition-colors hover:border-accent/25 hover:bg-[var(--theme-panel-hover)]"
+              className={
+                index === 0
+                  ? "card-surface rounded-theme border border-accent/35 bg-panel p-5 transition-colors hover:border-accent/50 hover:bg-[var(--theme-panel-hover)] sm:col-span-2 sm:p-6"
+                  : "card-surface rounded-theme border border-line bg-panel p-5 transition-colors hover:border-accent/25 hover:bg-[var(--theme-panel-hover)]"
+              }
             >
-              <h3 className="mb-2 text-sm font-semibold text-accent">{item.title}</h3>
-              <p className="text-sm leading-relaxed text-muted">{item.body}</p>
+              <p className="mb-2 font-mono text-[10px] tracking-widest text-accent uppercase">
+                {String(index + 1).padStart(2, "0")}
+              </p>
+              <h3
+                className={
+                  index === 0
+                    ? "mb-2 text-base font-semibold text-accent sm:text-lg"
+                    : "mb-2 text-sm font-semibold text-accent"
+                }
+              >
+                {item.title}
+              </h3>
+              <p
+                className={
+                  index === 0
+                    ? "max-w-2xl text-sm leading-relaxed text-muted sm:text-base"
+                    : "text-sm leading-relaxed text-muted"
+                }
+              >
+                {item.body}
+              </p>
             </li>
           ))}
         </ul>

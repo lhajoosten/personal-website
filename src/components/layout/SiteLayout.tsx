@@ -15,7 +15,7 @@ export function SiteLayout() {
   }, [location.pathname]);
 
   return (
-    <div className="flex min-h-svh flex-col bg-canvas text-ink">
+    <div className="site-shell flex min-h-svh flex-col text-ink">
       <a
         href="#main"
         className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:border focus:border-accent focus:bg-panel focus:px-3 focus:py-2 focus:text-ink"
