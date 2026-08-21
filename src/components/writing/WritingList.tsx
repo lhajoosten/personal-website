@@ -2,7 +2,15 @@ import { Link } from "react-router-dom";
 import type { WritingPost } from "../../content/types.ts";
 import { useTheme } from "../theme/useTheme.ts";
 
-export function WritingList({ posts }: { posts: WritingPost[] }) {
+type WritingListLayout = "cards" | "index";
+
+export function WritingList({
+  posts,
+  layout = "cards",
+}: {
+  posts: WritingPost[];
+  layout?: WritingListLayout;
+}) {
   const { theme } = useTheme();
 
   if (theme === "editorial") {
@@ -20,6 +28,27 @@ export function WritingList({ posts }: { posts: WritingPost[] }) {
           </article>
         ))}
       </div>
+    );
+  }
+
+  if (layout === "index") {
+    return (
+      <ul className="divide-y divide-line border-t border-line">
+        {posts.map((post) => (
+          <li key={post.id}>
+            <Link
+              to={`/writing/${post.id}`}
+              className="grid gap-1 py-5 no-underline transition-colors hover:text-accent sm:grid-cols-[7.5rem_minmax(0,1fr)] sm:gap-6"
+            >
+              <p className="font-mono text-[11px] text-accent">{post.publishedAt}</p>
+              <div>
+                <h2 className="text-lg font-semibold text-ink">{post.title}</h2>
+                <p className="mt-1 text-sm text-muted">{post.summary}</p>
+              </div>
+            </Link>
+          </li>
+        ))}
+      </ul>
     );
   }
 

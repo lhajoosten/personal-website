@@ -27,7 +27,7 @@ export function ProjectCard({ project }: { project: Project }) {
   }
 
   return (
-    <article className="flex h-full flex-col rounded-theme border border-line bg-panel p-5 transition-[border-color,background-color,transform] hover:border-accent/25 hover:bg-[var(--theme-panel-hover)]">
+    <article className="card-surface flex h-full flex-col rounded-theme border border-line bg-panel p-5 transition-[border-color,background-color,transform] hover:border-accent/25 hover:bg-[var(--theme-panel-hover)]">
       <div className="mb-3 flex items-center justify-between gap-3">
         <StatusBadge status={project.status} />
         <span className="font-mono text-xs text-muted">{project.year}</span>

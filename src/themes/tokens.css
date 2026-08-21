@@ -3,61 +3,72 @@
   --theme-prose: 42rem;
 }
 
+/* Builder: "Schematic" — graphite substrate, copper/amber signal accent,
+   sharp corners, dot-grid backdrop. Grounded in PCB/systems-console
+   vocabulary rather than a glass-and-glow dark theme. */
 :root,
 html[data-theme="builder"] {
   color-scheme: dark;
-  --theme-bg: #0a0e14;
+  --theme-bg: #14161a;
+  /* 42% copper, 2px at 32px: visible as a schematic sheet on graphite
+     without turning into a noisy texture inside the gutters. */
   --theme-bg-accent:
-    radial-gradient(1200px 600px at 10% -10%, #122033 0%, transparent 55%),
-    radial-gradient(900px 500px at 90% 0%, #1a1428 0%, transparent 50%), #0a0e14;
-  --theme-fg: #edf2f7;
-  --theme-muted: #a8b3c2;
-  --theme-accent: #5ce1ff;
+    radial-gradient(
+        circle,
+        color-mix(in srgb, var(--theme-accent, #e8a33c) 42%, transparent) 2px,
+        transparent 2.5px
+      )
+      0 0 / 32px 32px,
+    #14161a;
+  --theme-fg: #edefea;
+  --theme-muted: #9ba1a8;
+  --theme-accent: #e8a33c;
+  --theme-accent-secondary: #4fa98c;
   --theme-accent-soft: color-mix(in srgb, var(--theme-accent) 14%, transparent);
-  --theme-border: #2d3640;
-  --theme-panel: #121820;
-  --theme-panel-hover: #161e28;
+  --theme-border: #262a31;
+  --theme-panel: #1b1e23;
+  --theme-panel-hover: #21252b;
   --theme-font-sans: "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
   --theme-font-display: "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
   --theme-font-mono: "IBM Plex Mono", ui-monospace, monospace;
-  --theme-radius: 0.5rem;
+  --theme-radius: 2px;
   --theme-page-y: 2.75rem;
-  --theme-status-active: #4ade80;
-  --theme-status-experimental: #fbbf24;
-  --theme-status-archived: #94a3b8;
+  --theme-status-active: #5fbf8b;
+  --theme-status-experimental: #d9a441;
+  --theme-status-archived: #7a8189;
   --theme-focus-ring: 2px solid var(--theme-accent);
-  --theme-focus-offset: 3px;
+  --theme-focus-offset: 2px;
   --theme-link-underline: color-mix(in srgb, var(--theme-accent) 45%, transparent);
-  --theme-glass-bg: color-mix(in srgb, var(--theme-panel) 62%, transparent);
-  --theme-glass-border: color-mix(in srgb, var(--theme-border) 72%, transparent);
-  --theme-glass-blur: 18px;
+  --theme-fiducial-len: 10px;
+  --theme-fiducial-thick: 1px;
 }
 
+/* Editorial: "De Stijl grid" — paper substrate, black rule dividers,
+   De Stijl blue as the working accent with red reserved for one signature
+   mark per section. Grounded in Dutch functionalist design, not a
+   cream-and-serif warm editorial default. */
 html[data-theme="editorial"] {
   color-scheme: light;
-  --theme-bg: #f8f4ec;
-  --theme-bg-accent:
-    radial-gradient(1000px 480px at 0% 0%, #fff9ef 0%, transparent 58%),
-    radial-gradient(760px 360px at 100% 8%, #f3ebe0 0%, transparent 52%), #f8f4ec;
-  --theme-fg: #1a1614;
-  --theme-muted: #4f4842;
-  --theme-accent: #9a3412;
+  --theme-bg: #f5f4f0;
+  --theme-bg-accent: #f5f4f0;
+  --theme-fg: #101010;
+  --theme-muted: #5b5b58;
+  --theme-accent: #1d3f8f;
+  --theme-accent-secondary: #d6272a;
+  --theme-accent-tertiary: #f2c230;
   --theme-accent-soft: color-mix(in srgb, var(--theme-accent) 10%, transparent);
-  --theme-border: #d8cfc2;
-  --theme-panel: #fffdf8;
-  --theme-panel-hover: #fff9f0;
+  --theme-border: #101010;
+  --theme-panel: #ffffff;
+  --theme-panel-hover: #fafaf7;
   --theme-font-sans: "Source Sans 3", ui-sans-serif, system-ui, sans-serif;
   --theme-font-display: "Newsreader", "Times New Roman", serif;
   --theme-font-mono: "IBM Plex Mono", ui-monospace, monospace;
   --theme-radius: 0;
   --theme-page-y: 2.75rem;
-  --theme-status-active: #3f6212;
-  --theme-status-experimental: #b45309;
-  --theme-status-archived: #78716c;
+  --theme-status-active: #2f6b3a;
+  --theme-status-experimental: #a66a00;
+  --theme-status-archived: #6b6b66;
   --theme-focus-ring: 2px solid var(--theme-accent);
   --theme-focus-offset: 3px;
   --theme-link-underline: color-mix(in srgb, var(--theme-accent) 35%, transparent);
-  --theme-glass-bg: color-mix(in srgb, var(--theme-panel) 78%, transparent);
-  --theme-glass-border: color-mix(in srgb, var(--theme-border) 85%, transparent);
-  --theme-glass-blur: 14px;
 }
