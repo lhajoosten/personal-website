@@ -24,7 +24,7 @@ export const siteConfig = {
   links: {
     github: "https://github.com/lhajoosten",
     linkedin: "https://linkedin.com/in/lhajoosten",
-    email: "hello@lucjoosten.nl",
+    email: "lhajoosten@outlook.com",
     website: "https://lucjoosten.nl",
   },
   nav: [
