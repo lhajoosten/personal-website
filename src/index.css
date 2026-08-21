@@ -163,9 +163,9 @@ a:not([class*="no-underline"]) {
   background: var(--theme-panel);
 }
 
-/* Builder: PCB fiducial L-brackets + a thin top signal line. Eight
-   linear-gradients (two per corner) read as intentional marks, unlike
-   the previous 5px dots. Glow div stays unused here. */
+/* Builder: 1px L-brackets painted on a border-sized overlay so they
+   sit on the frame corners instead of inside the padding or outside
+   the box. Glow div stays unused here. */
 html[data-theme="builder"] .home-section-glow {
   display: none;
 }
@@ -173,6 +173,17 @@ html[data-theme="builder"] .home-section-glow {
 html[data-theme="builder"] .home-section-surface,
 html[data-theme="builder"] .card-surface {
   --fiducial: var(--theme-accent);
+  position: relative;
+  overflow: visible;
+}
+
+html[data-theme="builder"] .home-section-surface::before,
+html[data-theme="builder"] .card-surface::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  z-index: 1;
+  pointer-events: none;
   background-image:
     linear-gradient(var(--fiducial), var(--fiducial)),
     linear-gradient(var(--fiducial), var(--fiducial)),
@@ -193,32 +204,25 @@ html[data-theme="builder"] .card-surface {
     var(--theme-fiducial-len) var(--theme-fiducial-thick),
     var(--theme-fiducial-thick) var(--theme-fiducial-len);
   background-position:
-    var(--theme-fiducial-inset) var(--theme-fiducial-inset),
-    var(--theme-fiducial-inset) var(--theme-fiducial-inset),
-    calc(100% - var(--theme-fiducial-inset) - var(--theme-fiducial-len)) var(--theme-fiducial-inset),
-    calc(100% - var(--theme-fiducial-inset) - var(--theme-fiducial-thick))
-      var(--theme-fiducial-inset),
-    var(--theme-fiducial-inset)
-      calc(100% - var(--theme-fiducial-inset) - var(--theme-fiducial-thick)),
-    var(--theme-fiducial-inset) calc(100% - var(--theme-fiducial-inset) - var(--theme-fiducial-len)),
-    calc(100% - var(--theme-fiducial-inset) - var(--theme-fiducial-len))
-      calc(100% - var(--theme-fiducial-inset) - var(--theme-fiducial-thick)),
-    calc(100% - var(--theme-fiducial-inset) - var(--theme-fiducial-thick))
-      calc(100% - var(--theme-fiducial-inset) - var(--theme-fiducial-len));
+    0 0,
+    0 0,
+    100% 0,
+    100% 0,
+    0 100%,
+    0 100%,
+    100% 100%,
+    100% 100%;
 }
 
 html[data-theme="builder"] .home-section-surface {
   border-radius: var(--theme-radius);
   padding: clamp(1.25rem, 2.5vw, 2rem);
-  border-top-width: 2px;
-  border-top-color: var(--theme-accent);
 }
 
 html[data-theme="builder"] .home-section[data-home-tone="focus"] .home-section-surface,
 html[data-theme="builder"] .home-section[data-home-tone="experience"] .home-section-surface,
 html[data-theme="builder"] .home-section[data-home-tone="writing"] .home-section-surface {
   --fiducial: var(--theme-accent-secondary);
-  border-top-color: var(--theme-accent-secondary);
 }
 
 /* Editorial: a small solid De Stijl color block anchors each section

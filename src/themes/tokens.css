@@ -39,9 +39,8 @@ html[data-theme="builder"] {
   --theme-focus-ring: 2px solid var(--theme-accent);
   --theme-focus-offset: 2px;
   --theme-link-underline: color-mix(in srgb, var(--theme-accent) 45%, transparent);
-  --theme-fiducial-len: 18px;
-  --theme-fiducial-thick: 2.5px;
-  --theme-fiducial-inset: 10px;
+  --theme-fiducial-len: 10px;
+  --theme-fiducial-thick: 1px;
 }
 
 /* Editorial: "De Stijl grid" — paper substrate, black rule dividers,
