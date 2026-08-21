@@ -12,7 +12,7 @@ export function ProjectList({ projects }: { projects: Project[] }) {
 
   if (theme === "editorial") {
     return (
-      <div className="border-t border-line">
+      <div className="border-t-2 border-line">
         {projects.map((project) => (
           <ProjectCard key={project.id} project={project} />
         ))}

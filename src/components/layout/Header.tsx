@@ -23,7 +23,13 @@ export function Header() {
   const closeMenu = () => setMenuOpen(false);
 
   return (
-    <header className="sticky top-0 z-40 border-b border-line bg-canvas/95 backdrop-blur-md">
+    <header
+      className={
+        isBuilder
+          ? "sticky top-0 z-40 border-b border-line bg-canvas"
+          : "sticky top-0 z-40 border-b-2 border-line bg-canvas"
+      }
+    >
       <div className="mx-auto max-w-[var(--theme-max)] px-4 sm:px-6">
         <div className="grid min-h-[4.25rem] grid-cols-[minmax(0,1fr)_auto] items-center gap-3 md:grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)]">
           <NavLink

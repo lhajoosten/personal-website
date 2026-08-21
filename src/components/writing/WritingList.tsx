@@ -15,9 +15,9 @@ export function WritingList({
 
   if (theme === "editorial") {
     return (
-      <div className="border-t border-line">
+      <div className="border-t-2 border-line">
         {posts.map((post) => (
-          <article key={post.id} className="border-b border-line py-8">
+          <article key={post.id} className="border-b-2 border-line py-8">
             <p className="mb-2 text-sm text-muted">{post.publishedAt}</p>
             <h2 className="font-display text-3xl">
               <Link to={`/writing/${post.id}`} className="text-ink no-underline hover:underline">
@@ -40,7 +40,7 @@ export function WritingList({
               to={`/writing/${post.id}`}
               className="grid gap-1 py-5 no-underline transition-colors hover:text-accent sm:grid-cols-[7.5rem_minmax(0,1fr)] sm:gap-6"
             >
-              <p className="font-mono text-[11px] text-accent">{post.publishedAt}</p>
+              <p className="font-mono text-[11px] text-muted">{post.publishedAt}</p>
               <div>
                 <h2 className="text-lg font-semibold text-ink">{post.title}</h2>
                 <p className="mt-1 text-sm text-muted">{post.summary}</p>
@@ -56,7 +56,7 @@ export function WritingList({
     <ul className="grid gap-3">
       {posts.map((post) => (
         <li key={post.id} className="rounded-theme border border-line bg-panel p-4">
-          <p className="mb-1 font-mono text-[11px] text-accent">{post.publishedAt}</p>
+          <p className="mb-1 font-mono text-[11px] text-muted">{post.publishedAt}</p>
           <h2 className="text-lg font-semibold">
             <Link to={`/writing/${post.id}`} className="text-ink no-underline hover:text-accent">
               {post.title}

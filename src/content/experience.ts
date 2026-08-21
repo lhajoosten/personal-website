@@ -21,8 +21,8 @@ export const experience: ExperienceEntry[] = [
     id: "crowe",
     role: "AI Software Engineer",
     organization: "Crowe Netherlands",
-    location: "Helmond, NL",
-    start: "2024",
+    location: "Eindhoven, NL",
+    start: "2025",
     end: "Present",
     current: true,
     summary:

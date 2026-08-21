@@ -47,7 +47,29 @@ export const projectsPage = {
 
 export const contactPage = {
   heading: "Contact",
-  intro: "GitHub and LinkedIn are the best channels. Email works for longer notes.",
+  intro:
+    "Use the form for a direct note — it lands in my inbox. LinkedIn and GitHub if you already live there.",
+  formHeading: "Send a note",
+  channelsHeading: "Or elsewhere",
+  nameLabel: "Name",
+  emailLabel: "Your email",
+  topicLabel: "About",
+  messageLabel: "Message",
+  submit: "Send message",
+  sending: "Sending…",
+  success: "Sent. I’ll reply to the address you used.",
+  error: "Could not send just now. Copy the address below.",
+  notConfigured:
+    "Mail isn’t hooked up in this environment yet. Copy the address and send from your client.",
+  responseNote: "I read everything. A reply can take a few days.",
+  emailHint: "Best for longer notes.",
+  linkedinHint: "Work and intros.",
+  githubHint: "Code and issues.",
+  topics: {
+    work: "Work",
+    writing: "Writing",
+    other: "Other",
+  },
 };
 
 export const notFound = {

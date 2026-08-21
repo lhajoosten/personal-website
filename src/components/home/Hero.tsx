@@ -17,7 +17,7 @@ export function Hero() {
       {isBuilder ? (
         <div className="grid gap-8 lg:grid-cols-[minmax(0,1.55fr)_minmax(13rem,0.7fr)] lg:items-end lg:gap-10">
           <div>
-            <p className="mb-3 font-mono text-xs tracking-wide text-accent">{siteConfig.role}</p>
+            <p className="mb-3 font-mono text-xs tracking-wide text-muted">{siteConfig.role}</p>
             <h1
               id="hero-heading"
               className="max-w-3xl text-3xl font-semibold tracking-tight sm:text-5xl sm:leading-[1.08]"
