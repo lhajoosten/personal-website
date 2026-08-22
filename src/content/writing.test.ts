@@ -7,6 +7,8 @@ describe("writing markdown catalog", () => {
       "agents-propose-not-assume",
       "done-means-it-deploys",
       "experimental-is-a-status",
+      "fabric-gateway-contract",
+      "fabric-gateway-load-bearing-mechanics",
       "models-are-dependencies",
       "rag-is-not-a-chatbot",
       "reproduction-before-patch",

@@ -2,6 +2,29 @@ import type { Project } from "./types.ts";
 
 export const projects: Project[] = [
   {
+    id: "fabric-gateway",
+    title: "Fabric abstraction gateway",
+    summary:
+      "A stable async gateway between consumer apps and Microsoft Fabric, absorbing identity, throttling, capacity, and provider-specific failure modes.",
+    description:
+      "I am designing fabric-gateway as the boundary between consumer apps and any Microsoft Fabric environment. Consumers submit logical operations and receive a stable async contract; they never need Fabric workspace IDs, tokens, or raw 429 semantics.\n\nThe gateway owns the awkward middle: Entra authentication, per-identity and per-item throttling, capacity-aware backoff, one poller per Fabric job, and fan-out through webhooks or SSE. The intended v1 is a FastAPI API plus a worker, with Postgres for durable state and Redis for coordination and rate limiting.\n\nThis is active architecture work, not a shipped service. The claim I am testing is that a gateway can make Fabric integrations predictable without pretending the underlying limits do not exist.",
+    status: "active",
+    tags: ["Python", "FastAPI", "Microsoft Fabric", "Azure", "AI agents"],
+    featured: true,
+    year: 2026,
+    problem:
+      "Direct Fabric integrations multiply status polling across consumer apps and leak provider-specific identities, limits, and error semantics into every caller.",
+    approach:
+      "Expose logical operations and canonical run states while centralizing outbound auth, coalesced polling, Redis-backed throttling, capacity backoff, fair-share admission, and push fan-out.",
+    outcome:
+      "A concrete v1 design for a plug-and-play Fabric boundary, with the hard production claims still to be proven through implementation and load testing.",
+    highlights: [
+      "Stable async contract over Fabric jobs and queries",
+      "Exactly one reconciler per Fabric job instance",
+      "Consumer isolation from Fabric IDs, tokens, and 429 taxonomy",
+    ],
+  },
+  {
     id: "codex-senior-devex",
     title: "codex-senior-devex",
     summary: "Proposal-first Codex plugin for safe, evidence-driven full-stack repo setup.",
