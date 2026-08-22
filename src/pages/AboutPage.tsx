@@ -5,6 +5,7 @@ import { PageMeta } from "../components/seo/PageMeta.tsx";
 import { siteConfig } from "../config/site.config.ts";
 import { experience, experienceHeading, experienceIntro } from "../content/experience.ts";
 import { useTheme } from "../components/theme/useTheme.ts";
+import { PageHeading } from "../components/layout/PageHeading.tsx";
 import { personJsonLd } from "../seo/json-ld.ts";
 
 export function AboutPage() {
@@ -27,15 +28,7 @@ export function AboutPage() {
           isBuilder ? "mb-8 max-w-[var(--theme-prose)]" : "mb-12 max-w-[var(--theme-prose)]"
         }
       >
-        <h1
-          className={
-            isBuilder
-              ? "mb-6 font-mono text-sm text-accent"
-              : "mb-8 font-display text-5xl tracking-tight"
-          }
-        >
-          {about.heading}
-        </h1>
+        <PageHeading>{about.heading}</PageHeading>
         {about.intro.map((paragraph) => (
           <p key={paragraph.slice(0, 24)} className="mb-4 text-lg leading-relaxed text-muted">
             {paragraph}

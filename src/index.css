@@ -25,7 +25,7 @@ body,
 
 body {
   margin: 0;
-  background: var(--theme-bg-accent);
+  background: var(--theme-bg);
   color: var(--theme-fg);
   font-family: var(--theme-font-sans);
   font-size: 1rem;
@@ -142,7 +142,16 @@ a:not([class*="no-underline"]) {
 }
 
 .site-shell {
-  background: var(--theme-bg-accent);
+  background: var(--theme-bg);
+}
+
+/* Builder: schematic dots live in the side gutters. The content column
+   is a solid graphite plate so cards and type are not fighting the grid. */
+html[data-theme="builder"] .site-shell {
+  background:
+    linear-gradient(var(--theme-bg), var(--theme-bg)) center /
+      min(100%, calc(var(--theme-max) + 3rem)) 100% no-repeat,
+    var(--theme-bg-accent);
 }
 
 .home-section {

@@ -18,8 +18,8 @@ function linkClass(isActive: boolean, variant: Variant, isBuilder: boolean) {
   }
 
   return isBuilder
-    ? `inline-flex min-h-10 items-center rounded-theme px-3 py-1.5 font-mono text-xs tracking-wide no-underline transition-colors ${isActive ? "border border-accent/35 bg-accent/10 text-accent" : "border border-transparent text-muted hover:border-line hover:bg-panel hover:text-ink"}`
-    : `inline-flex min-h-10 items-center px-2 py-1 text-sm no-underline transition-colors ${isActive ? "text-ink underline decoration-line underline-offset-[6px]" : "text-muted hover:text-ink"}`;
+    ? `inline-flex min-h-10 items-center rounded-none px-2.5 py-1.5 font-mono text-xs tracking-wide no-underline transition-colors ${isActive ? "border-b-2 border-accent text-ink" : "border-b-2 border-transparent text-muted hover:text-ink"}`
+    : `inline-flex min-h-10 items-center px-2 py-1 text-sm no-underline transition-colors ${isActive ? "text-ink underline decoration-2 decoration-[var(--theme-accent)] underline-offset-[7px]" : "text-muted hover:text-ink"}`;
 }
 
 type Props = {

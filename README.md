@@ -91,6 +91,8 @@ Copy these on first import (also set in `vercel.json`):
 
 GitHub Actions still only gates quality (`pnpm check`, `pnpm test`, `pnpm build` on PR and `main`). It does not deploy.
 
+Contact form posts to `/api/contact` (Vercel Function). Set `RESEND_API_KEY` (and optionally `CONTACT_TO_EMAIL`, default Outlook from `siteConfig`) in the Vercel project. SPA rewrites skip `/api/`.
+
 Client routes rewrite to `/index.html`. Vercel serves real files in `dist` first; the rewrite also skips `/rss.xml`, `/sitemap.xml`, `/robots.txt`, `/favicon.svg`, `/og.svg`, and `/assets/*` (hashed JS/CSS, DuckDB wasm/workers).
 
 ### Canonical URL
@@ -110,7 +112,7 @@ Against the `*.vercel.app` URL (or `pnpm preview` locally):
 - [ ] `/writing` and `/writing/:id`
 - [ ] Cmd/Ctrl+K search; Escape restores focus
 - [ ] `/projects` filters + shareable URL
-- [ ] `/about` `/contact` (external links `noopener noreferrer`)
+- [ ] `/about` `/contact` — form + GitHub/LinkedIn/email; after `RESEND_API_KEY` is set, a test submit arrives in Outlook
 - [ ] Unknown path → in-app 404 with Home + Projects
 - [ ] `/rss.xml` `/sitemap.xml` `/robots.txt` `/favicon.svg` `/og.svg` are files, not `index.html`
 - [ ] Both themes readable (contrast, focus rings)
