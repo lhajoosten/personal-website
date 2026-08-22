@@ -2,30 +2,6 @@ import type { Project } from "./types.ts";
 
 export const projects: Project[] = [
   {
-    id: "tracey",
-    title: "Tracey",
-    summary:
-      "Reproduction-first incident resolution: prove the crash with a failing test before anyone generates a patch.",
-    description:
-      "An experimental pipeline inspired by Bits Code and Seer Autofix, with a different hard gate. A production crash arrives through an SDK. The system reconstructs the circumstances, then must confirm a failing reproduction test in a sandbox before patch generation, isolated verification, and a draft pull request with that test evidence attached.\n\nThe interesting deliverable is not the generated fix. A failing repro test is already useful if the patch is thrown away. The repo is still design and structure (phase 0) — labeled experimental on purpose.",
-    status: "experimental",
-    tags: ["Python", "AI agents", "Incidents", "Testing", "DevOps"],
-    featured: true,
-    year: 2026,
-    problem:
-      "Autofix tools generate patches and tests in parallel, then iterate on CI. Nothing requires a targeted reproduction that must fail on unpatched code before a model is allowed to write a fix.",
-    approach:
-      "Make REPRO_CONFIRMED a pipeline gate: ingest, fingerprint, reconstruct, fail a sandbox test on the current code, then patch, verify, and open a draft PR with the evidence.",
-    outcome:
-      "A design and repo skeleton for measuring repro rate and fix rate on a private benchmark. No running SDK or backend yet — the claim is the gate, not a live product.",
-    highlights: [
-      "Failing repro test before any patch",
-      "Pre-patch fail and post-patch pass as the oracle",
-      "Draft PR carries the test evidence",
-    ],
-    links: [{ label: "GitHub", href: "https://github.com/lhajoosten/tracey" }],
-  },
-  {
     id: "codex-senior-devex",
     title: "codex-senior-devex",
     summary: "Proposal-first Codex plugin for safe, evidence-driven full-stack repo setup.",
